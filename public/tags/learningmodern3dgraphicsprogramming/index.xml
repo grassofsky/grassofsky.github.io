@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Stupidgrass&#39;s Notepad Online</title>
-    <link>https://stupidgrass.github.io/</link>
-    <description>Recent content on Stupidgrass&#39;s Notepad Online</description>
+    <title>Learningmodern3dgraphicsprogramming on Stupidgrass&#39;s Notepad Online</title>
+    <link>https://stupidgrass.github.io/tags/learningmodern3dgraphicsprogramming/</link>
+    <description>Recent content in Learningmodern3dgraphicsprogramming on Stupidgrass&#39;s Notepad Online</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 30 May 2015 12:00:00 +0600</lastBuildDate>
     
-	<atom:link href="https://stupidgrass.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://stupidgrass.github.io/tags/learningmodern3dgraphicsprogramming/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -112,19 +112,6 @@ Figure4 Vector Addition Head-to-Tail
 片段位置显示 正如我们在引言中提到的，片段的数据中的一部分包括片段在屏幕上的位置。因此，如果我们想要在三角形表面上设定变化的颜色，我们可以访问当前片段着色器内的数据，并用来计算最终的颜色。
 在这一章中，我们对纹理的加载，项目对象的创建进行了封装。具体代码如下：
 // TODO add source code #ifndef _GLSL_PROGRAM_ #define _GLSL_PROGRAM_ #include &amp;lt;vector&amp;gt; #include &amp;lt;fstream&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;sstream&amp;gt; class GLSLProgram { public: bool AddShader(GLenum shaderType, const std::string&amp;amp; shaderFileName) { GLuint shader = glCreateShader(shaderType); std::ifstream ifile(shaderFileName.c_str()); std::stringstream buffer; buffer &amp;lt;&amp;lt; ifile.rdbuf(); std::string contents(buffer.str()); const char* pContents = contents.c_str(); glShaderSource(shader, 1, &amp;amp;pContents, NULL); glCompileShader(shader); GLint status; STATUS, &amp;amp;status); if (status == GL_FALSE) { GLint infoLogLength; glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &amp;amp;infoLogLength); GLchar *strInfoLog = new GLchar[infoLogLength+1]; glGetShaderInfoLog(shader, infoLogLength, NULL, strInfoLog); fprintf(stderr, &amp;quot;Compile failure in %d shader: \n%s\n&amp;quot;, shaderType, strInfoLog); delete[] strInfoLog; return false; } shaderList_.</description>
-    </item>
-    
-    <item>
-      <title>6. opengl使用不同的缓存对象</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
-      
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</guid>
-      <description>opengl使用不同的缓存对象 在设置颜色一章中，我们使用了一个缓存对象来存储点和颜色的信息。那么我们有没有可能，将点和颜色的信息分开存储呢？这在实际应用中也许可以使得各个属性之间保持相互的独立。本章补充内容需要做的事情就是这个。
-相对于上一章需要改变的内容有 顶点属性和颜色分别独立存储：
-const float vertex[] = { 0.0f, 0.5f, 0.0f, 1.0f, 0.5f, -0.366f, 0.0f, 1.0f, -0.5f, -0.366f, 0.0f, 1.0f, }; const float color[] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f };  Vertex Array Object 上一章中，绘制图像所需的数据都存储在Vertex Buffer Object中，然后利用glVertexAttribPointer来告诉opengl该缓存对象中的哪个数据段是顶点位置属性，哪些数据段是颜色属性。如果想要将多个属性分别存储于独立的VBO中，那么此处就需要VAO出马上任了。VAO能够用来存储多个VBO对象的对象。它被设计用来存储用于完成对象渲染所需要的信息：这里包括，数据，数据格式，以及不同的数据对应的着色器中的location。
-于是将上一章中的InitializeVertexBuffer改成InitializeVAO
-void InitializeVAO() { glGenVertexArrays(1, &amp;amp;vao); glBindVertexArray(vao); glGenBuffers(1, &amp;amp;positionBufferObject); glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferData(GL__ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW); glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0); glGenBuffers(1, &amp;amp;colorBufferObject); glBindBuffer(GL_ARRAY_BUFFER, colorBufferObject); glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW); glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0); glBindBuffer(GL_ARRAY_BUFFER, 0); }  同时display中的代码也需要进行如下的修改：</description>
     </item>
     
   </channel>

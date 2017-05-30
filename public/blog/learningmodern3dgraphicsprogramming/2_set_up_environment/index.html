@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name="generator" content="Hugo 0.21" />
+
+  <base href='https://stupidgrass.github.io/'>
+  
+
+
+<title>2. 环境设置 &bull; Stupidgrass</title>
+
+  <link rel='canonical' href='https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/'>
+  <link href='' rel='alternate' type='application/rss+xml' title='Stupidgrass&#39;s Notepad Online' />
+  
+<link rel='stylesheet' href='/css/main.css'>
+
+
+</head>
+
+
+<body class='page'>
+  <div class='site'>
+    <header id='header' class='header-container'>
+      <div class='site-header'>
+        <nav id='navmenu'>
+  <ul class='main-menu'>
+    
+    <li>
+      <a href='https://stupidgrass.github.io/' class=''>Home</a>
+    </li>
+    
+    <li>
+      <a href='https://stupidgrass.github.io/blog/' class=''>Blog</a>
+    </li>
+    
+    <li>
+      <a href='https://stupidgrass.github.io/categories/' class=''>Categories</a>
+    </li>
+    
+    <li>
+      <a href='https://stupidgrass.github.io/tags/' class=''>Tags</a>
+    </li>
+    
+  </ul>
+</nav>
+
+        <div class='site-info'>
+          
+          <p class='site-title title'>Stupidgrass&#39;s Notepad Online</p>
+          
+          <p class='site-description'>Medical image rendering, c&#43;&#43;, python, and others</p>
+        </div>
+      </div>
+    </header>
+
+
+<main class='main'>
+  <article class='single'>
+    <header class='single-header'>
+  <div class='single-info'>
+    <h1 class='single-title title'>2. 环境设置</h1>
+    
+  </div>
+  
+<div class='meta'>
+  <span class='posted-on'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+
+    <time class='date'>30057, May 120</time>
+  </span>
+  <span class='byline'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+
+    <a href="#">Stupidgrass</a>
+  </span>
+</div>
+
+
+</header>
+
+    <div class='single-content'>
+      
+
+<h1 id="环境设置">环境设置</h1>
+
+<p>由于本书中的例子，均是基于OpenGL实现的，因此你的工作环境需要能够运行OpenGL，为了读者能够更好的运行原文中的示例，此处简单地介绍了linux和windows下OpenGL环境的配置。需要配置的是除了OpenGL基础环境外，还需要freeglut和glew。具体的配置见下面的内容。</p>
+
+<h2 id="linux">linux</h2>
+
+<p>由于译者使用的linux版本为mint 18 sarah，此处就以mint系统为例进行linux下的环境配置。</p>
+
+<pre><code>sudo apt-get install build-essential libgl1-mesa-dev git libglu1-mesa-dev
+sudo apt-get install libglew-dev freeglut3-dev
+
+// 使用glxinfo查看OpenGL支持的版本，如下所示
+~$ glxinfo | grep OpenGL
+OpenGL vendor string: NVIDIA Corporation
+OpenGL renderer string: GeForce 940MX/PCIe/SSE2
+OpenGL core profile version string: 4.5.0 NVIDIA 367.57
+OpenGL core profile shading language version string: 4.50 NVIDIA
+OpenGL core profile context flags: (none)
+OpenGL core profile profile mask: core profile
+OpenGL core profile extensions:
+OpenGL version string: 4.5.0 NVIDIA 367.57
+OpenGL shading language version string: 4.50 NVIDIA
+OpenGL context flags: (none)
+OpenGL profile mask: (none)
+OpenGL extensions:
+OpenGL ES profile version string: OpenGL ES 3.2 NVIDIA 367.57
+OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
+OpenGL ES profile extensions:
+</code></pre>
+
+<p>也可以参考cnblogs他人的博文：<a href="http://www.cnblogs.com/antistone/archive/2008/03/18/1111403.html">Linux下OpenGL开发&ndash;准备篇</a></p>
+
+<h2 id="windows">windows</h2>
+
+<p>可以参考cnblogs他人的博文：<a href="http://www.cnblogs.com/lhyz/p/4178004.html">搭建OpenGL环境-Windows/VS2013</a></p>
+
+    </div>
+    
+<footer class='single-footer'>
+  
+    
+    
+
+<div class='categories'>
+  <span class='category-icon'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+
+  </span><a class='category' href='/categories/translation-of-books'>Translation of books</a></div>
+
+  
+    
+    
+
+<div class='tags'>
+  <span class='tag-icon'>
+    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+
+  </span><a class='tag' href='/tags/opengl'>opengl</a>, <a class='tag' href='/tags/learningmodern3dgraphicsprogramming'>LearningModern3DGraphicsProgramming</a></div>
+
+  
+</footer>
+
+
+  </article>
+</main>
+
+    <footer id='footer' class='footer-container'>
+      <div class='footer'>
+        <div class='social'>
+          <nav>
+  <ul class='social-menu'>
+  
+    
+    <li>
+      <a href='https://github.com/stupidgrass' target='_blank'>
+        GitHub
+      </a>
+    </li>
+    
+  
+  </ul>
+</nav>
+
+        </div>
+
+        <div class='copyright'>
+          
+  
+
+<p>
+  &copy; 2017 MunifTanjim
+</p>
+
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src='/js/main.js'></script>
+
+</body>
+
+</html>
+
