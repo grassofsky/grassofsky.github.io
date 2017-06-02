@@ -127,5 +127,21 @@ const float vertex[] = { 0.0f, 0.5f, 0.0f, 1.0f, 0.5f, -0.366f, 0.0f, 1.0f, -0.5
 void InitializeVAO() { glGenVertexArrays(1, &amp;amp;vao); glBindVertexArray(vao); glGenBuffers(1, &amp;amp;positionBufferObject); glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferData(GL__ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW); glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0); glGenBuffers(1, &amp;amp;colorBufferObject); glBindBuffer(GL_ARRAY_BUFFER, colorBufferObject); glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW); glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0); glBindBuffer(GL_ARRAY_BUFFER, 0); }  同时display中的代码也需要进行如下的修改：</description>
     </item>
     
+    <item>
+      <title>7. opengl移动三角形</title>
+      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
+      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
+      
+      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
+      <description>第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。
+移动点 也许能够想到的移动三角形或其他对象最简单的方法是直接改变顶点的数据。从前面的章节中，我们学习了顶点数据是存储在缓存对象中的。于是，更改数据，就是更改缓存区中的数据。cpu_position_offset.cpp就是这么实现的。
+整个更改通过了两个过程完成的。首先，针对每个点生成x，y的偏移量,然后将偏移量赋值到每一个点的位置。偏移量的生成ComputePositionOffset。
+Example 3.1 Computation of Position Offsets
+void ComputePositionOffsets(float &amp;amp;fXOffset, float &amp;amp;fYOffset) { const float fLoopDuration = 5.0f; const float fScale = 3.14159f * 2.0f / fLoopDuration; float fElapsedTime = glutGet(GLUT_ELAPSED_TIME)/1000.0f; float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration); fXOffset = cosf(fCurrTimeThroughLoop*fScale)*0.5f; fYOffset = sinf(fCurrTimeThroughLoop*fscale)*0.5f; }  上述计算得到的偏移量可以产生环状运动，而且在每隔5s，偏移量会回到原来的值(通过fLoopDuration控制)。函数glutGet(GLUT_ELAPSED_TIME)用来获取程序开始时，以毫秒为单位的整数时间。fmodf用来计算时间的浮点型模。因此，该函数返回值的范围为[0,fLoopDuration)。
+一旦求得偏移量，偏移量将会被加到顶点坐标中。
+Example 3.2 Adjusting the Vertex Data
+void AdjustVertexData(float fXOffset, float fYOffset) { std::vector&amp;lt;float&amp;gt; fNewData(ARRAY_COUNT(vertexdPositions)); memcpy(&amp;amp;fNewData[0], vertexPositions, sizeof(vertexPositions)); for (int iVertex=0; iVertex&amp;lt;ARRAY_COUNT(vertexPositions); iVertex+=4) { fNewData[iVertex] += fXOffset; fNewData[iVertex+i] += fYOffset; } glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferSubData(GL_ARRAY_BUFFER,0,sizeof(vertexPositions), &amp;amp;fNewData[0]); glBindBuffer(GL_ARRAY_BUFFER, 0); }  这个函数创建了一个临时对象fNewData，并将顶点偏移后的值存入其中，然后将带偏移的量通过glBufferSubData将值传递给缓存对象。</description>
+    </item>
+    
   </channel>
 </rss>

@@ -16,6 +16,9 @@
   <link href='' rel='alternate' type='application/rss+xml' title='Stupidgrass&#39;s Notepad Online' />
   
 <link rel='stylesheet' href='/css/main.css'>
+<link rel='stylesheet' href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 
 </head>
@@ -104,7 +107,7 @@
 
 <p>顶点属性和颜色分别独立存储：</p>
 
-<pre><code>const float vertex[] = {
+<pre><code class="language-c">const float vertex[] = {
     0.0f, 0.5f, 0.0f, 1.0f,
     0.5f, -0.366f, 0.0f, 1.0f,
     -0.5f, -0.366f, 0.0f, 1.0f,
@@ -123,7 +126,7 @@ const float color[] = {
 
 <p>于是将上一章中的<code>InitializeVertexBuffer</code>改成<code>InitializeVAO</code></p>
 
-<pre><code>void InitializeVAO()
+<pre><code class="language-c">void InitializeVAO()
 {
     glGenVertexArrays(1, &amp;vao);
     glBindVertexArray(vao);
@@ -145,7 +148,7 @@ const float color[] = {
 
 <p>同时display中的代码也需要进行如下的修改：</p>
 
-<pre><code>void display()
+<pre><code class="language-c">void display()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -195,7 +198,7 @@ const float color[] = {
   
 </svg>
 
-  </span><a class='tag' href='/tags/opengl'>opengl</a>, <a class='tag' href='/tags/learningmoder3dgraphicsprogramming'>LearningModer3DGraphicsProgramming</a></div>
+  </span><a class='tag' href='/tags/opengl'>opengl</a>, <a class='tag' href='/tags/learningmodern3dgraphicsprogramming'>LearningModern3DGraphicsProgramming</a></div>
 
   
 </footer>
