@@ -5,10 +5,62 @@
     <link>https://stupidgrass.github.io/tags/learningmodern3dgraphicsprogramming/</link>
     <description>Recent content in Learningmodern3dgraphicsprogramming on Stupidgrass&#39;s Notepad Online</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 30 May 2015 12:00:00 +0600</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2015 12:00:00 +0600</lastBuildDate>
     
 	<atom:link href="https://stupidgrass.github.io/tags/learningmodern3dgraphicsprogramming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>8. 其他的对象</title>
+      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</link>
+      <pubDate>Mon, 15 Jun 2015 12:00:00 +0600</pubDate>
+      
+      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</guid>
+      <description>原文: https://paroj.github.io/gltut/
+第四章 其他的对象 到目前为止，我们看到的都是平面的对象。比如，单个三角形。这一章，会介绍如何创建一个现实中的对象。
+不真实的世界 orthographic cube例子会渲染一个正交投影的长方体。长方体的长宽高分别是0.5x0.5x1.5。这个例子中的大部分代码和之前的都比较类似。区别的地方是，我们绘制了12个三角形而不是一个三角形。因为一个长方体有六个面，每个面由两个三角形组成。
+顶点一样拥有颜色。但是，形成一个面的6个顶点的颜色通常是一样的。
+面消隐 一个非常值得注意的改变是，在初始化的时候，我们使用了一些新的函数：
+Example 4.1. Face Culling Initialization
+void init() { InitializeProgram(); InitializeVertexBuffer(); glGenVertexArrays(1, &amp;amp;vao); glBindVertexArray(vao); glEnable(GL_CULL_FACE); glCullFace(GL_BACK); glFrontFace(GL_CW); }  代码中的最后三行是新的。
+GL_CULL_FACE标识用来告诉opengl激活面消隐的功能。到目前位置，我们都没有使用过激活面消隐功能。面消隐对于提高性能而言是一个很有用的特征。打个比方，对于长方体而言，我们从任何一个视角看去，最多只能够看到三个面，那么我们就没有必要对看不到的面进行渲染处理。
+在窗口坐标系中，通过标准化设备坐标系变换过来的点能够组成一个三角形。三角形的每个顶点在opengl中以一定的顺序表示。这样使得你可以计数三角形顶点的方式。
+不管这个三角形的大小和形状，你可以将三角形分为两类：顺时针和逆时针的。如下图所示。左边的图是顺时针的，右边的图是逆时针的。这个的顺序被称为顶点连接顺序。
+Figure4.1 Triangle Winding Order
+opengl中的面选择就是基于这个顺序的。glFrontFace定义了那种旋转顺序，GL_CW和GL_CCW分别表示顺时针和逆时针。函数glCullFace定义了让哪个面不显示，后面，前面还是都不显示。对应的tag有GL_BACK，GL_FRONT，GL_FRONT_AND_BACK。在这个例子中，我们将背面的face隐藏起来了。
+缺少视角 此时得到的图像如下：
+Figure 4.2 Orthographic prism
+这个显示是有问题的。因为，试着想象一下，我们将一个立方体放到眼睛的正前方，只能看到立方体的的一个面，但当我们将立方体往右上方摆放时，能够看到下方和左边的面。但是，这里我们没有看到对应的面，这是为什么呢？
+回想一下渲染中发生了什么。在裁剪坐标系中，后面的顶点刚好在正面顶点的正后放，当变换到屏幕坐标系后，这种相对位置没有发生变化，因此只能够看到正前方的面。
+这里一定是我们遗漏了某些操作。此处正是“透视”。
+透视投影 我们最终形成的图像是在屏幕上的二维像素点。3D渲染管线通过转换矩阵将点从裁剪坐标系转换到屏幕坐标系。一旦点到了窗口坐标系，2D三角行就渲染出来了。
+根据渲染管线中的定义，投影是将一个维度转变成另一个维度。我们初始的世界坐标系的维度是三维的，因此，渲染管线定义的投影就是将3D的点转换成2D的点。最终渲染得到的三角形就是2D的。
+这里我们感兴趣的是有限投影，将对象投影到更低维度的有限空间中。对于3D到2D的投影，是对面进行投影；对于2D到1D的投影是对线进行投影。
+正交投影是一个非常简单的投影。当投射到一个坐标轴对齐的表面，如下所示，
+Figure4.3 2D to 1D Orthographic Projection«»
+一个场景正交投影到一个黑色的线上。灰色的盒子表示世界中经过投影后可以看到的部分；在灰色部分之外的区域是不可见的。
+当投影到任意的直线上时，此时的数学表达将更加的复杂。但是在创建正交投影的时候，垂直于表面的维度将被消除。正是垂直方向上的投影和一致性构成了正交投影。
+通过人眼看到的世界并不是正交投影。如果是的话，你就只能够看到瞳孔大小的世界了。
+对于我们眼睛看东西可以用针孔相机模型进行模拟。这个模型表现出来的就是透视投影。透视投影就是通过一个点来看到世界在一个面的投影。2d到1d的透视投影看上去如下图：
+Figure 4.4 2D to 1D Perspective Projection</description>
+    </item>
+    
+    <item>
+      <title>7. opengl移动三角形</title>
+      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
+      <pubDate>Mon, 01 Jun 2015 12:00:00 +0600</pubDate>
+      
+      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
+      <description>原文: https://paroj.github.io/gltut/
+第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。
+移动点 也许能够想到的移动三角形或其他对象最简单的方法是直接改变顶点的数据。从前面的章节中，我们学习了顶点数据是存储在缓存对象中的。于是，更改数据，就是更改缓存区中的数据。cpu_position_offset.cpp就是这么实现的。
+整个更改通过了两个过程完成的。首先，针对每个点生成x，y的偏移量,然后将偏移量赋值到每一个点的位置。偏移量的生成ComputePositionOffset。
+Example 3.1 Computation of Position Offsets
+void ComputePositionOffsets(float &amp;amp;fXOffset, float &amp;amp;fYOffset) { const float fLoopDuration = 5.0f; const float fScale = 3.14159f * 2.0f / fLoopDuration; float fElapsedTime = glutGet(GLUT_ELAPSED_TIME)/1000.0f; float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration); fXOffset = cosf(fCurrTimeThroughLoop*fScale)*0.5f; fYOffset = sinf(fCurrTimeThroughLoop*fscale)*0.5f; }  上述计算得到的偏移量可以产生环状运动，而且在每隔5s，偏移量会回到原来的值(通过fLoopDuration控制)。函数glutGet(GLUT_ELAPSED_TIME)用来获取程序开始时，以毫秒为单位的整数时间。fmodf用来计算时间的浮点型模。因此，该函数返回值的范围为[0,fLoopDuration)。
+一旦求得偏移量，偏移量将会被加到顶点坐标中。
+Example 3.2 Adjusting the Vertex Data
+void AdjustVertexData(float fXOffset, float fYOffset) { std::vector&amp;lt;float&amp;gt; fNewData(ARRAY_COUNT(vertexdPositions)); memcpy(&amp;amp;fNewData[0], vertexPositions, sizeof(vertexPositions)); for (int iVertex=0; iVertex&amp;lt;ARRAY_COUNT(vertexPositions); iVertex+=4) { fNewData[iVertex] += fXOffset; fNewData[iVertex+i] += fYOffset; } glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferSubData(GL_ARRAY_BUFFER,0,sizeof(vertexPositions), &amp;amp;fNewData[0]); glBindBuffer(GL_ARRAY_BUFFER, 0); }  这个函数创建了一个临时对象fNewData，并将顶点偏移后的值存入其中，然后将带偏移的量通过glBufferSubData将值传递给缓存对象。</description>
+    </item>
     
     <item>
       <title>1. 关于这本书</title>
@@ -125,22 +177,6 @@ Figure4 Vector Addition Head-to-Tail
 const float vertex[] = { 0.0f, 0.5f, 0.0f, 1.0f, 0.5f, -0.366f, 0.0f, 1.0f, -0.5f, -0.366f, 0.0f, 1.0f, }; const float color[] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f };  Vertex Array Object 上一章中，绘制图像所需的数据都存储在Vertex Buffer Object中，然后利用glVertexAttribPointer来告诉opengl该缓存对象中的哪个数据段是顶点位置属性，哪些数据段是颜色属性。如果想要将多个属性分别存储于独立的VBO中，那么此处就需要VAO出马上任了。VAO能够用来存储多个VBO对象的对象。它被设计用来存储用于完成对象渲染所需要的信息：这里包括，数据，数据格式，以及不同的数据对应的着色器中的location。
 于是将上一章中的InitializeVertexBuffer改成InitializeVAO
 void InitializeVAO() { glGenVertexArrays(1, &amp;amp;vao); glBindVertexArray(vao); glGenBuffers(1, &amp;amp;positionBufferObject); glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferData(GL__ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW); glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0); glGenBuffers(1, &amp;amp;colorBufferObject); glBindBuffer(GL_ARRAY_BUFFER, colorBufferObject); glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW); glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0); glBindBuffer(GL_ARRAY_BUFFER, 0); }  同时display中的代码也需要进行如下的修改：</description>
-    </item>
-    
-    <item>
-      <title>7. opengl移动三角形</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
-      
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
-      <description>第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。
-移动点 也许能够想到的移动三角形或其他对象最简单的方法是直接改变顶点的数据。从前面的章节中，我们学习了顶点数据是存储在缓存对象中的。于是，更改数据，就是更改缓存区中的数据。cpu_position_offset.cpp就是这么实现的。
-整个更改通过了两个过程完成的。首先，针对每个点生成x，y的偏移量,然后将偏移量赋值到每一个点的位置。偏移量的生成ComputePositionOffset。
-Example 3.1 Computation of Position Offsets
-void ComputePositionOffsets(float &amp;amp;fXOffset, float &amp;amp;fYOffset) { const float fLoopDuration = 5.0f; const float fScale = 3.14159f * 2.0f / fLoopDuration; float fElapsedTime = glutGet(GLUT_ELAPSED_TIME)/1000.0f; float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration); fXOffset = cosf(fCurrTimeThroughLoop*fScale)*0.5f; fYOffset = sinf(fCurrTimeThroughLoop*fscale)*0.5f; }  上述计算得到的偏移量可以产生环状运动，而且在每隔5s，偏移量会回到原来的值(通过fLoopDuration控制)。函数glutGet(GLUT_ELAPSED_TIME)用来获取程序开始时，以毫秒为单位的整数时间。fmodf用来计算时间的浮点型模。因此，该函数返回值的范围为[0,fLoopDuration)。
-一旦求得偏移量，偏移量将会被加到顶点坐标中。
-Example 3.2 Adjusting the Vertex Data
-void AdjustVertexData(float fXOffset, float fYOffset) { std::vector&amp;lt;float&amp;gt; fNewData(ARRAY_COUNT(vertexdPositions)); memcpy(&amp;amp;fNewData[0], vertexPositions, sizeof(vertexPositions)); for (int iVertex=0; iVertex&amp;lt;ARRAY_COUNT(vertexPositions); iVertex+=4) { fNewData[iVertex] += fXOffset; fNewData[iVertex+i] += fYOffset; } glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferSubData(GL_ARRAY_BUFFER,0,sizeof(vertexPositions), &amp;amp;fNewData[0]); glBindBuffer(GL_ARRAY_BUFFER, 0); }  这个函数创建了一个临时对象fNewData，并将顶点偏移后的值存入其中，然后将带偏移的量通过glBufferSubData将值传递给缓存对象。</description>
     </item>
     
   </channel>
