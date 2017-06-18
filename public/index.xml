@@ -5,10 +5,37 @@
     <link>https://stupidgrass.github.io/</link>
     <description>Recent content on Stupidgrass&#39;s Notepad Online</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 15 Jun 2015 12:00:00 +0600</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jun 2015 12:00:00 +0600</lastBuildDate>
     
 	<atom:link href="https://stupidgrass.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>9. 在深度的对象</title>
+      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</link>
+      <pubDate>Tue, 16 Jun 2015 12:00:00 +0600</pubDate>
+      
+      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</guid>
+      <description>原文: https://paroj.github.io/gltut/
+第五章 在深度的对象 在这一章中，我们将会处理如何渲染多个对象，特别是当多个对象之间有一定的重叠的时候。
+opengl中的多个对象 首先需要知道的是对于相互重叠的多个对象进行绘制的时候发生了什么。这个概念的介绍对于后续内容的理解将起到一定的帮助作用。
+一个对象，在绘制过程中，可以被认为是一次draw调用产生的结果。因此，一个对象是由一系列的小三角形组成的，还带有自己独立的对象属性。
+顶点数组对象 到目前为止，每当我们进行一些绘制的时候，我们需要做一些准备工作。如，设置顶点着色器中需要用到的各个顶点的属性：
+ 使用glEnableVertexAttribArray来激活属性 使用glBindBuffer(GL_ARRAY_BUFFER)将上下文和缓存对象进行绑定，对象中含有顶点的属性。 使用glVertexAttribPointer来定义上一条中绑定的缓存对象中的数据格式。  拥有越多的属性，就说明在具体的渲染工作之前需要更多的准备工作。为了减轻准备工作的负担，opengl提供了用来存储这些状态的对象：顶点数组对象(VAO, Vertex Array Object)。
+VAO通过glGenVertexArray函数进行创建。其使用方式类似于glGenBuffers。通过这个函数的一次调用，可以创建多个对象。对象使用GLuints来表示的。
+接着，使用glGenVertexArray将创建的对象绑定到上下文中。这个函数不想glBindBuffer需要指定目标位置。因为，他仅能够使用VAO进行绑定。
+一旦VAO绑定后。可以通过调用一些函数来改变绑定到VAO的一些数据。技术上来将就是改变VAO的状态。上述讲到的内容可以总结为两句话：
+glGenVertexArrays(1,&amp;amp;vao); glBindVertexArray(vao);  上面的语句创建了单个vao。下面的函数用来改变vao的状态，因此如果当前没有绑定vao，就进行下面的函数的调用，调用就会不起作用。
+ glVertexAttribPointer glEnableVertexAttribArray/glDisableVertexAttribArray glBindBuffer(GL_ELEMENT_ARRAY_BUFFER)，这个函数不经过vao的绑定进行调用是不会失败的。   buffer binding和attribute association 你也许会注意到，glBindBuffer(GL_ARRAY_BUFFER)并没有出现在上述的函数中，尽管该函数也属于渲染属性设置的一部分。这是因为调用glBindBuffer(GL_ARRAY_BUFFER)的时候，并没有将缓存对象和顶点属性进行绑定。这两者之间的关联性是在你调用glVertexAttribPointer的时候建立起来的。
+当你调用glVertexAttribPointer函数的时候，opengl直接将与顶点属性相关联的缓存区直接绑定到了GL_ARRAY_BUFFER上。试想一下，GL_ARRAY_BUFFER绑定的是glVertexAttribPointer能够读取的全局指针变量。因此，在调用glVertexAttribPointer之后，对于GL_ARRAY_BUFFER绑定的对像进行更改是不会产生影响的。因此，VAO存储与属性相关的缓存对象，并不存储通过GL_ARRAY_BUFFER绑定的对象。
+如果你想要知道为什么在不使用vao的时候，glVertexAttribPointer没有使用这种缓存对象获取的方式，而是使用bind+call的方式，这是api遗留技术。当缓存对象最早被引入的时候，为了尽量上的影响现有api的调用。原先的glVertexAttribPointer设计成了依赖于缓存对象是否绑定到了GL_ARRAY_BUFFER。而现在，如果没有缓存对象绑定到GL_ARRAY_BUFFER，直接调用该函数就会引发错误，成为了一种让人恼火的事情了。
+ 这样就允许我们在后期调用渲染函数的时候，只要绑定当前创建的vao即可。在使用的时候，有一点需要注意的是，vao中存储的状态并不是永恒不变的。上述任何函数的调用都会引起vao内部状态的变化。
+基于索引的绘制 在上一章中，我们绘制了长方体。如果你仔细查看顶点的数据，你会发现其中很多个顶点数值是重复的。为了绘制立方体的一个面，我们需要绘制两个三角形，需要6个顶点，其中有两个顶点是相同的。
+对于上例中的简单的问题，重复点的数量是比较少的。但是考虑到一个立方体有六个面，每个面有四个点，这样需要24个点，但是每个面是以三角形为基本单位进行绘制的，因此总共需要6×6=36个点。那么再想象一下，对于类似与人体这样复杂的表面的构建，需要的点的数量将是及其庞大的，重复的点的出现会占用很多的内存空间。而将重复的数据移除，在一定程度上可以将顶点的数量缩减到一半甚至更多。
+为了一处多余的点，我们必须采用基于索引的绘制方式。而不是基于数组的绘制方式。在早一些的章节中，我们给出了glDrawArrays的伪代码：
+Example 5.1 Draw Arrays Implementation
+void glDrawArrays(GLenum type, GLint start, GLint count) { for (GLint element = start; element &amp;lt; start + count; element++) { VertexSahder(positionAttribArray[element], colorAttribArray[element]); } }  这就描述了基于数组的绘制是怎么工作的。你给出了绘制的起点，以及个数。</description>
+    </item>
     
     <item>
       <title>8. 其他的对象</title>
