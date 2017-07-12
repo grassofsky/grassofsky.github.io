@@ -13,6 +13,7 @@
 <title>9. 在深度的对象 &bull; Stupidgrass</title>
 
   <link rel='canonical' href='https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/'>
+  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
   <link href='' rel='alternate' type='application/rss+xml' title='Stupidgrass&#39;s Notepad Online' />
   
 <link rel='stylesheet' href='/css/main.css'>
@@ -512,7 +513,128 @@ glDepthRange(0.0f, 1.0f);
 
 <p>通常情况下使用GL_LEQUAL比GL_LESS更为常用。这样就允许我们对多通道算法的使用，使用相同的顶点着色器渲染相同的几何，但是使用不同的片段着色器。这些东西将在很后面的内容中介绍。</p>
 
-<p>glDepthMask函数的调用可以将片段着色器中深度的数值写入到深度缓存中。深度检测的单独使用并不够用来写入深度的值。这允许对那些没有将深度信息写入到深度缓存的对象进行深度检测，对于颜色输出也起作用。这里我们并没有用到它，但在一些特殊的算法中可能游泳。</p>
+<p>glDepthMask函数的调用可以将片段着色器中深度的数值写入到深度缓存中。深度检测的单独使用并不够用来写入深度的值。这允许对那些没有将深度信息写入到深度缓存的对象进行深度检测，对于颜色输出也起作用。这里我们并没有用到它，但在一些特殊的算法中可能有用。</p>
+
+<p>这里还有一个问题，我们知道了片段着色器的输出会写入到深度缓存中。那么深度缓存中初始化的值是从什么地方来的呢？回想一下颜色缓存中的初始颜色是通过glClear来进行设置的，接着就很容易想到深度缓存的写入也是有这样一个类似的函数。</p>
+
+<p>是的，对深度缓存初始值设定的函数也是glClear。glClearColor来定义即将被初始化的颜色，glCLearDepth来定义即将被初始化的深度值。然后在通过glCear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);完成初始值的设定。</p>
+
+<p><strong>Example 5.11 Depth Buffer Clearing</strong></p>
+
+<pre><code>glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+glClearDepth(1.0f);
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+</code></pre>
+
+<p>上面的代码将颜色缓存区中的值都设置成(0.0,0.0,0.0,0.0),将深度缓存中的值都设定为1.0。</p>
+
+<p>这样我们得到的新的结果就是：</p>
+
+<p><strong>Figure 5.3 Depth Buffering</strong></p>
+
+<p><img src="/image/figure5-3-depth-buffering.png" alt="" /></p>
+
+<p>这样不管对象是怎么放置的，我们都能够得到理想的结果。</p>
+
+<p>让我们进一步加深关于深度缓存的认识。如，想要将一个物体和另一个物体有部分重叠，那么我们只需要对z方向的偏移量进行适当的更改。</p>
+
+<pre><code>glUniform3f(offsetUniform, 0.0f, 0.0f, -0.75f);
+</code></pre>
+
+<p>此时的结果图为：</p>
+
+<p><strong>Figure 5.4 Mild Overlap</strong></p>
+
+<p><img src="/image/figure5-4-mild-overlap.png" alt="" /></p>
+
+<h2 id="边界和裁剪">边界和裁剪</h2>
+
+<p>如果你重新回顾透视投影一章，我们使用了顶点着色器执行之后能够自动处理w值的图形芯片，而不是在顶点着色器中手动的进行操作。在这里，我们将会知道为什么需要硬件自动完成该功能。</p>
+
+<p>让我们来回忆一下整个的数学公式：</p>
+
+<p><strong>Equation 5.1 Perspective Computation</strong></p>
+
+<p>$$\vec{R}=\vec{P}\left(\frac{E_z}{P_z}\right)$$</p>
+
+<p>其中R是透视投影之后的位置，P是相机空间中的点，E_z是透视平面在相机空间中的z值，Pz是P点在相机空间中的z值。</p>
+
+<p>当看到类似上述的公式的时候，会想到一个问题，可以除以0吗？如果当相机坐标系中的点恰巧等于0的时候，该如何处理呢？也许会很容易的想到除以0,就类似与得到一个无限大或无限小的值。其实，让我们换个角度来看待这个问题。首先，我们知道w为0的时候，相机坐标系中的点的z值也是0,而根据相机坐标系中zNear的取值范围，大于1可知，0都是在显示范围之外的。既然如此，我们还需要纠结是否需要除以0这个问题吗？</p>
+
+<p>裁剪是将一个三角形打碎成不同的小三角形，只有当这个小三角形在可见区域范围内才会被保留。裁剪正式发生在裁剪坐标系空间的，同时裁剪坐标系也是一个齐次坐标系系统，我们不需要忧虑除以0的事件的发生。2d的裁剪模拟类似下图：</p>
+
+<p><strong>Figure 5.6 Triangle Clipping</strong></p>
+
+<p><img src="/image/figure5-6-triangle-clipping.png" alt="" /></p>
+
+<p>为了更好的看到实际裁剪的结果，可以运行顶点裁剪中的示例。这和深度缓存是类似的，除了对象被移到了很靠近zNear的位置。</p>
+
+<p><strong>Figure 5.7 Near Plane Clipping</strong></p>
+
+<p><img src="/image/figure5-7-near-plane-clipping.png" alt="" /></p>
+
+<h2 id="深度夹紧">深度夹紧</h2>
+
+<p>图5.7中的结果并不是理想的，对于一个内部没有中空的物体，我们的到了中空的效果。同时我们也没有看到这个物体的背面。</p>
+
+<p>如果计算机图形是弹性入射的，那么裁剪就完全阻止了弹性入射。那么我们该如何处理这种情况呢？</p>
+
+<p>最常用的方法是不允许这么做。也就是说，要了解物体在逐渐靠近近平面，同时不要让物体过分的靠近近平面。这种方式是对物体的移动进行了一定的限制。</p>
+
+<p>一种更加合理的机制是depth clamping。这个是直接将相机的远近平面裁剪直接关闭。而是通过标准坐标系中的-1,1范围对深度上的显示和是否裁剪进行控制。</p>
+
+<p><strong>Eample 5.12 Depth Clamping On/Off</strong></p>
+
+<pre><code>void keyboard(unsigned char key, int x, int y)
+{
+    static bool bDepthClampingActive = false;
+    switch(key)
+    {
+    case 27:
+        glutLeaveMainLoop();
+        break;
+    case 32:
+        if (bDepthClampingActive)
+            glDisable(GL_DEPTH_CLAMP);
+        else
+            glEnable(GL_DEPTH_CLAMP);
+
+        bDepthClampingActive = !bDepthClampingActive;
+        break;
+    }
+}
+</code></pre>
+
+<p>当你运行这一例子的时候可以看到下图：</p>
+
+<p><strong>Figure 5.8 Depth Clamping</strong></p>
+
+<p><img src="/image/figure5-8-depth-clamping.png" alt="" /></p>
+
+<p>这个结果看上去是正确的，看上去我们的问题得到了解决。</p>
+
+<p>那么我们将后一个对象往前面移动的时候，可以得到类似与前面出现的交叉的情况。</p>
+
+<p><strong>Figure 5.9 Depth Clamp With Overlap</strong></p>
+
+<p><img src="/image/figure5-9-depth-clamp-with-overlap.png" alt="" /></p>
+
+<p>此时，让我们来回顾下，什么是深度加紧，它的解释是，将比zNear更小的值，变成zNear，将比zFar更大的值变成zFar。因此，当你渲染第二个对象的时候，一些已经被加紧了的片段会被再次渲染。</p>
+
+<p>因此，当渲染的物体之间有重叠的时候，就需要谨慎的使用深度加紧的策略。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>在这一章中，我们学习到了：</p>
+
+<ul>
+<li>顶点数组对象封装了所有渲染中需要用到的对象。包括，顶点属性数组，缓存对象，和元素缓冲区。</li>
+<li>基于索引的渲染，通过索引值来获取顶点数组中对应的点。索引的顺序和opengl识别的顶点的顺序是相同的。基于顶点的索可以将索引存储在缓存对象中，然后使用glDrawElements进行绘制。</li>
+<li>对索引增加偏移量的方式可以访问其他的顶点，此时可以使用glDrawElementsBaseVertex。</li>
+<li>可以通过深度缓存和特定的深度检测方式来对表面进行消除。</li>
+<li>在相机坐标系zNear和zFar范围之外的对象会被裁剪掉。当对象很靠近相机的时候，这种方式会产生空洞。</li>
+<li>只要没有重叠部分，通过深度夹紧的方式可以修复裁剪空洞，同时对象也不能超出相机坐标系中的原点。</li>
+</ul>
 
     </div>
     
