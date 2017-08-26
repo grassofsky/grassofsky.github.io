@@ -5,7 +5,7 @@
     <link>https://stupidgrass.github.io/categories/translation-of-books/</link>
     <description>Recent content in Translation Of Books on Stupidgrass&#39;s Notepad Online</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 16 Jun 2015 12:00:00 +0600</lastBuildDate>
+    <lastBuildDate>Fri, 16 Jun 2017 12:00:00 +0600</lastBuildDate>
     
 	<atom:link href="https://stupidgrass.github.io/categories/translation-of-books/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +13,7 @@
     <item>
       <title>9. 在深度的对象</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</link>
-      <pubDate>Tue, 16 Jun 2015 12:00:00 +0600</pubDate>
+      <pubDate>Fri, 16 Jun 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</guid>
       <description>原文: https://paroj.github.io/gltut/
@@ -40,7 +40,7 @@ void glDrawArrays(GLenum type, GLint start, GLint count) { for (GLint element = 
     <item>
       <title>8. 其他的对象</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</link>
-      <pubDate>Mon, 15 Jun 2015 12:00:00 +0600</pubDate>
+      <pubDate>Thu, 15 Jun 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</guid>
       <description>原文: https://paroj.github.io/gltut/
@@ -75,7 +75,7 @@ Figure 4.4 2D to 1D Perspective Projection</description>
     <item>
       <title>7. opengl移动三角形</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
-      <pubDate>Mon, 01 Jun 2015 12:00:00 +0600</pubDate>
+      <pubDate>Thu, 01 Jun 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
       <description>原文: https://paroj.github.io/gltut/
@@ -92,7 +92,7 @@ void AdjustVertexData(float fXOffset, float fYOffset) { std::vector&amp;lt;float
     <item>
       <title>1. 关于这本书</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</guid>
       <description>关于这本书 三维图像处理硬件很快成为了必不可少的组件。很多操作系统能够直接使用三维图像硬件，有些甚至要求需要有3D渲染能力的硬件。同时对于日益增加的手机系统，3D图像硬件，也成为了它们的必备特征。
@@ -132,7 +132,7 @@ void AdjustVertexData(float fXOffset, float fYOffset) { std::vector&amp;lt;float
     <item>
       <title>2. 环境设置</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</guid>
       <description>环境设置 由于本书中的例子，均是基于OpenGL实现的，因此你的工作环境需要能够运行OpenGL，为了读者能够更好的运行原文中的示例，此处简单地介绍了linux和windows下OpenGL环境的配置。需要配置的是除了OpenGL基础环境外，还需要freeglut和glew。具体的配置见下面的内容。
@@ -143,7 +143,7 @@ sudo apt-get install build-essential libgl1-mesa-dev git libglu1-mesa-dev sudo a
     <item>
       <title>3. 基础简介</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</guid>
       <description>基础简介 并不像本书的其他章节，这章内容没有相关的源代码或是项目。本章，我们将讨论向量，图形渲染理论，以及OpenGL。
@@ -173,7 +173,7 @@ Figure4 Vector Addition Head-to-Tail
     <item>
       <title>4. 你好，三角形</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</guid>
       <description>你好，三角形 传统的入门教程在介绍编程语言的时候，通常从“Hello，World！”的程序开始。这样的程序拥有最简单的能够直接输出“Hello, World!”的代码。这是一种熟悉编译系统以及代码执行的很好的一种方式。
@@ -184,7 +184,7 @@ Figure4 Vector Addition Head-to-Tail
     <item>
       <title>5. 设置颜色</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</guid>
       <description>设置颜色 这一章会对上一章中绘制的三角形进行颜色的设定。而不是单纯的设置一个单一的颜色，这里我们会使用两种方式来对这个三角形设置颜色的变化。这些方法有使用片段位点来计算颜色，和前一个顶点数据来计算颜色。
@@ -196,7 +196,7 @@ Figure4 Vector Addition Head-to-Tail
     <item>
       <title>6. opengl使用不同的缓存对象</title>
       <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</link>
-      <pubDate>Sat, 30 May 2015 12:00:00 +0600</pubDate>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
       <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</guid>
       <description>opengl使用不同的缓存对象 在设置颜色一章中，我们使用了一个缓存对象来存储点和颜色的信息。那么我们有没有可能，将点和颜色的信息分开存储呢？这在实际应用中也许可以使得各个属性之间保持相互的独立。本章补充内容需要做的事情就是这个。
