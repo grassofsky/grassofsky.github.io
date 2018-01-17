@@ -1,209 +1,95 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blogs on Stupidgrass&#39;s Notepad Online</title>
-    <link>https://stupidgrass.github.io/blog/</link>
-    <description>Recent content in Blogs on Stupidgrass&#39;s Notepad Online</description>
+    <title>Blogs on Notepad Online</title>
+    <link>http://stupidgrass.github.io/blog/</link>
+    <description>Recent content in Blogs on Notepad Online</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
     <lastBuildDate>Fri, 16 Jun 2017 12:00:00 +0600</lastBuildDate>
     
-	<atom:link href="https://stupidgrass.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://stupidgrass.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>9. 在深度的对象</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</link>
       <pubDate>Fri, 16 Jun 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</guid>
-      <description>原文: https://paroj.github.io/gltut/
-第五章 在深度的对象 在这一章中，我们将会处理如何渲染多个对象，特别是当多个对象之间有一定的重叠的时候。
-opengl中的多个对象 首先需要知道的是对于相互重叠的多个对象进行绘制的时候发生了什么。这个概念的介绍对于后续内容的理解将起到一定的帮助作用。
-一个对象，在绘制过程中，可以被认为是一次draw调用产生的结果。因此，一个对象是由一系列的小三角形组成的，还带有自己独立的对象属性。
-顶点数组对象 到目前为止，每当我们进行一些绘制的时候，我们需要做一些准备工作。如，设置顶点着色器中需要用到的各个顶点的属性：
- 使用glEnableVertexAttribArray来激活属性 使用glBindBuffer(GL_ARRAY_BUFFER)将上下文和缓存对象进行绑定，对象中含有顶点的属性。 使用glVertexAttribPointer来定义上一条中绑定的缓存对象中的数据格式。  拥有越多的属性，就说明在具体的渲染工作之前需要更多的准备工作。为了减轻准备工作的负担，opengl提供了用来存储这些状态的对象：顶点数组对象(VAO, Vertex Array Object)。
-VAO通过glGenVertexArray函数进行创建。其使用方式类似于glGenBuffers。通过这个函数的一次调用，可以创建多个对象。对象使用GLuints来表示的。
-接着，使用glGenVertexArray将创建的对象绑定到上下文中。这个函数不想glBindBuffer需要指定目标位置。因为，他仅能够使用VAO进行绑定。
-一旦VAO绑定后。可以通过调用一些函数来改变绑定到VAO的一些数据。技术上来将就是改变VAO的状态。上述讲到的内容可以总结为两句话：
-glGenVertexArrays(1,&amp;amp;vao); glBindVertexArray(vao);  上面的语句创建了单个vao。下面的函数用来改变vao的状态，因此如果当前没有绑定vao，就进行下面的函数的调用，调用就会不起作用。
- glVertexAttribPointer glEnableVertexAttribArray/glDisableVertexAttribArray glBindBuffer(GL_ELEMENT_ARRAY_BUFFER)，这个函数不经过vao的绑定进行调用是不会失败的。   buffer binding和attribute association 你也许会注意到，glBindBuffer(GL_ARRAY_BUFFER)并没有出现在上述的函数中，尽管该函数也属于渲染属性设置的一部分。这是因为调用glBindBuffer(GL_ARRAY_BUFFER)的时候，并没有将缓存对象和顶点属性进行绑定。这两者之间的关联性是在你调用glVertexAttribPointer的时候建立起来的。
-当你调用glVertexAttribPointer函数的时候，opengl直接将与顶点属性相关联的缓存区直接绑定到了GL_ARRAY_BUFFER上。试想一下，GL_ARRAY_BUFFER绑定的是glVertexAttribPointer能够读取的全局指针变量。因此，在调用glVertexAttribPointer之后，对于GL_ARRAY_BUFFER绑定的对像进行更改是不会产生影响的。因此，VAO存储与属性相关的缓存对象，并不存储通过GL_ARRAY_BUFFER绑定的对象。
-如果你想要知道为什么在不使用vao的时候，glVertexAttribPointer没有使用这种缓存对象获取的方式，而是使用bind+call的方式，这是api遗留技术。当缓存对象最早被引入的时候，为了尽量上的影响现有api的调用。原先的glVertexAttribPointer设计成了依赖于缓存对象是否绑定到了GL_ARRAY_BUFFER。而现在，如果没有缓存对象绑定到GL_ARRAY_BUFFER，直接调用该函数就会引发错误，成为了一种让人恼火的事情了。
- 这样就允许我们在后期调用渲染函数的时候，只要绑定当前创建的vao即可。在使用的时候，有一点需要注意的是，vao中存储的状态并不是永恒不变的。上述任何函数的调用都会引起vao内部状态的变化。
-基于索引的绘制 在上一章中，我们绘制了长方体。如果你仔细查看顶点的数据，你会发现其中很多个顶点数值是重复的。为了绘制立方体的一个面，我们需要绘制两个三角形，需要6个顶点，其中有两个顶点是相同的。
-对于上例中的简单的问题，重复点的数量是比较少的。但是考虑到一个立方体有六个面，每个面有四个点，这样需要24个点，但是每个面是以三角形为基本单位进行绘制的，因此总共需要6×6=36个点。那么再想象一下，对于类似与人体这样复杂的表面的构建，需要的点的数量将是及其庞大的，重复的点的出现会占用很多的内存空间。而将重复的数据移除，在一定程度上可以将顶点的数量缩减到一半甚至更多。
-为了一处多余的点，我们必须采用基于索引的绘制方式。而不是基于数组的绘制方式。在早一些的章节中，我们给出了glDrawArrays的伪代码：
-Example 5.1 Draw Arrays Implementation
-void glDrawArrays(GLenum type, GLint start, GLint count) { for (GLint element = start; element &amp;lt; start + count; element++) { VertexSahder(positionAttribArray[element], colorAttribArray[element]); } }  这就描述了基于数组的绘制是怎么工作的。你给出了绘制的起点，以及个数。</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第五章 在深度的对象 在这一章中，我们将会处理如何渲染多个对象，特别是当多个对象之间有一定的重叠的时候。 opengl中的多个对象 首先需要</description>
     </item>
     
     <item>
       <title>8. 其他的对象</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</link>
       <pubDate>Thu, 15 Jun 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</guid>
-      <description>原文: https://paroj.github.io/gltut/
-第四章 其他的对象 到目前为止，我们看到的都是平面的对象。比如，单个三角形。这一章，会介绍如何创建一个现实中的对象。
-不真实的世界 orthographic cube例子会渲染一个正交投影的长方体。长方体的长宽高分别是0.5x0.5x1.5。这个例子中的大部分代码和之前的都比较类似。区别的地方是，我们绘制了12个三角形而不是一个三角形。因为一个长方体有六个面，每个面由两个三角形组成。
-顶点一样拥有颜色。但是，形成一个面的6个顶点的颜色通常是一样的。
-面消隐 一个非常值得注意的改变是，在初始化的时候，我们使用了一些新的函数：
-Example 4.1. Face Culling Initialization
-void init() { InitializeProgram(); InitializeVertexBuffer(); glGenVertexArrays(1, &amp;amp;vao); glBindVertexArray(vao); glEnable(GL_CULL_FACE); glCullFace(GL_BACK); glFrontFace(GL_CW); }  代码中的最后三行是新的。
-GL_CULL_FACE标识用来告诉opengl激活面消隐的功能。到目前位置，我们都没有使用过激活面消隐功能。面消隐对于提高性能而言是一个很有用的特征。打个比方，对于长方体而言，我们从任何一个视角看去，最多只能够看到三个面，那么我们就没有必要对看不到的面进行渲染处理。
-在窗口坐标系中，通过标准化设备坐标系变换过来的点能够组成一个三角形。三角形的每个顶点在opengl中以一定的顺序表示。这样使得你可以计数三角形顶点的方式。
-不管这个三角形的大小和形状，你可以将三角形分为两类：顺时针和逆时针的。如下图所示。左边的图是顺时针的，右边的图是逆时针的。这个的顺序被称为顶点连接顺序。
-Figure4.1 Triangle Winding Order
-opengl中的面选择就是基于这个顺序的。glFrontFace定义了那种旋转顺序，GL_CW和GL_CCW分别表示顺时针和逆时针。函数glCullFace定义了让哪个面不显示，后面，前面还是都不显示。对应的tag有GL_BACK，GL_FRONT，GL_FRONT_AND_BACK。在这个例子中，我们将背面的face隐藏起来了。
-缺少视角 此时得到的图像如下：
-Figure 4.2 Orthographic prism
-这个显示是有问题的。因为，试着想象一下，我们将一个立方体放到眼睛的正前方，只能看到立方体的的一个面，但当我们将立方体往右上方摆放时，能够看到下方和左边的面。但是，这里我们没有看到对应的面，这是为什么呢？
-回想一下渲染中发生了什么。在裁剪坐标系中，后面的顶点刚好在正面顶点的正后放，当变换到屏幕坐标系后，这种相对位置没有发生变化，因此只能够看到正前方的面。
-这里一定是我们遗漏了某些操作。此处正是“透视”。
-透视投影 我们最终形成的图像是在屏幕上的二维像素点。3D渲染管线通过转换矩阵将点从裁剪坐标系转换到屏幕坐标系。一旦点到了窗口坐标系，2D三角行就渲染出来了。
-根据渲染管线中的定义，投影是将一个维度转变成另一个维度。我们初始的世界坐标系的维度是三维的，因此，渲染管线定义的投影就是将3D的点转换成2D的点。最终渲染得到的三角形就是2D的。
-这里我们感兴趣的是有限投影，将对象投影到更低维度的有限空间中。对于3D到2D的投影，是对面进行投影；对于2D到1D的投影是对线进行投影。
-正交投影是一个非常简单的投影。当投射到一个坐标轴对齐的表面，如下所示，
-Figure4.3 2D to 1D Orthographic Projection«»
-一个场景正交投影到一个黑色的线上。灰色的盒子表示世界中经过投影后可以看到的部分；在灰色部分之外的区域是不可见的。
-当投影到任意的直线上时，此时的数学表达将更加的复杂。但是在创建正交投影的时候，垂直于表面的维度将被消除。正是垂直方向上的投影和一致性构成了正交投影。
-通过人眼看到的世界并不是正交投影。如果是的话，你就只能够看到瞳孔大小的世界了。
-对于我们眼睛看东西可以用针孔相机模型进行模拟。这个模型表现出来的就是透视投影。透视投影就是通过一个点来看到世界在一个面的投影。2d到1d的透视投影看上去如下图：
-Figure 4.4 2D to 1D Perspective Projection</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第四章 其他的对象 到目前为止，我们看到的都是平面的对象。比如，单个三角形。这一章，会介绍如何创建一个现实中的对象。 不真实的世界 orthographic cub</description>
     </item>
     
     <item>
       <title>7. opengl移动三角形</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
       <pubDate>Thu, 01 Jun 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
-      <description>原文: https://paroj.github.io/gltut/
-第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。
-移动点 也许能够想到的移动三角形或其他对象最简单的方法是直接改变顶点的数据。从前面的章节中，我们学习了顶点数据是存储在缓存对象中的。于是，更改数据，就是更改缓存区中的数据。cpu_position_offset.cpp就是这么实现的。
-整个更改通过了两个过程完成的。首先，针对每个点生成x，y的偏移量,然后将偏移量赋值到每一个点的位置。偏移量的生成ComputePositionOffset。
-Example 3.1 Computation of Position Offsets
-void ComputePositionOffsets(float &amp;amp;fXOffset, float &amp;amp;fYOffset) { const float fLoopDuration = 5.0f; const float fScale = 3.14159f * 2.0f / fLoopDuration; float fElapsedTime = glutGet(GLUT_ELAPSED_TIME)/1000.0f; float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration); fXOffset = cosf(fCurrTimeThroughLoop*fScale)*0.5f; fYOffset = sinf(fCurrTimeThroughLoop*fscale)*0.5f; }  上述计算得到的偏移量可以产生环状运动，而且在每隔5s，偏移量会回到原来的值(通过fLoopDuration控制)。函数glutGet(GLUT_ELAPSED_TIME)用来获取程序开始时，以毫秒为单位的整数时间。fmodf用来计算时间的浮点型模。因此，该函数返回值的范围为[0,fLoopDuration)。
-一旦求得偏移量，偏移量将会被加到顶点坐标中。
-Example 3.2 Adjusting the Vertex Data
-void AdjustVertexData(float fXOffset, float fYOffset) { std::vector&amp;lt;float&amp;gt; fNewData(ARRAY_COUNT(vertexdPositions)); memcpy(&amp;amp;fNewData[0], vertexPositions, sizeof(vertexPositions)); for (int iVertex=0; iVertex&amp;lt;ARRAY_COUNT(vertexPositions); iVertex+=4) { fNewData[iVertex] += fXOffset; fNewData[iVertex+i] += fYOffset; } glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferSubData(GL_ARRAY_BUFFER,0,sizeof(vertexPositions), &amp;amp;fNewData[0]); glBindBuffer(GL_ARRAY_BUFFER, 0); }  这个函数创建了一个临时对象fNewData，并将顶点偏移后的值存入其中，然后将带偏移的量通过glBufferSubData将值传递给缓存对象。</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法</description>
     </item>
     
     <item>
       <title>1. 关于这本书</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</link>
       <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</guid>
-      <description>关于这本书 三维图像处理硬件很快成为了必不可少的组件。很多操作系统能够直接使用三维图像硬件，有些甚至要求需要有3D渲染能力的硬件。同时对于日益增加的手机系统，3D图像硬件，也成为了它们的必备特征。
-对于大多数刚刚接触图像以及渲染的人，想要深入理解图像硬件是一件有挑战的事情。
-为什么阅读这本书 现在已经有很多教授图形学相关的实体书。网络上关于图形学的介绍将更多，常见的形式有，wikis，博客，入门类型的，以及论坛。那么这本书提供了哪些其他书籍所没有提供的内容呢？
-从编程性上讲，所有先前提到的资源都是指导初学者按照特定的流程学习新的事物。这样的流程如，将特定的参数设置到较旧的图形显卡上，从而实现特定的渲染过程。这样的按照固定函数流实现编程的方式，通常被认为是教授新的图像编程者的最佳方式。
-这种考虑被认为是正确的，因为它能够很快让初学者实现某种特定的功能。如，让一张图片看起来更加的真实。固定函数流的实现方式就像是教骑自行车，照着做就行。
-这种方法也存在一些弊端。首先，通过这种方式学习得到的东西在遇到必须通过编程性解决的实际问题时，就没法搞定了。通常的编程能力并不能简单的通过流水线的方式学习到，因此学习得到的只是也不能很好的得到转换。
-还有一种潜在的问题是，按照固定的函数来进行学习，会产生掌握某种知识的错觉。学习者可能会认为他们已经对他们为什么这么做有了充分的理解，但是他们仅仅是进行了粘贴复制而已。因此，编程也成为了一种类似于魔术的存在：当你将部分代码粘贴到另一部分代码之前，然后所有的事情貌似开始正常工作了。
-这个就使得调试成为了初学者的噩梦。因为，他们从来没有真正理解过代码，也就没有能力去诊断这个特殊的问题到底是什么原因引起的。没有这样的能力，那么调试就成为了猜测性的活动，去猜这个问题到底是什么，以及产生问题的原因。
-类似的是，你在理解变成系统之前，并不能很好的使用它。面对可编程的图像硬件意味着面对固定函数式的变成材料通常掩饰的问题。因此，通常在开始阶段，学习进阶的会相对而言比较慢，但当你坚持到最后，你真的会知道每一件事情具体是怎么工作的。
-另一个问题是，即使你对固定的函数流程有了很好的掌握，它也将会限制你思考如何解决问题的能力。由于固定函数的不可变性，它会将你限制在问题的解决过程中，而不会考虑问题或解决过程的来源。它会鼓励你将纹理想象成图片，把顶点的数据想象成纹理坐标，颜色，或是位置等。从它的本质可以看出，它会限制创造力和问题的解决能力。
-最后，甚至在便携系统中，固定的函数式功能通常不能在对应的图像硬件上实现。对于大多数图形硬件，可变成性是当前的基本需求，在未来可编程性将成为不可或缺的一部分。
-这本书提供了关于那些内容是高级概念的的入门级指导。从基础教授可编程的图形渲染。
-这本书也包括了其他材料通常会忽略“高级概念”。这些概念并不是真正高级，而是很多入门级材料由于固定函数难以实现而将其忽略。
-这本书是最早的，最重要的讲述如何成为图形编程者的书。因此，在任何可能的地方，这本书会以有趣的方式鼓励读者探索图形硬件能够干什么。一个好的图形编程者将图形硬件视为一系列满足他们需求的工具，这本书正式鼓励采取这样的想法。
-但是，这本书并不是讲述图形api的书籍。尽管它使用了OpenGL，并且通过OpenGL的方式来讲述渲染的概念，但是它并不是一本详细知道使用OpenGL API的书籍。为了说明不同的图形的概念，该书并没有覆盖所有的API，也没有详细的介绍用到的API所能够支持的所有功能。如果，你已经对图形有了一定的了解，并且需要一本书来交你现代OpenGL的编程模式，那么这本书就是你所需要的。这本书虽然会涉及到不同的API，但是它对概念的介绍会比API的介绍更加的详细。
-这本书主要是为了教你如何成为一个图形编程者。并不是特定的图形领域，它主要是为了涵盖几乎所有的基本3D渲染操作。所以，你如果想要成为游戏开发，CAD程序设计者，做一些计算机视觉，或者其他类似的事情，这本书就恰好适合你。这并不意味着它将会涵盖所有3G图形相关的内容。通俗的讲，它是为了你在3D图形领域进一步发展打基础用的。
-最优化的概念在这本书中并没有深入的展开。主要是因为，这一系列相关的内容是高级的话题。最优化通常也与操作系统，硬件密切相关。它们也有可能和使用到的API相关。最优化会在文章的不同地方有所涉及，但对于一个图形编程初学者而言还是一个很复杂的话题。在本书的附录中，有关于最优化的一些大体的介绍。
-你想要什么 这是一本给图像编程初学者的书，也可以帮助那些对固定函数流的实现方式比较熟悉的读者进一步的理解可编程渲染的原理。
-这本书并不适合编程初学者。
-希望读者具有能够读懂C和C++代码的能力。如果C/C++知识的掌握程度仅仅是hello world，那么在进一步学习这本书之前，需要掌握更多的编程知识，直到能够写出更有深度的代码。三维图像渲染根本不是一个入门的编程任务，对于传统的图像学习和现代图像学习也是如此。
-这本书中的辅导材料也可以用别的编程语言实现。如果你可以阅读C/C++的代码，对于理解这本书中的代码已经足够了。文中还对辅导材料中出现的代码进行了进一步的解释。
-任何大量的关于3D渲染的讨论都会有数学的相关论述。这些数学知识都是3D图形学的基础。想要更好的理解这本书，需要你具有基本的集合和代数能力。当必要的时候，本书会介绍一些更高级的数学知识。但是，你至少需要了解集合和代数知识，并不包括线性代数。
-这本书中的源代码采用OpenGL作为图形渲染的API。当开始的时候，你并不需要认识什么是OpenGL，但是需要对代码进行编译和运行，所以你还是需要有个OpenGL的开发环境。
-需要特别说明的是，你的图形显卡需要能够支持OpenGL3.3的版本。这意味着任何一款GeForce 8xxx或更好的显卡，或是Radeon HD类型的显卡都可以。这些显卡也被称为Direct3D 10显卡，但是你并不需要window vista或window 7的操作系统来运行OpenGL。你还需要从显卡的官方网站上下载和安装最新的驱动。除了显卡驱动和辅助材料中的代码，你并不需要下载或安装其他的东西。
-开放的 这本书是为了教授图形编程者基本的图形开发知识。最重要的事情是，你乐意去学习它们。
-通常情况下，程序员会通过上网搜索或在书本中查找的方式来寻找解决特殊问题的方法。当他们找到的时候，会将代码拷贝到他们的应用中，然后执行代码来检验这段代码是否可行。这种方式能够很快的找到结果，但是这样并不能真正的理解这段代码。
-当第一次阅读这本书的时候，可以对一些特别的问题不进行过多的思索。你可以带着问题进行阅读，但是不建议，带着寻找问题答案的方式来驱动你阅读本书。正确的方式，应该是关注内容本身。当你看完这本书的时候，你可以反过来再回顾一下，看一下你是否对想要解决的问题有了深入的了解。
-也许，你会发现你有更好的解决方案。
-这本书的组织结构 这本书被分解成一些普通的主题。每个主题都包含了几章内容。每一章中的辅导材料都描述了相近的问题。几乎每一个概念都是通过代码片段的方式进行阐述。
-每一个辅导材料都是从即将被讨论和证实的概念出发。在每一章的结尾都包含了对本章内容的回顾，以及本章内容中涉及的术语。回顾的小节会对本章中出现的概念进行解释，也会包含一些与代码本身相关的建议，这些会有助于你更深层次的理解这些概念。如果这章节中引入了新的OpenGL函数，或OpenGL纹理函数，在这里也会进行回顾。
-这本书是面向图形编程初学者的。图形是一个很大的领域，不存在可以涵盖所有内容的一本书。这本书同样没能涵盖所有的技术内容。有些时候，前面提到过的技术内容会在后面的材料中给出详细的介绍，但是并没有足够的空间将所有相关的内容讲清楚。因此，本书中在介绍一些技术内容的时候，会在接下来的小节中粗略的涉及到相关的更高级的技术。这将有助于读者在图形编程的研究中，认识到哪些内容将会对你有所帮助。
-在每一章的结尾，都会对本章中出现的术语进行总结。</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</guid>
+      <description>关于这本书 三维图像处理硬件很快成为了必不可少的组件。很多操作系统能够直接使用三维图像硬件，有些甚至要求需要有3D渲染能力的硬件。同时对于日益</description>
     </item>
     
     <item>
       <title>2. 环境设置</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</link>
       <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</guid>
-      <description>环境设置 由于本书中的例子，均是基于OpenGL实现的，因此你的工作环境需要能够运行OpenGL，为了读者能够更好的运行原文中的示例，此处简单地介绍了linux和windows下OpenGL环境的配置。需要配置的是除了OpenGL基础环境外，还需要freeglut和glew。具体的配置见下面的内容。
-linux 由于译者使用的linux版本为mint 18 sarah，此处就以mint系统为例进行linux下的环境配置。
-sudo apt-get install build-essential libgl1-mesa-dev git libglu1-mesa-dev sudo apt-get install libglew-dev freeglut3-dev // 使用glxinfo查看OpenGL支持的版本，如下所示 ~$ glxinfo | grep OpenGL OpenGL vendor string: NVIDIA Corporation OpenGL renderer string: GeForce 940MX/PCIe/SSE2 OpenGL core profile version string: 4.5.0 NVIDIA 367.57 OpenGL core profile shading language version string: 4.50 NVIDIA OpenGL core profile context flags: (none) OpenGL core profile profile mask: core profile OpenGL core profile extensions: OpenGL version string: 4.</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</guid>
+      <description>环境设置 由于本书中的例子，均是基于OpenGL实现的，因此你的工作环境需要能够运行OpenGL，为了读者能够更好的运行原文中的示例，此处简单</description>
     </item>
     
     <item>
       <title>3. 基础简介</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</link>
       <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</guid>
-      <description>基础简介 并不像本书的其他章节，这章内容没有相关的源代码或是项目。本章，我们将讨论向量，图形渲染理论，以及OpenGL。
-向量 在阅读这本书的时候，你需要熟悉代数和几何知识，但对于向量的理解并不是必要的。因为，在接下去的内容中，会对向量的基本概念作出介绍。
-在面对几何或是数值相关的内容时，向量可以有很多不同的解释。在任何一种情况，向量是具有维度的。二维的向量限制在一个平面上，然而三维的向量可以在任何的物理空间。向量还可以有更高的维度，但是通常情况下，我们处理的向量的维度只在二维到四维之间。
-严格的来说，向量还可以存在仅仅一维的情况。这样的向量被称为标量。
-在几何术语中，向量可以表示两个概念：一个空间中的位置或是一个方向。
-向量的位置表示空间中一个特殊的位置。如，在下图中我们有一个向量位置A。
-Figure1 vector position
-向量也可以表示为方向。方向向量没有一个原点；只用来表示空间中的方向。下图中给出了不同的方向向量，其中B和D虽然画在不同的位置，但它们是相同的方向向量。
-Figure2 Direction Vectors
-对于几何而言，以上的表达方式已经够用了，但是向量还可以被解释成数值。这时候，一个向量表示为一个数字序列，没一个数字表示一个维度。因此，二维的向量有两个数字；三维的向量有三个数字。对于四维向量也是一样的。从数字上来说，标量仅仅是一个数字。
-向量中的没一个数字都被称为要素（component）。每一个要素都有自己的名字。对于我们而言，向量的第一个要素被成为X，第二个被成为Y，第三个是Z，第四个是W。
-当用文本的方式来书写向量的时候，它们通常被括号包围。因此，一个3D向量可以是(0,2,4)，其中X为0,Y为2,Z为4.当他们以公式的形式进行书写的时候，表现形式为：
-$$ \vec {a} = \left[ \begin{matrix} 1 2 3 \end{matrix} \right] $$
-在数学公式中，向量变量会以粗体或是上面带箭头的形式出现。
-当在绘制向量的时候，需要区分位置向量和方向向量。但是，它们两者的数值并没有区别。唯一的区别是你怎么使用它们，而不是怎么用数字表达它们。因此，你可以把一个点考虑成一个向量，然后执行一些操作，最后再将它考虑成一个点。
-虽然向量的各个成分之间是独立的，但是数学公式操作它们的时候，它们是一个整体。在接下来的内容中，我们会通过几何和数值的方式展示一些操作。
-向量加法 你可以对两个向量执行加法操作。从图形上看是这样的：
-Figure3 Vector Addition
-要记得的是，方向向量在不改变具体数值的情况下，可以对其进行移动。因此，如果你将两个向量放置为首位相接，向量的加法可以简单的表示成从第一个向量的尾部指向第二个向量的头。
-Figure4 Vector Addition Head-to-Tail
-从数值上来讲，两个向量的求和就是将两个向量的各个成分相加，
-公式1. 向量相加 $$ \vec{a} + \vec{b} = \left[ \begin{matrix} a_x \ a_y \ a_z \end{matrix} \right] + \left[ \begin{matrix} b_x \ b_y \ b_z \end{matrix} \right] = \left[ \begin{matrix} a_x+b_x \ a_y+b_y \ a_z+b_z \end{matrix} \right] $$</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</guid>
+      <description>基础简介 并不像本书的其他章节，这章内容没有相关的源代码或是项目。本章，我们将讨论向量，图形渲染理论，以及OpenGL。 向量 在阅读这本书的时候</description>
     </item>
     
     <item>
       <title>4. 你好，三角形</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</link>
       <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</guid>
-      <description>你好，三角形 传统的入门教程在介绍编程语言的时候，通常从“Hello，World！”的程序开始。这样的程序拥有最简单的能够直接输出“Hello, World!”的代码。这是一种熟悉编译系统以及代码执行的很好的一种方式。
-使用opengl来写实际的文本的具有一定难度的。在第一章中，我们采用将三角形绘制到屏幕上还取代文本的输出。
-本章例子中的代码 #include &amp;lt;iostream&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;fstream&amp;gt; #include &amp;lt;vector&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;sstream&amp;gt; #include &amp;lt;GL/glew.h&amp;gt; #include &amp;lt;GL/glut.h&amp;gt; #include &amp;lt;GL/gl.h&amp;gt; GLuint positionBufferObject; GLuint theProgram; const float vertexPositions[] = { 0.75f, 0.75f, 0.0f, 1.0f, 0.75f, -0.75f, 0.0f, 1.0f, -0.75f, -0.75f, 0.0f, 1.0f, }; void InitializeVertexBuffer() { glGenBuffers(1, &amp;amp;positionBufferObject); glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW); glBindBuffer(GL_ARRAY_BUFFER, 0); } GLuint CreateShader(GLenum eShaderType, const std::string &amp;amp;strShaderFilename) { GLuint shader = glCreateShader(eShaderType); std::ifstream ifile(strShaderFilename.</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</guid>
+      <description>你好，三角形 传统的入门教程在介绍编程语言的时候，通常从“Hello，World！”的程序开始。这样的程序拥有最简单的能够直接输出“Hello</description>
     </item>
     
     <item>
       <title>5. 设置颜色</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</link>
       <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</guid>
-      <description>设置颜色 这一章会对上一章中绘制的三角形进行颜色的设定。而不是单纯的设置一个单一的颜色，这里我们会使用两种方式来对这个三角形设置颜色的变化。这些方法有使用片段位点来计算颜色，和前一个顶点数据来计算颜色。
-片段位置显示 正如我们在引言中提到的，片段的数据中的一部分包括片段在屏幕上的位置。因此，如果我们想要在三角形表面上设定变化的颜色，我们可以访问当前片段着色器内的数据，并用来计算最终的颜色。
-在这一章中，我们对纹理的加载，项目对象的创建进行了封装。具体代码如下：
-// TODO add source code #ifndef _GLSL_PROGRAM_ #define _GLSL_PROGRAM_ #include &amp;lt;vector&amp;gt; #include &amp;lt;fstream&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;sstream&amp;gt; class GLSLProgram { public: bool AddShader(GLenum shaderType, const std::string&amp;amp; shaderFileName) { GLuint shader = glCreateShader(shaderType); std::ifstream ifile(shaderFileName.c_str()); std::stringstream buffer; buffer &amp;lt;&amp;lt; ifile.rdbuf(); std::string contents(buffer.str()); const char* pContents = contents.c_str(); glShaderSource(shader, 1, &amp;amp;pContents, NULL); glCompileShader(shader); GLint status; STATUS, &amp;amp;status); if (status == GL_FALSE) { GLint infoLogLength; glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &amp;amp;infoLogLength); GLchar *strInfoLog = new GLchar[infoLogLength+1]; glGetShaderInfoLog(shader, infoLogLength, NULL, strInfoLog); fprintf(stderr, &amp;quot;Compile failure in %d shader: \n%s\n&amp;quot;, shaderType, strInfoLog); delete[] strInfoLog; return false; } shaderList_.</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</guid>
+      <description>设置颜色 这一章会对上一章中绘制的三角形进行颜色的设定。而不是单纯的设置一个单一的颜色，这里我们会使用两种方式来对这个三角形设置颜色的变化。这</description>
     </item>
     
     <item>
       <title>6. opengl使用不同的缓存对象</title>
-      <link>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</link>
+      <link>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</link>
       <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
       
-      <guid>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</guid>
-      <description>opengl使用不同的缓存对象 在设置颜色一章中，我们使用了一个缓存对象来存储点和颜色的信息。那么我们有没有可能，将点和颜色的信息分开存储呢？这在实际应用中也许可以使得各个属性之间保持相互的独立。本章补充内容需要做的事情就是这个。
-相对于上一章需要改变的内容有 顶点属性和颜色分别独立存储：
-const float vertex[] = { 0.0f, 0.5f, 0.0f, 1.0f, 0.5f, -0.366f, 0.0f, 1.0f, -0.5f, -0.366f, 0.0f, 1.0f, }; const float color[] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f };  Vertex Array Object 上一章中，绘制图像所需的数据都存储在Vertex Buffer Object中，然后利用glVertexAttribPointer来告诉opengl该缓存对象中的哪个数据段是顶点位置属性，哪些数据段是颜色属性。如果想要将多个属性分别存储于独立的VBO中，那么此处就需要VAO出马上任了。VAO能够用来存储多个VBO对象的对象。它被设计用来存储用于完成对象渲染所需要的信息：这里包括，数据，数据格式，以及不同的数据对应的着色器中的location。
-于是将上一章中的InitializeVertexBuffer改成InitializeVAO
-void InitializeVAO() { glGenVertexArrays(1, &amp;amp;vao); glBindVertexArray(vao); glGenBuffers(1, &amp;amp;positionBufferObject); glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); glBufferData(GL__ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW); glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0); glGenBuffers(1, &amp;amp;colorBufferObject); glBindBuffer(GL_ARRAY_BUFFER, colorBufferObject); glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW); glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0); glBindBuffer(GL_ARRAY_BUFFER, 0); }  同时display中的代码也需要进行如下的修改：</description>
+      <guid>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</guid>
+      <description>opengl使用不同的缓存对象 在设置颜色一章中，我们使用了一个缓存对象来存储点和颜色的信息。那么我们有没有可能，将点和颜色的信息分开存储呢？</description>
     </item>
     
   </channel>

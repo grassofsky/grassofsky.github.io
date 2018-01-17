@@ -1,90 +1,115 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<?xml-stylesheet type="text/xsl" href="http://stupidgrass.github.io/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/9_objects_in_depth/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/8_objects_at_rest/</loc>
     <lastmod>2017-06-15T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</loc>
     <lastmod>2017-06-01T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/1_about_this_book/</loc>
     <lastmod>2017-05-30T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/2_set_up_environment/</loc>
     <lastmod>2017-05-30T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/3_basic_introduction/</loc>
     <lastmod>2017-05-30T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/4_hello_triangle/</loc>
     <lastmod>2017-05-30T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/5_playing_with_colors/</loc>
     <lastmod>2017-05-30T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</loc>
+    <loc>http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/6_various_buffer_object/</loc>
     <lastmod>2017-05-30T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/blog/</loc>
+    <loc>http://stupidgrass.github.io/blog/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/categories/</loc>
+    <loc>http://stupidgrass.github.io/categories/</loc>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/tags/learningmodern3dgraphicsprogramming/</loc>
+    <loc>http://stupidgrass.github.io/tags/learningmodern3dgraphicsprogramming/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/tags/opengl/</loc>
+    <loc>http://stupidgrass.github.io/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/</loc>
+    <loc>http://stupidgrass.github.io/tags/opengl/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/tags/</loc>
+    <loc>http://stupidgrass.github.io/tags/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://stupidgrass.github.io/categories/translation-of-books/</loc>
+    <loc>http://stupidgrass.github.io/categories/translation-of-books/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   

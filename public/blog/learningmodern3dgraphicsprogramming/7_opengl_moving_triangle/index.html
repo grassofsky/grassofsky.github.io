@@ -1,103 +1,153 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>7. opengl移动三角形 - Notepad Online</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Zhong Xiewei" />
+  <meta name="description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
 <meta name="generator" content="Hugo 0.21" />
 
-  <base href='https://stupidgrass.github.io/'>
-  
+
+<link rel="canonical" href="http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<title>7. opengl移动三角形 &bull; Stupidgrass</title>
 
-  <link rel='canonical' href='https://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/'>
-  <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  <link href='' rel='alternate' type='application/rss+xml' title='Stupidgrass&#39;s Notepad Online' />
-  
-<link rel='stylesheet' href='/css/main.css'>
-<link rel='stylesheet' href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
 
+
+
+
+<link href="/dist/even.min.css?v=2.7.2" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="7. opengl移动三角形" />
+<meta property="og:description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://stupidgrass.github.io/blog/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/" />
+
+
+
+<meta property="article:published_time" content="2017-06-01T12:00:00&#43;06:00"/>
+<meta property="article:modified_time" content="2017-06-01T12:00:00&#43;06:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="7. opengl移动三角形">
+<meta itemprop="description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法">
+
+
+<meta itemprop="dateModified" content="2017-06-01T12:00:00&#43;06:00" />
+<meta itemprop="wordCount" content="4576">
+
+
+
+<meta itemprop="keywords" content="translation-of-books,learningmodern3dgraphicsprogramming,opengl," />
+
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:text:title" content="7. opengl移动三角形"/>
+<meta name="twitter:title" content="7. opengl移动三角形"/>
+<meta name="twitter:description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法"/>
+
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
 
 </head>
-
-
-<body class='page'>
-  <div class='site'>
-    <header id='header' class='header-container'>
-      <div class='site-header'>
-        <nav id='navmenu'>
-  <ul class='main-menu'>
-    
-    <li>
-      <a href='https://stupidgrass.github.io/' class=''>Home</a>
-    </li>
-    
-    <li>
-      <a href='https://stupidgrass.github.io/blog/' class=''>Blog</a>
-    </li>
-    
-    <li>
-      <a href='https://stupidgrass.github.io/categories/' class=''>Categories</a>
-    </li>
-    
-    <li>
-      <a href='https://stupidgrass.github.io/tags/' class=''>Tags</a>
-    </li>
-    
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
   </ul>
 </nav>
-
-        <div class='site-info'>
-          
-          <p class='site-title title'>Stupidgrass&#39;s Notepad Online</p>
-          
-          <p class='site-description'>Medical image rendering, c&#43;&#43;, python, and others</p>
-        </div>
-      </div>
-    </header>
-
-
-<main class='main'>
-  <article class='single'>
-    <header class='single-header'>
-  <div class='single-info'>
-    <h1 class='single-title title'>7. opengl移动三角形</h1>
-    
-  </div>
-  
-<div class='meta'>
-  <span class='posted-on'>
-    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
-  
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  
-</svg>
-
-    <time class='date'>1067, May 120</time>
-  </span>
-  <span class='byline'>
-    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
-  
-  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
-  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
-  
-</svg>
-
-    <a href="#">Stupidgrass</a>
-  </span>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
 </div>
 
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
 
-</header>
-
-    <div class='single-content'>
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+  <div class="post-content">
       
 
 <p><strong>原文</strong>: <a href="https://paroj.github.io/gltut/">https://paroj.github.io/gltut/</a></p>
@@ -430,81 +480,71 @@ void main()
 <li>在两个不同着色器中定义的相同的uniform对象是同一个对喜爱那个。</li>
 </ul>
 
-    </div>
-    
-<footer class='single-footer'>
-  
-    
-    
-
-<div class='categories'>
-  <span class='category-icon'>
-    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
-  
-  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
-  
-</svg>
-
-  </span><a class='category' href='/categories/translation-of-books'>Translation of books</a></div>
-
-  
-    
-    
-
-<div class='tags'>
-  <span class='tag-icon'>
-    <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
-  
-  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
-  <line x1="7" y1="7" x2="7" y2="7"/>
-  
-</svg>
-
-  </span><a class='tag' href='/tags/opengl'>opengl</a>, <a class='tag' href='/tags/learningmodern3dgraphicsprogramming'>LearningModern3DGraphicsProgramming</a></div>
-
-  
-</footer>
-
-
-  </article>
-</main>
-
-    <footer id='footer' class='footer-container'>
-      <div class='footer'>
-        <div class='social'>
-          <nav>
-  <ul class='social-menu'>
-  
-    
-    <li>
-      <a href='https://github.com/stupidgrass' target='_blank'>
-        GitHub
-      </a>
-    </li>
-    
-  
-  </ul>
-</nav>
-
+  </div>
+</article>
         </div>
-
-        <div class='copyright'>
-          
+        
   
 
-<p>
-  &copy; 2017 MunifTanjim
-</p>
+  
 
-        </div>
+  
       </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:grass-of-sky@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/stupidgrass" class="iconfont icon-github" title="github"></a>
+  <a href="http://stupidgrass.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhong Xiewei</span>
+  </span>
+</div>
     </footer>
 
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
   </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.7.2"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
-  <script src='/js/main.js'></script>
+
+
 
 </body>
-
 </html>
-
