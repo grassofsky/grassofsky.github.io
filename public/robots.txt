@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://stupidgrass.github.io/sitemap.xml
+Sitemap: https://stupidgrass.github.io/sitemap.xml
