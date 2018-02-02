@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deep Learning on Notepad Online</title>
+    <link>http://127.0.0.1:1313/categories/deep-learning/</link>
+    <description>Recent content in Deep Learning on Notepad Online</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 02 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://127.0.0.1:1313/categories/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>二元线性回归分析</title>
+      <link>http://127.0.0.1:1313/post/deeplearning/double_linear_regression/</link>
+      <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/deeplearning/double_linear_regression/</guid>
+      <description>double_linear_regression /*! * * Twitter Bootstrap * */ /*! * Bootstrap v3.3.7 (http://getbootstrap.com) * Copyright 2011-2016 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */ /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */ html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; } body { margin: 0; } article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; } audio, canvas, progress, video { display:</description>
+    </item>
+    
+  </channel>
+</rss>
