@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fastbuild on Notepad Online</title>
+    <link>http://127.0.0.1:1313/categories/fastbuild/</link>
+    <description>Recent content in Fastbuild on Notepad Online</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 04 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://127.0.0.1:1313/categories/fastbuild/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fastbuild源码解析-test framework</title>
+      <link>http://127.0.0.1:1313/post/fastbuild/fastbuild_test_framework/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/fastbuild/fastbuild_test_framework/</guid>
+      <description>fastbuild源码解析-test framework test framework使用来干什么的？ test framework是一款类似于gtest的单元测试框架，但是相比</description>
+    </item>
+    
+  </channel>
+</rss>

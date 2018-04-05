@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://127.0.0.1:1313/post/fastbuild/fastbuild_test_framework/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://127.0.0.1:1313/post/deeplearning/double_linear_regression/</loc>
     <lastmod>2018-02-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -86,6 +93,13 @@
   </url>
   
   <url>
+    <loc>http://127.0.0.1:1313/categories/fastbuild/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://127.0.0.1:1313/tags/learningmodern3dgraphicsprogramming/</loc>
     <lastmod>2017-06-16T12:00:00+06:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -94,7 +108,7 @@
   
   <url>
     <loc>http://127.0.0.1:1313/</loc>
-    <lastmod>2018-02-02T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -108,7 +122,7 @@
   
   <url>
     <loc>http://127.0.0.1:1313/post/</loc>
-    <lastmod>2018-02-02T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
