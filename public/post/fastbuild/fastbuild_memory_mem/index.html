@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>fastbuild源码解析-memory-mem - Notepad Online</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Zhong Xiewei" />
+  <meta name="description" content="简介 fastbuild整个memory模块包括： - mem。重载了operator new delete，用于内存泄漏的跟踪 - MemTracker。内" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.32.4" />
+
+
+<link rel="canonical" href="http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_mem/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=2.7.2" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="fastbuild源码解析-memory-mem" />
+<meta property="og:description" content="简介 fastbuild整个memory模块包括： - mem。重载了operator new delete，用于内存泄漏的跟踪 - MemTracker。内" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_mem/" />
+
+
+
+<meta property="article:published_time" content="2018-04-05T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-04-05T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="fastbuild源码解析-memory-mem">
+<meta itemprop="description" content="简介 fastbuild整个memory模块包括： - mem。重载了operator new delete，用于内存泄漏的跟踪 - MemTracker。内">
+
+
+<meta itemprop="datePublished" content="2018-04-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-04-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1431">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="fastbuild源码解析-memory-mem"/>
+<meta name="twitter:description" content="简介 fastbuild整个memory模块包括： - mem。重载了operator new delete，用于内存泄漏的跟踪 - MemTracker。内"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">fastbuild源码解析-memory-mem</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-05 </span>
+        <div class="post-category">
+            
+              <a href="/categories/fastbuild/"> fastbuild </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#其他相关内存检测介绍的内容">其他相关内存检测介绍的内容</a></li>
+<li><a href="#mem-h源码解析">mem.h源码解析</a></li>
+<li><a href="#mem-cpp源码解析">mem.cpp源码解析</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h2 id="简介">简介</h2>
+
+<p>fastbuild整个memory模块包括：
+- mem。重载了operator new delete，用于内存泄漏的跟踪
+- MemTracker。内存泄漏管理跟踪的具体实现
+- MemDebug。
+<code>mem.h</code>和<code>mem.cpp</code>主要提供了一种如何对new出来的内存片段进行追踪的策略，可以用于检测c++工程的内存泄漏问题。</p>
+
+<h2 id="其他相关内存检测介绍的内容">其他相关内存检测介绍的内容</h2>
+
+<ul>
+<li><a href="http://wyw.dcweb.cn/leakage.htm">A Cross-Platform Memory Leak Detector</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/linux/l-mleak2/index.html">一个跨平台的 C++ 内存泄漏检测器</a></li>
+<li><a href="https://github.com/adah1972/nvwa">small collection of c++ utilities</a></li>
+</ul>
+
+<h2 id="mem-h源码解析">mem.h源码解析</h2>
+
+<pre><code class="language-c++">// Mem.h
+//------------------------------------------------------------------------------
+#pragma once
+
+// Includes
+//------------------------------------------------------------------------------
+#include &quot;Core/Env/Types.h&quot;
+#include &quot;Core/Mem/MemTracker.h&quot;
+
+// Placement new/delete
+//------------------------------------------------------------------------------
+/**
+ * 在c++中new关键词用于内存的分配，delete关键词用于内存的释放
+ * 
+ * 其实在执行：
+ * MyClass * p = new MyClass;
+ * 时，执行了三个步骤。
+ * 1. 调用opertor new分配内存空间（此处称为operator new，能被自定义重载）
+ * 2. 调用类的构造函数在分配的内存空间中构造对象（此处称为placement new，不能被自定义重载）
+ * 3. 返回对应的指针
+ * 
+ * operator new：
+ * void* operator new (size_t, std::string);
+ * 
+ * placement new:
+ * void* operator new(size_t,oid* ptr);
+ * plancement new 在执行的时候忽略地一个参数size_t，返回第二个参数，并在第二个参数指向的内存空间构造对象。
+ * 
+ * 因此上述过程可以展示如下：
+ * MyClass* p = (MyClass*)::operator new(sizeof(MyClass));
+ * new(p) MyClass();
+ */
+#define INPLACE_NEW new
+inline void * operator new( size_t, void * ptr ) { return ptr; }
+inline void * operator new[]( size_t, void * ptr ) { return ptr; }
+inline void operator delete( void *, void * ) {}
+inline void operator delete[]( void *, void * ) {}
+
+// new/delete
+//------------------------------------------------------------------------------
+// 如果MEMTRACKER_ENABLE，使用自定义的operator new(size_t, const char*, int); 否则使用默认函数
+// 同时也对alloc进行重定义
+#if defined( MEMTRACKER_ENABLED )
+    #define FNEW( code )        new ( __FILE__, __LINE__ ) code
+    #define FNEW_ARRAY( code )  new ( __FILE__, __LINE__ ) code
+    #define FDELETE             delete
+    #define FDELETE_ARRAY       delete[]
+
+    #define ALLOC( ... )        ::AllocFileLine( __VA_ARGS__, __FILE__, __LINE__ )
+    #define FREE( ptr )         ::Free( ptr )
+#else
+    #define FNEW( code )        new code
+    #define FNEW_ARRAY( code )  new code
+    #define FDELETE             delete
+    #define FDELETE_ARRAY       delete[]
+
+    #define ALLOC( ... )        ::Alloc( __VA_ARGS__ )
+    #define FREE( ptr )         ::Free( ptr )
+#endif
+
+// Alloc/Free
+//------------------------------------------------------------------------------
+void * Alloc( size_t size );
+void * Alloc( size_t size, size_t alignment );
+void * AllocFileLine( size_t size, const char * file, int line );
+void * AllocFileLine( size_t size, size_t alignment, const char * file, int line );
+void Free( void * ptr );
+
+// global new/delete
+//------------------------------------------------------------------------------
+// delete与new必须相互对应
+#if defined( MEMTRACKER_ENABLED )
+    void * operator new( size_t size, const char * file, int line );
+    void * operator new[]( size_t size, const char * file, int line );
+    void operator delete( void * ptr, const char *, int );
+    void operator delete[]( void * ptr, const char *, int );
+#endif
+void * operator new( size_t size );
+void * operator new[]( size_t size );
+void operator delete( void * ptr );
+void operator delete[]( void * ptr );
+
+//------------------------------------------------------------------------------
+</code></pre>
+
+<h2 id="mem-cpp源码解析">mem.cpp源码解析</h2>
+
+<pre><code class="language-c++">// Mem.cpp
+//------------------------------------------------------------------------------
+
+// Includes
+//------------------------------------------------------------------------------
+#include &quot;Core/PrecompiledHeader.h&quot;
+
+#include &quot;Mem.h&quot;
+#include &quot;Core/Env/Assert.h&quot;
+#include &quot;Core/Env/Types.h&quot;
+#include &quot;Core/Mem/MemDebug.h&quot;
+#include &quot;Core/Mem/MemTracker.h&quot;
+#include &quot;Core/Mem/SmallBlockAllocator.h&quot;
+
+#include &lt;stdlib.h&gt;
+
+// Defines
+//------------------------------------------------------------------------------
+
+// Alloc
+//------------------------------------------------------------------------------
+void * Alloc( size_t size )
+{
+    return AllocFileLine( size, sizeof( void * ), &quot;Unknown&quot;, 0 );
+}
+
+// Alloc
+//------------------------------------------------------------------------------
+void * Alloc( size_t size, size_t alignment )
+{
+    return AllocFileLine( size, alignment, &quot;Unknown&quot;, 0 );
+}
+
+// AllocFileLine
+//------------------------------------------------------------------------------
+void * AllocFileLine( size_t size, const char * file, int line )
+{
+    return AllocFileLine( size, sizeof( void * ), file, line );
+}
+
+// AllocFileLine
+// 关于内存分配的具体实现位于这个函数中。
+// 该函数用于分配内存空间，并记录对应的文件名以及行号
+//------------------------------------------------------------------------------
+void * AllocFileLine( size_t size, size_t alignment, const char * file, int line )
+{
+    void * mem( nullptr );
+
+    #if defined( SMALL_BLOCK_ALLOCATOR_ENABLED )
+        // 关于SmallBlockAllocator的实现在其对应的源码中进行介绍
+        // 用于分配小的对齐的内存空间
+        mem = SmallBlockAllocator::Alloc( size, alignment );
+        if ( mem == nullptr )
+    #endif
+    {
+        #if defined( __LINUX__ ) || defined( __APPLE__ )
+            VERIFY( posix_memalign( &amp;mem, alignment, size ) == 0 );
+        #else
+            // 返回的地址空间能够被alignment整除，即按照alignment进行对齐的
+            mem = _aligned_malloc( size, alignment );
+            __assume( mem );
+        #endif
+
+        // 在MemDebug进行介绍，在内存区域填充特定的内容，用于标记
+        #ifdef MEM_FILL_NEW_ALLOCATIONS
+            MemDebug::FillMem( mem, size, MemDebug::MEM_FILL_NEW_ALLOCATION_PATTERN );
+        #endif
+    }
+
+    // 将当前的内存分配的操作记录到memtracker中
+    MEMTRACKER_ALLOC( mem, size, file, line );
+    (void)file; (void)line; // TODO: strip args in release
+
+    return mem;
+}
+
+// Free
+//------------------------------------------------------------------------------
+void Free( void * ptr )
+{
+    if ( ptr == nullptr )
+    {
+        return;
+    }
+
+    // 在memtracker中释放原来记录的内存分配
+    MEMTRACKER_FREE( ptr );
+
+    #if defined( SMALL_BLOCK_ALLOCATOR_ENABLED )
+        if ( SmallBlockAllocator::Free( ptr ) == false )
+    #endif
+    {
+        #if defined( __LINUX__ ) || defined( __APPLE__ )
+            free( ptr );
+        #else
+            _aligned_free( ptr );
+        #endif
+    }
+}
+
+// Operators
+// 重载内存分配，删除操作
+//------------------------------------------------------------------------------
+#if defined( MEMTRACKER_ENABLED )
+    void * operator new( size_t size, const char * file, int line ) { return AllocFileLine( size, file, line ); }
+    void * operator new[]( size_t size, const char * file, int line ) { return AllocFileLine( size, file, line ); }
+    void operator delete( void * ptr, const char *, int ) { Free( ptr ); }
+    void operator delete[]( void * ptr, const char *, int ) { Free( ptr ); }
+#endif
+void * operator new( size_t size ) { return Alloc( size ); }
+void * operator new[]( size_t size ) { return Alloc( size ); }
+void operator delete( void * ptr ) { Free( ptr ); }
+void operator delete[]( void * ptr ) { Free( ptr ); }
+
+//------------------------------------------------------------------------------
+
+</code></pre>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Zhong Xiewei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-04-05</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/fastbuild/fastbuild_test_framework/">
+            <span class="next-text nav-default">fastbuild源码解析-test framework</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+  
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:grass-of-sky@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/stupidgrass" class="iconfont icon-github" title="github"></a>
+  <a href="http://127.0.0.1:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhong Xiewei</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.7.2"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+</body>
+</html>
