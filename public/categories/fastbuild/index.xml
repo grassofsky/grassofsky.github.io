@@ -6,10 +6,19 @@
     <description>Recent content in Fastbuild on Notepad Online</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://127.0.0.1:1313/categories/fastbuild/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>fastbuild源码解析-memory-memdebug</title>
+      <link>http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_memdebug/</link>
+      <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_memdebug/</guid>
+      <description>简介 fastbuild整个memory模块包括： - mem。重载了operator new delete，用于内存泄漏的跟踪 - MemTracker。内</description>
+    </item>
     
     <item>
       <title>fastbuild源码解析-memory-mem</title>

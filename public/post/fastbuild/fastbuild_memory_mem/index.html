@@ -74,7 +74,7 @@
 
 <meta itemprop="datePublished" content="2018-04-05T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-05T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1431">
+<meta itemprop="wordCount" content="1477">
 
 
 
@@ -187,6 +187,8 @@
 - mem。重载了operator new delete，用于内存泄漏的跟踪
 - MemTracker。内存泄漏管理跟踪的具体实现
 - MemDebug。
+- MemPoolBlock。内存池
+- SmallBlockAllocator。小片段内存分配器
 <code>mem.h</code>和<code>mem.cpp</code>主要提供了一种如何对new出来的内存片段进行追踪的策略，可以用于检测c++工程的内存泄漏问题。</p>
 
 <h2 id="其他相关内存检测介绍的内容">其他相关内存检测介绍的内容</h2>
@@ -433,6 +435,11 @@ void operator delete[]( void * ptr ) { Free( ptr ); }
       
       <nav class="post-nav">
         
+          <a class="prev" href="/post/fastbuild/fastbuild_memory_memdebug/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">fastbuild源码解析-memory-memdebug</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         
           <a class="next" href="/post/fastbuild/fastbuild_test_framework/">
             <span class="next-text nav-default">fastbuild源码解析-test framework</span>
