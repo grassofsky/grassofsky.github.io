@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Translation of Books on Notepad Online</title>
+    <link>http://127.0.0.1:1313/categories/translation-of-books/</link>
+    <description>Recent content in Translation of Books on Notepad Online</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jun 2017 12:00:00 +0600</lastBuildDate>
+    
+	<atom:link href="http://127.0.0.1:1313/categories/translation-of-books/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>9. 在深度的对象</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/9_objects_in_depth/</link>
+      <pubDate>Fri, 16 Jun 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/9_objects_in_depth/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第五章 在深度的对象 在这一章中，我们将会处理如何渲染多个对象，特别是当多个对象之间有一定的重叠的时候。 opengl中的多个对象 首先需要</description>
+    </item>
+    
+    <item>
+      <title>8. 其他的对象</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/8_objects_at_rest/</link>
+      <pubDate>Thu, 15 Jun 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/8_objects_at_rest/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第四章 其他的对象 到目前为止，我们看到的都是平面的对象。比如，单个三角形。这一章，会介绍如何创建一个现实中的对象。 不真实的世界 orthographic cub</description>
+    </item>
+    
+    <item>
+      <title>7. opengl移动三角形</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
+      <pubDate>Thu, 01 Jun 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法</description>
+    </item>
+    
+    <item>
+      <title>1. 关于这本书</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/1_about_this_book/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/1_about_this_book/</guid>
+      <description>关于这本书 三维图像处理硬件很快成为了必不可少的组件。很多操作系统能够直接使用三维图像硬件，有些甚至要求需要有3D渲染能力的硬件。同时对于日益</description>
+    </item>
+    
+    <item>
+      <title>2. 环境设置</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/2_set_up_environment/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/2_set_up_environment/</guid>
+      <description>环境设置 由于本书中的例子，均是基于OpenGL实现的，因此你的工作环境需要能够运行OpenGL，为了读者能够更好的运行原文中的示例，此处简单</description>
+    </item>
+    
+    <item>
+      <title>3. 基础简介</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/3_basic_introduction/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/3_basic_introduction/</guid>
+      <description>基础简介 并不像本书的其他章节，这章内容没有相关的源代码或是项目。本章，我们将讨论向量，图形渲染理论，以及OpenGL。 向量 在阅读这本书的时候</description>
+    </item>
+    
+    <item>
+      <title>4. 你好，三角形</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/4_hello_triangle/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/4_hello_triangle/</guid>
+      <description>你好，三角形 传统的入门教程在介绍编程语言的时候，通常从“Hello，World！”的程序开始。这样的程序拥有最简单的能够直接输出“Hello</description>
+    </item>
+    
+    <item>
+      <title>5. 设置颜色</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/5_playing_with_colors/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/5_playing_with_colors/</guid>
+      <description>设置颜色 这一章会对上一章中绘制的三角形进行颜色的设定。而不是单纯的设置一个单一的颜色，这里我们会使用两种方式来对这个三角形设置颜色的变化。这</description>
+    </item>
+    
+    <item>
+      <title>6. opengl使用不同的缓存对象</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/6_various_buffer_object/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/6_various_buffer_object/</guid>
+      <description>opengl使用不同的缓存对象 在设置颜色一章中，我们使用了一个缓存对象来存储点和颜色的信息。那么我们有没有可能，将点和颜色的信息分开存储呢？</description>
+    </item>
+    
+  </channel>
+</rss>

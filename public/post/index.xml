@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Notepad Online</title>
+    <link>http://127.0.0.1:1313/post/</link>
+    <description>Recent content in Posts on Notepad Online</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://127.0.0.1:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>0. Chat Bots学习资料</title>
+      <link>http://127.0.0.1:1313/post/chatbots/chat_bots_learning_resource/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/chatbots/chat_bots_learning_resource/</guid>
+      <description>Chat Bots学习资料 智能问答文献调研 1. 基于开源引擎的智能问答系统设计与实现，李一飞，华中科技大学，2017 主要功能模块划分如下： 涉及到的程序包</description>
+    </item>
+    
+    <item>
+      <title>[翻译]c&#43;&#43; 11特性走览</title>
+      <link>http://127.0.0.1:1313/post/cpplearning/cpp11_feature/</link>
+      <pubDate>Sat, 08 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/cpplearning/cpp11_feature/</guid>
+      <description>原文链接 http://soft.vub.ac.be/~cderoove/structuur2/C++11.pdf 空指针常量 - nullptr void foo(char*); // 1 void foo(int); // 2 fool(NULL); //&amp;lt;c++03&amp;gt; 这个函数会调用函数2 fool(nullptr); //&amp;lt;c++11&amp;gt; 这个函数会调用函数1 标准类型 在c++03中，不同的类型在不同的编译器下面</description>
+    </item>
+    
+    <item>
+      <title>fastbuild源码解析-memory-memdebug</title>
+      <link>http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_memdebug/</link>
+      <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_memdebug/</guid>
+      <description>简介 fastbuild整个memory模块包括： - mem。重载了operator new delete，用于内存泄漏的跟踪 - MemTracker。内</description>
+    </item>
+    
+    <item>
+      <title>fastbuild源码解析-memory-mem</title>
+      <link>http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_mem/</link>
+      <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/fastbuild/fastbuild_memory_mem/</guid>
+      <description>简介 fastbuild整个memory模块包括： - mem。重载了operator new delete，用于内存泄漏的跟踪 - MemTracker。内</description>
+    </item>
+    
+    <item>
+      <title>fastbuild源码解析-test framework</title>
+      <link>http://127.0.0.1:1313/post/fastbuild/fastbuild_test_framework/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/fastbuild/fastbuild_test_framework/</guid>
+      <description>fastbuild源码解析-test framework test framework使用来干什么的？ test framework是一款类似于gtest的单元测试框架，但是相比</description>
+    </item>
+    
+    <item>
+      <title>二元线性回归分析</title>
+      <link>http://127.0.0.1:1313/post/deeplearning/double_linear_regression/</link>
+      <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/deeplearning/double_linear_regression/</guid>
+      <description>二元线性回归分析 二元，有两组数据；线性，数据($a_1, a_2, a_3, &amp;hellip;, a_n$)之间的关系，可以用公式$a_1b_1+a_2b_2+&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>9. 在深度的对象</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/9_objects_in_depth/</link>
+      <pubDate>Fri, 16 Jun 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/9_objects_in_depth/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第五章 在深度的对象 在这一章中，我们将会处理如何渲染多个对象，特别是当多个对象之间有一定的重叠的时候。 opengl中的多个对象 首先需要</description>
+    </item>
+    
+    <item>
+      <title>8. 其他的对象</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/8_objects_at_rest/</link>
+      <pubDate>Thu, 15 Jun 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/8_objects_at_rest/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第四章 其他的对象 到目前为止，我们看到的都是平面的对象。比如，单个三角形。这一章，会介绍如何创建一个现实中的对象。 不真实的世界 orthographic cub</description>
+    </item>
+    
+    <item>
+      <title>7. opengl移动三角形</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</link>
+      <pubDate>Thu, 01 Jun 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/</guid>
+      <description>原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法</description>
+    </item>
+    
+    <item>
+      <title>1. 关于这本书</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/1_about_this_book/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/1_about_this_book/</guid>
+      <description>关于这本书 三维图像处理硬件很快成为了必不可少的组件。很多操作系统能够直接使用三维图像硬件，有些甚至要求需要有3D渲染能力的硬件。同时对于日益</description>
+    </item>
+    
+    <item>
+      <title>2. 环境设置</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/2_set_up_environment/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/2_set_up_environment/</guid>
+      <description>环境设置 由于本书中的例子，均是基于OpenGL实现的，因此你的工作环境需要能够运行OpenGL，为了读者能够更好的运行原文中的示例，此处简单</description>
+    </item>
+    
+    <item>
+      <title>3. 基础简介</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/3_basic_introduction/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/3_basic_introduction/</guid>
+      <description>基础简介 并不像本书的其他章节，这章内容没有相关的源代码或是项目。本章，我们将讨论向量，图形渲染理论，以及OpenGL。 向量 在阅读这本书的时候</description>
+    </item>
+    
+    <item>
+      <title>4. 你好，三角形</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/4_hello_triangle/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/4_hello_triangle/</guid>
+      <description>你好，三角形 传统的入门教程在介绍编程语言的时候，通常从“Hello，World！”的程序开始。这样的程序拥有最简单的能够直接输出“Hello</description>
+    </item>
+    
+    <item>
+      <title>5. 设置颜色</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/5_playing_with_colors/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/5_playing_with_colors/</guid>
+      <description>设置颜色 这一章会对上一章中绘制的三角形进行颜色的设定。而不是单纯的设置一个单一的颜色，这里我们会使用两种方式来对这个三角形设置颜色的变化。这</description>
+    </item>
+    
+    <item>
+      <title>6. opengl使用不同的缓存对象</title>
+      <link>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/6_various_buffer_object/</link>
+      <pubDate>Tue, 30 May 2017 12:00:00 +0600</pubDate>
+      
+      <guid>http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/6_various_buffer_object/</guid>
+      <description>opengl使用不同的缓存对象 在设置颜色一章中，我们使用了一个缓存对象来存储点和颜色的信息。那么我们有没有可能，将点和颜色的信息分开存储呢？</description>
+    </item>
+    
+  </channel>
+</rss>
