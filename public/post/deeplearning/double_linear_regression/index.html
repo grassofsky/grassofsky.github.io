@@ -1,18 +1,9 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>二元线性回归分析 - Notepad Online</title>
+  <title>二元线性回归分析 - Even - A super concise theme for Hugo</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -25,7 +16,7 @@ There are two possible situations that led to this error:
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Zhong Xiewei" /><meta name="description" content="二元线性回归分析 二元，有两组数据；线性，数据($a_1, a_2, a_3, &amp;hellip;, a_n$)之间的关系，可以用公式$a_1b_1&#43;a_2b_2&#43;&amp;hellip;" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="grassofsky" /><meta name="description" content="二元线性回归分析 二元，有两组数据；线性，数据($a_1, a_2, a_3, &amp;hellip;, a_n$)之间的关系，可以用公式$a_1b_1&#43;a_2b_2&#43;&amp;hellip;" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -35,7 +26,7 @@ There are two possible situations that led to this error:
 <meta name="generator" content="Hugo 0.60.1 with theme even" />
 
 
-<link rel="canonical" href="http://127.0.0.1:1313/post/deeplearning/double_linear_regression/" />
+<link rel="canonical" href="http://localhost:1313/post/deeplearning/double_linear_regression/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,20 +35,20 @@ There are two possible situations that led to this error:
 
 
 <link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="二元线性回归分析" />
 <meta property="og:description" content="二元线性回归分析 二元，有两组数据；线性，数据($a_1, a_2, a_3, &hellip;, a_n$)之间的关系，可以用公式$a_1b_1&#43;a_2b_2&#43;&hellip;" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://127.0.0.1:1313/post/deeplearning/double_linear_regression/" />
+<meta property="og:url" content="http://localhost:1313/post/deeplearning/double_linear_regression/" />
 <meta property="article:published_time" content="2018-02-02T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-02-02T00:00:00+00:00" />
 <meta itemprop="name" content="二元线性回归分析">
 <meta itemprop="description" content="二元线性回归分析 二元，有两组数据；线性，数据($a_1, a_2, a_3, &hellip;, a_n$)之间的关系，可以用公式$a_1b_1&#43;a_2b_2&#43;&hellip;">
 <meta itemprop="datePublished" content="2018-02-02T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-02-02T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1924">
+<meta itemprop="wordCount" content="2054">
 
 
 
@@ -133,6 +124,8 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/deep-learning/"> Deep Learning </a>
             </div>
+          <span class="more-meta"> 2054 words </span>
+          <span class="more-meta"> 5 mins read </span>
         
       </div>
     </header>
@@ -166,22 +159,49 @@ There are two possible situations that led to this error:
 </code></pre><p>问：该地区儿童的年龄和尿肌酐含量之间是否有某种关系？</p>
 <h2 id="heading2">数据展示</h2>
 <p>为了直观的观察数据之间的关系，我散点图进行绘制</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python imports</span>
-<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
-<span style="color:#f92672">from</span> matplotlib <span style="color:#f92672">import</span> pyplot <span style="color:#66d9ef">as</span> plt
-<span style="color:#f92672">import</span> matplotlib.gridspec <span style="color:#f92672">as</span> gridspec
-<span style="color:#f92672">from</span> mpl_toolkits.mplot3d <span style="color:#f92672">import</span> Axes3D
-<span style="color:#f92672">%</span>matplotlib inline
-<span style="color:#f92672">import</span> matplotlib <span style="color:#f92672">as</span> mpl
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Plot relation between X and Y</span>
-X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">7</span>])
-Y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">3.54</span>, <span style="color:#ae81ff">3.01</span>, <span style="color:#ae81ff">3.09</span>, <span style="color:#ae81ff">2.48</span>, <span style="color:#ae81ff">2.56</span>, <span style="color:#ae81ff">3.36</span>, <span style="color:#ae81ff">3.18</span>, <span style="color:#ae81ff">2.65</span>])
-plt<span style="color:#f92672">.</span>plot(X,Y,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">x</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Age(year)</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Cr(mmol/24h)</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fig. 1. Relation between age and Cr</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>grid()
-</code></pre></div><p><img src="/image/deeplearning/output_2_0.png" alt="png"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># python imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">as</span> <span class="nn">gridspec</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Plot relation between X and Y</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="p">[</span><span class="mf">3.54</span><span class="p">,</span> <span class="mf">3.01</span><span class="p">,</span> <span class="mf">3.09</span><span class="p">,</span> <span class="mf">2.48</span><span class="p">,</span> <span class="mf">2.56</span><span class="p">,</span> <span class="mf">3.36</span><span class="p">,</span> <span class="mf">3.18</span><span class="p">,</span> <span class="mf">2.65</span><span class="p">]</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">x</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Age(year)</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Cr(mmol/24h)</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Fig. 1. Relation between age and Cr</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/image/deeplearning/output_2_0.png" alt="png"></p>
 <h2 id="heading3">直线回归方程</h2>
 <p>从图标中可以看到，两者之间的关系可能是线性相关的。那么，我们就可以知道两者之间的关系可以表示为：</p>
 <p>$$\hat{Y}=f(X)=aX+b\mbox{ (1)}$$</p>
@@ -199,111 +219,235 @@ $a$和$b$的求解可以通过多种方式实现。此处介绍了两种：1. �
 <p>其中n为X样本的个数。对式子（5）和（6）进行求解，得：</p>
 <p>$$a=\frac{\sum{XY}-\frac{\sum{X}\sum{Y}}{n}}{\sum{X^2}-\frac{(\sum{X})^2}{n}}\mbox{  (7)}$$</p>
 <p>$$b=\frac{\sum{Y}}{n}-a\frac{\sum{X}}{n}\mbox{  (8)}$$</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#Calculate using math</span>
-n <span style="color:#f92672">=</span> len(X)
-a <span style="color:#f92672">=</span> (np<span style="color:#f92672">.</span>sum(X<span style="color:#f92672">*</span>Y) <span style="color:#f92672">-</span> (np<span style="color:#f92672">.</span>sum(X)<span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>sum(Y))<span style="color:#f92672">/</span>n)<span style="color:#f92672">/</span>(np<span style="color:#f92672">.</span>sum(X<span style="color:#f92672">*</span>X)<span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>sum(X)<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">/</span>n)
-b <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(Y)<span style="color:#f92672">/</span>n <span style="color:#f92672">-</span> a<span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>sum(X)<span style="color:#f92672">/</span>n
-YEstimation <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span>X <span style="color:#f92672">+</span> b
-delta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum((Y<span style="color:#f92672">-</span>YEstimation)<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">a = {}, b = {}, delta = {}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(a, b, delta))
-</code></pre></div><pre><code>a = 0.13916666666666663, b = 1.661666666666667, delta = 0.23275833333333312
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Calculate using math</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">Y</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">X</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">*</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+<span class="n">YEstimation</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="n">b</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">(</span><span class="n">Y</span><span class="o">-</span><span class="n">YEstimation</span><span class="p">)</span><span class="o">*</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">a = {}, b = {}, delta = {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>a = 0.13916666666666663, b = 1.661666666666667, delta = 0.23275833333333312
 </code></pre>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
-plt<span style="color:#f92672">.</span>plot(X,Y,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">xk</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>plot(X,YEstimation, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Age(year)</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Cr(mmol/24h)</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fig. 1. Relation between age and Cr</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>grid()
-</code></pre></div><p><img src="/image/deeplearning/output_5_0.png" alt="png"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">xk</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">YEstimation</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">b</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Age(year)</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Cr(mmol/24h)</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Fig. 1. Relation between age and Cr</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/image/deeplearning/output_5_0.png" alt="png"></p>
 <h3 id="heading5">基于多步逼近</h3>
 <p>在现实过程中，有很多问题，并没有像二元线性问题这么简单，能够直接通过公式求解的方式得到最优解。而是需要对要求参数的初始值进行一定的猜测，然后通过逐步优化的方式，去逼近最优解。下面就借助二元线性问题，对这个过程进行模拟。通过公式（2）和公式（1）可以得到，当$a$（或$b$）不变的时候，$\delta$和$b$(或$a$）之间是二次多项式的关系。下面可以，通过图例给出。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># \brief Get Estimate Y value from a and b</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">GetEstimateY</span>(a, b):
-    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">*</span>X <span style="color:#f92672">+</span> b
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># \brief Get Estimate Y value from a and b</span>
+<span class="k">def</span> <span class="nf">GetEstimateY</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="n">b</span>
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">GetCost</span>(a, b):
-    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>sum((Y <span style="color:#f92672">-</span> GetEstimateY(a,b))<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)
+<span class="k">def</span> <span class="nf">GetCost</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">GetEstimateY</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="p">)</span><span class="o">*</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
 
-a0 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.2</span>)
-b0 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">0.2</span>)
-aa0, bb0 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(a0, b0)
-nrow,ncol <span style="color:#f92672">=</span> aa0<span style="color:#f92672">.</span>shape
-cc0 <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((nrow,ncol))
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(nrow):
-    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(ncol):
-        cc0[i,j] <span style="color:#f92672">=</span> GetCost(aa0[i,j], bb0[i,j])
+<span class="n">a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">b0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">aa0</span><span class="p">,</span> <span class="n">bb0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">b0</span><span class="p">)</span>
+<span class="n">nrow</span><span class="p">,</span><span class="n">ncol</span> <span class="o">=</span> <span class="n">aa0</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">cc0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span><span class="n">ncol</span><span class="p">)</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrow</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncol</span><span class="p">)</span><span class="p">:</span>
+        <span class="n">cc0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">GetCost</span><span class="p">(</span><span class="n">aa0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="p">,</span> <span class="n">bb0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="p">)</span>
         
-fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
-ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">111</span>, projection<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">3d</span><span style="color:#e6db74">&#39;</span>)
-ax<span style="color:#f92672">.</span>plot_surface(aa0, bb0, cc0)
-ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>)
-ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>)
-ax<span style="color:#f92672">.</span>set_zlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">$</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$</span><span style="color:#e6db74">&#39;</span>)
-ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fig 2. relation between a, b and $</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$</span><span style="color:#e6db74">&#39;</span>)
-</code></pre></div><pre><code>&lt;matplotlib.text.Text at 0x7f15c03243c8&gt;
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">3d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">aa0</span><span class="p">,</span> <span class="n">bb0</span><span class="p">,</span> <span class="n">cc0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">a</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">b</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">$</span><span class="s1">\</span><span class="s1">delta$</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Fig 2. relation between a, b and $</span><span class="s1">\</span><span class="s1">delta$</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>&lt;matplotlib.text.Text at 0x7f15c03243c8&gt;
 </code></pre>
 <p><img src="/image/deeplearning/output_7_1.png" alt="png"></p>
 <p>多步逼近的方法：</p>
 <ul>
 <li>（1） 首先需要对a和b的初始值进行设定，令$a=3,b=2$（此处不一定是3和2,也可以是别的值）；</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Step 1. initialize a and b</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Step1</span>():
-    <span style="color:#66d9ef">return</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
-</code></pre></div><ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 1. initialize a and b</span>
+<span class="k">def</span> <span class="nf">Step1</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>（2） 按公式(2),(3),(4)分别求得，$\delta$,$\frac{\partial{\delta}}{\partial{a}}$,$\frac{\partial{\delta}}{\partial{b}}$;</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Step 2. calculate delta, deltaA, deltaB</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Step2</span>(a, b):
-    delta <span style="color:#f92672">=</span> GetCost(a, b)
-    deltaA <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>sum((a<span style="color:#f92672">*</span>X<span style="color:#f92672">+</span>b<span style="color:#f92672">-</span>Y)<span style="color:#f92672">*</span>X)
-    deltaB <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>np<span style="color:#f92672">.</span>sum((a<span style="color:#f92672">*</span>X<span style="color:#f92672">+</span>b<span style="color:#f92672">-</span>Y))
-    <span style="color:#66d9ef">return</span> (delta, deltaA, deltaB)
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 2. calculate delta, deltaA, deltaB</span>
+<span class="k">def</span> <span class="nf">Step2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">GetCost</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">deltaA</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="n">b</span><span class="o">-</span><span class="n">Y</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">deltaB</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="n">b</span><span class="o">-</span><span class="n">Y</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">)</span>
 
-</code></pre></div><p>先来看下当其中一个值固定时，另一个值和$\delta$之间的关系。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">(a,b) <span style="color:#f92672">=</span> Step1()
-(delta, deltaA, deltaB) <span style="color:#f92672">=</span> Step2(a,b)
+</code></pre></td></tr></table>
+</div>
+</div><p>先来看下当其中一个值固定时，另一个值和$\delta$之间的关系。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">Step1</span><span class="p">(</span><span class="p">)</span>
+<span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">)</span> <span class="o">=</span> <span class="n">Step2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
 
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">delta = {}, deltaA = {}, deltaB = {}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(delta, deltaA, deltaB))
+<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">delta = {}, deltaA = {}, deltaB = {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">)</span><span class="p">)</span>
 
-<span style="color:#75715e"># plot vb Vs vdelta</span>
-vb <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">50</span>,<span style="color:#ae81ff">50</span>,<span style="color:#ae81ff">0.2</span>)
-vdelta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(vb<span style="color:#f92672">.</span>shape)
-<span style="color:#66d9ef">for</span> ib <span style="color:#f92672">in</span> range(vb<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]):
-    vdelta[ib] <span style="color:#f92672">=</span> GetCost(a, vb[ib])
+<span class="c1"># plot vb Vs vdelta</span>
+<span class="n">vb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">vdelta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">vb</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ib</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vb</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">vdelta</span><span class="p">[</span><span class="n">ib</span><span class="p">]</span> <span class="o">=</span> <span class="n">GetCost</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">vb</span><span class="p">[</span><span class="n">ib</span><span class="p">]</span><span class="p">)</span>
 
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">3</span>))
-gs1 <span style="color:#f92672">=</span> gridspec<span style="color:#f92672">.</span>GridSpec(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
-gs1<span style="color:#f92672">.</span>update(wspace<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,hspace<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
-p1 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplot(gs1[<span style="color:#ae81ff">0</span>])
-p2 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplot(gs1[<span style="color:#ae81ff">1</span>])
-p1<span style="color:#f92672">.</span>plot(vb,vdelta,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">k</span><span style="color:#e6db74">&#39;</span>)
-p1<span style="color:#f92672">.</span>plot(b, delta, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bo</span><span style="color:#e6db74">&#39;</span>)
-p1<span style="color:#f92672">.</span>plot(vb, deltaB<span style="color:#f92672">*</span>vb<span style="color:#f92672">+</span>delta<span style="color:#f92672">-</span>deltaB<span style="color:#f92672">*</span>b, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">r-</span><span style="color:#e6db74">&#39;</span>)
-p1<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">$b$</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-p1<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">$</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-p1<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fig. 3. Relation between b and $</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$ when a = 2</span><span style="color:#e6db74">&#39;</span>)
-p1<span style="color:#f92672">.</span>set_ylim([<span style="color:#f92672">-</span><span style="color:#ae81ff">1000</span>,<span style="color:#ae81ff">25000</span>])
-p1<span style="color:#f92672">.</span>grid()
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="p">)</span>
+<span class="n">gs1</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">gs1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">hspace</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vb</span><span class="p">,</span><span class="n">vdelta</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">k</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">bo</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vb</span><span class="p">,</span> <span class="n">deltaB</span><span class="o">*</span><span class="n">vb</span><span class="o">+</span><span class="n">delta</span><span class="o">-</span><span class="n">deltaB</span><span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">r-</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">$b$</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">$</span><span class="s1">\</span><span class="s1">delta$</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Fig. 3. Relation between b and $</span><span class="s1">\</span><span class="s1">delta$ when a = 2</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="p">[</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span><span class="mi">25000</span><span class="p">]</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="p">)</span>
 
-<span style="color:#75715e"># plot va Vs vdelta</span>
-va <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0.1</span>)
-vdelta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(va<span style="color:#f92672">.</span>shape)
-<span style="color:#66d9ef">for</span> ia <span style="color:#f92672">in</span> range(va<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]):
-    vdelta[ia] <span style="color:#f92672">=</span> GetCost(va[ia], b)
+<span class="c1"># plot va Vs vdelta</span>
+<span class="n">va</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">vdelta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">va</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ia</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">va</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">vdelta</span><span class="p">[</span><span class="n">ia</span><span class="p">]</span> <span class="o">=</span> <span class="n">GetCost</span><span class="p">(</span><span class="n">va</span><span class="p">[</span><span class="n">ia</span><span class="p">]</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
-p2<span style="color:#f92672">.</span>plot(va,vdelta,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">k</span><span style="color:#e6db74">&#39;</span>)
-p2<span style="color:#f92672">.</span>plot(a, delta, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bo</span><span style="color:#e6db74">&#39;</span>)
-p2<span style="color:#f92672">.</span>plot(va, deltaA<span style="color:#f92672">*</span>va<span style="color:#f92672">+</span>delta<span style="color:#f92672">-</span>deltaA<span style="color:#f92672">*</span>a, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">r-</span><span style="color:#e6db74">&#39;</span>)
-p2<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">$a$</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-p2<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">$</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-p2<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fig. 4. Relation between a and $</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$ when b = 3</span><span style="color:#e6db74">&#39;</span>)
-p2<span style="color:#f92672">.</span>set_ylim([<span style="color:#f92672">-</span><span style="color:#ae81ff">10000</span>,<span style="color:#ae81ff">20000</span>])
-p2<span style="color:#f92672">.</span>grid()
+<span class="n">p2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">va</span><span class="p">,</span><span class="n">vdelta</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">k</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">bo</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="n">deltaA</span><span class="o">*</span><span class="n">va</span><span class="o">+</span><span class="n">delta</span><span class="o">-</span><span class="n">deltaA</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">r-</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">$a$</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">$</span><span class="s1">\</span><span class="s1">delta$</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Fig. 4. Relation between a and $</span><span class="s1">\</span><span class="s1">delta$ when b = 3</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">,</span><span class="mi">20000</span><span class="p">]</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="p">)</span>
     
 
-</code></pre></div><pre><code>delta = 3038.608300000001, deltaA = 3046.78, deltaB = 304.26
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>delta = 3038.608300000001, deltaA = 3046.78, deltaB = 304.26
 </code></pre>
 <p><img src="/image/deeplearning/output_13_1.png" alt="png"></p>
 <p>Fig3显示了当a固定的时候$\delta$和$b$之间的关系，其中蓝点是对应的$(b,\delta)$。红线为该点对应的切线。那么显而易见，为了使得$\delta$达到最小值，需要让蓝色的点往谷底移动，这就是第三个步骤；</p>
@@ -313,47 +457,106 @@ p2<span style="color:#f92672">.</span>grid()
 <p>为了避免错过最小值的情况，需要当点靠近最小值的时候，减小蓝点调整的步幅。而当蓝色的点越靠近最小值的时候，该点的切线的斜率越来越接近0,因此可以将斜率作为调整的幅度。为了对幅度的设置更加可控，在斜率的前面通常还加一个系数，被称为learning rate。得以下公式：</p>
 <p>$$a'=a-lr\frac{\partial{\delta}}{\partial{a}}\mbox{  (9)}$$
 $$b'=b-lr\frac{\partial{\delta}}{\partial{b}}\mbox{  (10)}$$</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Step 3 Adjust a and b</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Step3</span>(a, b, deltaA, deltaB, lr):
-    <span style="color:#66d9ef">return</span> (a<span style="color:#f92672">-</span>lr<span style="color:#f92672">*</span>deltaA, b<span style="color:#f92672">-</span>lr<span style="color:#f92672">*</span>deltaB)
-</code></pre></div><ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 3 Adjust a and b</span>
+<span class="k">def</span> <span class="nf">Step3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">lr</span><span class="o">*</span><span class="n">deltaA</span><span class="p">,</span> <span class="n">b</span><span class="o">-</span><span class="n">lr</span><span class="o">*</span><span class="n">deltaB</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
 <li>（4） 重复执行第二，第三步直到$\delta$达到预期值</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">(a,b) <span style="color:#f92672">=</span> Step1()
-nLoop <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
-lr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0001</span>
-(delta, deltaA, deltaB) <span style="color:#f92672">=</span> Step2(a,b)
-vdelta <span style="color:#f92672">=</span> []
-vdelta<span style="color:#f92672">.</span>append(delta)
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(nLoop):
-    (a, b) <span style="color:#f92672">=</span> Step3(a, b, deltaA, deltaB, lr)
-    (delta, deltaA, deltaB) <span style="color:#f92672">=</span> Step2(a, b)
-    vdelta<span style="color:#f92672">.</span>append(delta)
-plt<span style="color:#f92672">.</span>plot(vdelta)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">loop index</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">$</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fig.5. $</span><span style="color:#e6db74">\</span><span style="color:#e6db74">delta$ change</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">a = {}, b = {}, delta = {}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(a, b, delta)) 
-YEstimation_other <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span>X <span style="color:#f92672">+</span> b
-</code></pre></div><pre><code>a = 0.09160117607897046, b = 2.139552469899989, delta = 0.3331959977484201
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">Step1</span><span class="p">(</span><span class="p">)</span>
+<span class="n">nLoop</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">)</span> <span class="o">=</span> <span class="n">Step2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">vdelta</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+<span class="n">vdelta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nLoop</span><span class="p">)</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">Step3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">)</span> <span class="o">=</span> <span class="n">Step2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">vdelta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vdelta</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">loop index</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">$</span><span class="s1">\</span><span class="s1">delta$</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Fig.5. $</span><span class="s1">\</span><span class="s1">delta$ change</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">a = {}, b = {}, delta = {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span><span class="p">)</span> 
+<span class="n">YEstimation_other</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>a = 0.09160117607897046, b = 2.139552469899989, delta = 0.3331959977484201
 </code></pre>
 <p><img src="/image/deeplearning/output_17_1.png" alt="png"></p>
 <h2 id="heading6">结果比对</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>plot(X,Y,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">xk</span><span style="color:#e6db74">&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">scatter</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>plot(X,YEstimation, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">math</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>plot(X,YEstimation_other, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">fitted</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Age(year)</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Cr(mmol/24h)</span><span style="color:#e6db74">&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>)
-plt<span style="color:#f92672">.</span>legend()
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fig. 6. Relation between age and Cr</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>grid()
-</code></pre></div><p><img src="/image/deeplearning/output_19_0.png" alt="png"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">xk</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">scatter</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">YEstimation</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">b</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">math</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">YEstimation_other</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">fitted</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Age(year)</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Cr(mmol/24h)</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Fig. 6. Relation between age and Cr</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/image/deeplearning/output_19_0.png" alt="png"></p>
 <h2 id="heading7">尝试</h2>
 <p>可以尝试着将循环的次数进行减少和增加，可以看到两种方式得到的结果之间差异随着循环次数nLoop的增加逐渐减少。但这个减少的趋势会越来越不明显。</p>
 
     </div>
 
-    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2018-02-02
+        
+    </span>
+  </p>
+  
+  
+</div>
 <footer class="post-footer">
       
       <nav class="post-nav">
@@ -382,9 +585,22 @@ plt<span style="color:#f92672">.</span>grid()
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:grass-of-sky@163.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://www.github.com/grassofsky" class="iconfont icon-github" title="github"></a>
-  <a href="http://127.0.0.1:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -406,7 +622,7 @@ plt<span style="color:#f92672">.</span>grid()
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">Zhong Xiewei</span>
+    <span class="author">grassofsky</span>
   </span>
 </div>
     </footer>
@@ -415,18 +631,11 @@ plt<span style="color:#f92672">.</span>grid()
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-  <script type="text/javascript">
-    window.MathJax = {
-      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-      showProcessingMessages: false,
-      messageStyle: 'none'
-    };
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 
 
 

@@ -1,18 +1,9 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>7. opengl移动三角形 - Notepad Online</title>
+  <title>7. opengl移动三角形 - Even - A super concise theme for Hugo</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -25,7 +16,7 @@ There are two possible situations that led to this error:
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Zhong Xiewei" /><meta name="description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="grassofsky" /><meta name="description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -35,7 +26,7 @@ There are two possible situations that led to this error:
 <meta name="generator" content="Hugo 0.60.1 with theme even" />
 
 
-<link rel="canonical" href="http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/" />
+<link rel="canonical" href="http://localhost:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -44,20 +35,20 @@ There are two possible situations that led to this error:
 
 
 <link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="7. opengl移动三角形" />
 <meta property="og:description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://127.0.0.1:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/" />
+<meta property="og:url" content="http://localhost:1313/post/learningmodern3dgraphicsprogramming/7_opengl_moving_triangle/" />
 <meta property="article:published_time" content="2017-06-01T12:00:00+06:00" />
 <meta property="article:modified_time" content="2017-06-01T12:00:00+06:00" />
 <meta itemprop="name" content="7. opengl移动三角形">
 <meta itemprop="description" content="原文: https://paroj.github.io/gltut/ 第三章 opengl移动三角形 这章会讲述如何移动对象。会引入新的着色器相关的技术。 移动点 也许能够想到的移动三角形或其他对象最简单的方法">
 <meta itemprop="datePublished" content="2017-06-01T12:00:00&#43;06:00" />
 <meta itemprop="dateModified" content="2017-06-01T12:00:00&#43;06:00" />
-<meta itemprop="wordCount" content="4666">
+<meta itemprop="wordCount" content="4687">
 
 
 
@@ -133,6 +124,8 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/translation-of-books/"> Translation of books </a>
             </div>
+          <span class="more-meta"> 4687 words </span>
+          <span class="more-meta"> 10 mins read </span>
         
       </div>
     </header>
@@ -294,28 +287,55 @@ void main()
 <p>在这个着色器中，使用了几个标准的GLSL函数，如mod，cos和sin。在上一章中还见过mix。除了这些还有很多其他的标准GLSL函数。</p>
 <p>渲染的代码如下：</p>
 <p><strong>Example 3.7. Rendering with time</strong>*</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>()
-{
-    glClearCOlor(<span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>);
-    glClear(GL_COLOR_BUFFER_BIT);
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">display</span><span class="p">(</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">glClearCOlor</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">)</span><span class="p">;</span>
+    <span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span><span class="p">)</span><span class="p">;</span>
 
-    glUseProgram(theProgram);
+    <span class="n">glUseProgram</span><span class="p">(</span><span class="n">theProgram</span><span class="p">)</span><span class="p">;</span>
 
-    glUniform1f(elapsedTimeUniform, glutGet(GLUT_ELAPSED_TIME) <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000.0f</span>);
+    <span class="n">glUniform1f</span><span class="p">(</span><span class="n">elapsedTimeUniform</span><span class="p">,</span> <span class="n">glutGet</span><span class="p">(</span><span class="n">GLUT_ELAPSED_TIME</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0f</span><span class="p">)</span><span class="p">;</span>
 
-    glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
-    glEnableVertexAttribArray(<span style="color:#ae81ff">0</span>);
-    glVertexAttribPointer(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>, GL_FLOAT, GL_FALSE, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+    <span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="n">positionBufferObject</span><span class="p">)</span><span class="p">;</span>
+    <span class="n">glEnableVertexAttribArray</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="p">;</span>
+    <span class="n">glVertexAttribPointer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="n">GL_FALSE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="p">;</span>
 
-    glDrawArrays(GL_TRIANGLES, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>);
+    <span class="n">glDrawArrays</span><span class="p">(</span><span class="n">GL_TRIANGLES</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="p">;</span>
 
-    glDisableVertexAttribArray(<span style="color:#ae81ff">0</span>);
-    glUseProgram(<span style="color:#ae81ff">0</span>);
+    <span class="n">glDisableVertexAttribArray</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="p">;</span>
+    <span class="n">glUseProgram</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="p">;</span>
 
-    glutSwapBuffers();
-    glutPostRedisplay();
-}
-</code></pre></div><p>你也许会好奇的是，loopDuration是怎么设置的。这个在着色器初始化的时候实现的。</p>
+    <span class="n">glutSwapBuffers</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="n">glutPostRedisplay</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>你也许会好奇的是，loopDuration是怎么设置的。这个在着色器初始化的时候实现的。</p>
 <p><strong>Example 3.8. Loop Duration Setting</strong></p>
 <pre><code>void InitializeProgram()
 {
@@ -400,7 +420,21 @@ void main()
 
     </div>
 
-    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2017-06-01
+        
+    </span>
+  </p>
+  
+  
+</div>
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/opengl/">opengl</a>
@@ -432,9 +466,22 @@ void main()
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:grass-of-sky@163.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://www.github.com/grassofsky" class="iconfont icon-github" title="github"></a>
-  <a href="http://127.0.0.1:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -456,7 +503,7 @@ void main()
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">Zhong Xiewei</span>
+    <span class="author">grassofsky</span>
   </span>
 </div>
     </footer>
@@ -465,18 +512,11 @@ void main()
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
-  <script type="text/javascript">
-    window.MathJax = {
-      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-      showProcessingMessages: false,
-      messageStyle: 'none'
-    };
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 
 
 
