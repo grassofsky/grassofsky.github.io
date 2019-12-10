@@ -10,7 +10,7 @@
 export LC_TIME=en_US.UTF-8
 
 # GitHub username.
-USERNAME=stupidgrass
+USERNAME=grassofsky
 # Name of the branch containing the Hugo source files.
 SOURCE=source
 # The commit message.
