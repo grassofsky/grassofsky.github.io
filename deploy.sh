@@ -28,7 +28,7 @@ msg "Building the website"
 hugo
 
 msg "Pushing the updated \`public\` folder to the \`$SOURCE\` branch"
-# git add public
+git add public
 git add content
 git commit -m "$MESSAGE"
 git push origin "$SOURCE"
