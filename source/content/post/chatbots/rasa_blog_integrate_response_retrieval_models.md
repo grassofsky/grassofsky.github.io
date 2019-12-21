@@ -1,7 +1,7 @@
 +++
 date="2019-12-21"
 title="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）"
-categories=["chatbot","rasa"]
+categories=["chatbot","rasa","翻译"]
 tags=["rasa-blog"]
 +++
 

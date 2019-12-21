@@ -1,6 +1,6 @@
 +++
 date="2019-12-21"
-title="rasa对话系统Demo实战 - 简单的火车票查询助手"
+title="rasa对话系统demo实战 - 简单的火车票查询助手"
 categories=["chatbot","rasa"]
 tags=["rasa-example"]
 +++

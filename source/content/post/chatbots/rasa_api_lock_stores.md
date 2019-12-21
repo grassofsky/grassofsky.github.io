@@ -1,7 +1,7 @@
 +++
 date="2019-12-21"
 title="对话系统rasa - Lock Stores （翻译）"
-categories=["chatbot","rasa"]
+categories=["chatbot","rasa","翻译"]
 tags=["rasa-doc"]
 +++
 
