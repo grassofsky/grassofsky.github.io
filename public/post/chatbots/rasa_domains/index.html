@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Rasa - 领域 [翻译] - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="Rasa - 领域 [翻译] Domain（领域）定义了助手可以操控的世界。它指定了机器需要了解的intents,entities,slots,actio" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_domains/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Rasa - 领域 [翻译]" />
+<meta property="og:description" content="Rasa - 领域 [翻译] Domain（领域）定义了助手可以操控的世界。它指定了机器需要了解的intents,entities,slots,actio" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_domains/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="Rasa - 领域 [翻译]">
+<meta itemprop="description" content="Rasa - 领域 [翻译] Domain（领域）定义了助手可以操控的世界。它指定了机器需要了解的intents,entities,slots,actio">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2189">
+
+
+
+<meta itemprop="keywords" content="rasa-doc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rasa - 领域 [翻译]"/>
+<meta name="twitter:description" content="Rasa - 领域 [翻译] Domain（领域）定义了助手可以操控的世界。它指定了机器需要了解的intents,entities,slots,actio"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Rasa - 领域 [翻译]</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">领域示例</a>
+      <ul>
+        <li><a href="#heading-1">这是什么意思呢？</a></li>
+      </ul>
+    </li>
+    <li><a href="#actionsslots">自定义Actions和Slots</a></li>
+    <li><a href="#heading-2">对话模板</a></li>
+    <li><a href="#imagesbuttons">Images和Buttons</a></li>
+    <li><a href="#heading-3">自定义输出</a></li>
+    <li><a href="#heading-4">特定频道的话语</a></li>
+    <li><a href="#heading-5">变量</a></li>
+    <li><a href="#heading-6">可变性</a></li>
+    <li><a href="#ignoring-entities-for-certain-intents">针对某种意图忽略实体（Ignoring entities for certain intents）</a></li>
+    <li><a href="#heading-7">原文连接</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa----">Rasa - 领域 [翻译]</h1>
+<p>Domain（领域）定义了助手可以操控的世界。它指定了机器需要了解的<code>intents</code>,<code>entities</code>,<code>slots</code>,<code>actions</code>。可选的，它还包括机器能够说的<code>templates</code>。</p>
+<h2 id="heading">领域示例</h2>
+<p><code>DefaultDomain</code>如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+
+actions:
+- utter_greet
+- utter_cheer_up
+- utter_did_that_help
+- utter_happy
+- utter_goodbye
+- utter_iamabot
+
+templates:
+  utter_greet:
+  - text: &#34;Hey! How are you?&#34;
+
+  utter_cheer_up:
+  - text: &#34;Here is something to cheer you up:&#34;
+    image: &#34;https://i.imgur.com/nGF1K8f.jpg&#34;
+
+  utter_did_that_help:
+  - text: &#34;Did that help you?&#34;
+
+  utter_happy:
+  - text: &#34;Great, carry on!&#34;
+
+  utter_goodbye:
+  - text: &#34;Bye&#34;
+
+  utter_iamabot:
+  - text: &#34;I am a bot, powered by Rasa.&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="heading-1">这是什么意思呢？</h3>
+<p>你的NLU模型将定义intents和entities。</p>
+<p><a href="https://rasa.com/docs/rasa/core/slots/#slots">Slots</a>用来保存对话中你想要记录的踪迹。一个名叫<code>risk_level</code>的分类slot可以定义成如下形式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">slots:
+	risk_level:
+		type: categorical
+		values:
+		- low
+		- medium
+		- high
+</code></pre></td></tr></table>
+</div>
+</div><p><a href="https://rasa.com/docs/rasa/core/slots/#slot-classes">Here</a> 能够找到Rasa Core中定义的slot类型，以及如何在domain文件中定义。</p>
+<p><a href="https://rasa.com/docs/rasa/core/actions/#actions">Actions</a>是机器实际会处理的事情。举个例子，一个动作可以是：</p>
+<ul>
+<li>对用户的回答</li>
+<li>外部API的调用</li>
+<li>数据库查找</li>
+<li>可以是其他任何事情</li>
+</ul>
+<h2 id="actionsslots">自定义Actions和Slots</h2>
+<p>为了在你的domain中引用slots，你需要以模块路径进行引用。要引用自定义action，可以使用他们的名字。比如，如果你有一个模块叫做my_actions，这个模块里面有一个类叫做MyAwesomeAction,还有一个模块my_slots，含有一个类MyAwesomeSlot，那么在domain文件中，你需要添加下面的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">actions:
+	- my_custom_action
+	...
+	
+slots:
+	- my_slots.MyAwesomeSlot
+</code></pre></td></tr></table>
+</div>
+</div><p>这个例子中MyAwesomeAction类的name函数必要返回my_custom_action。更加详细的介绍可以见：<a href="https://rasa.com/docs/rasa/core/actions/#custom-actions">Custom Actions</a>。</p>
+<h2 id="heading-2">对话模板</h2>
+<p>对话模板带有机器返回给用户的消息。这里有两种方式使用这些模板：</p>
+<ol>
+<li>
+<p>如果模板中的名字以<code>utter_</code>开头，那么该言论可以直接用作action。你将添加类似下面的模板到domain中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">templates:
+ utter_greet:
+ - text: &#34;Hey! How are you?&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>随后，在stories中可以这么使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## greet the user
+* intent_greet
+  - utter_greet
+</code></pre></td></tr></table>
+</div>
+</div><p>当<code>utter_greet</code>按照action运行的时候，它将从模板中发送消息给用户。</p>
+</li>
+<li>
+<p>你可以使用模板从自定义的actions中产生响应消息，具体用<code>dispatcher.utter_template(&quot;utter_greet&quot;, tracker)</code>。这个允许你将产生消息的逻辑从实际拷贝中移出。在你的自定义action代码中，你可以基于模板发送消息，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">rasa_sdk.actions</span> <span class="kn">import</span> <span class="n">Action</span>
+   
+<span class="k">class</span> <span class="nc">ActionGreet</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">action_greet</span><span class="s1">&#39;</span>
+       
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">:</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_greet</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="imagesbuttons">Images和Buttons</h2>
+<p>在domain定义文件中可以包含图像和按钮，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">tempaltes:
+	utter_greete:
+	- text: &#34;Hey! How are you?&#34;
+	  buttons:
+	  - title: &#34;great&#34;
+	    payload: &#34;great&#34;
+	  - title: &#34;super sad&#34;
+	    payload: &#34;super sad&#34;
+	utter_cheer_up:
+	- text: &#34;Here is something to cheer you up:&#34;
+	  image: &#34;https://i.imgur.com/nGF1K8f.jpg&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：这个功能取决于输出平道是否支持button的显示。如命令行模式，会通过以输出选项的方式，替换图像和按钮的显示。</p>
+<h2 id="heading-3">自定义输出</h2>
+<p>你可以使用custom将任意的响应输出到输出通道。</p>
+<p>比如，尽管日期选择器在template模板中并没有定义成参数，但是slack date picker可以通过下面的方式发送：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">templates:
+  utter_take_bet:
+  - custom:
+      blocks:
+      - type: section
+        text:
+          text: &#34;Make a bet on when the world will end:&#34;
+          type: mrkdwn
+        accessory:
+          type: datepicker
+          initial_data: &#39;2019-05-21&#39;
+          placeholder:
+            type: plain_text
+            text: Select a date
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading-4">特定频道的话语</h2>
+<p>如果你有某个话语只需要发送到特定频道，可以使用<code>channel</code>关键词进行限定。value需要和channel类(OutputChannel类)的name函数返回的名字相匹配。这个功能当你需要创建的自定义的输出只针对某个频道的时候就很有用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">templates:
+  utter_ask_game:
+  - text: &#34;Which game would you like to play?&#34;
+    channel: &#34;slack&#34;
+    custom:
+      - # payload for Slack dropdown menu to choose a game
+  - text: &#34;Which game would you like to play?&#34;
+    buttons:
+    - title: &#34;Chess&#34;
+      payload: &#39;/inform{&#34;game&#34;: &#34;chess&#34;}&#39;
+    - title: &#34;Checkers&#34;
+      payload: &#39;/inform{&#34;game&#34;: &#34;checkers&#34;}&#39;
+    - title: &#34;Fortnite&#34;
+      payload: &#39;/inform{&#34;game&#34;: &#34;fortnite&#34;}&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>每一次机器查找言论的时候，首先会确认是模板中是否有针对特定频道的言论。如果有，只会选择该言论。如果没有找到，将从没有定义channel的言论中挑选。因此，针对每个言论都定义一个没有channel的情况是一个好的习惯。</p>
+<h2 id="heading-5">变量</h2>
+<p>在模板中也可以使用变量来表示对话中收集的内容。你可以在python代码中添加或使用自动slot填充机制。如有下面的模板：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">templates:
+  utter_greet:
+  - text: &#34;Hey, {name}. How are you?&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>Rasa会自动的用叫做name的slot将变量进行填充。</p>
+<p>在自定义代码中实现方式为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">ActionCustom</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">action_custom</span><span class="s2">&#34;</span>
+    
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">:</span>
+        <span class="c1"># send utter default template to user</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_default</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+        <span class="c1"># .. other code</span>
+        <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果模板包含<code>{my_variable}</code>的变量，你可以通过参数的形式传递给<code>utter_template</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_default</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">my_variable</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">my text</span><span class="s2">&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading-6">可变性</h2>
+<p>如果你想要发送给用户的回复是随机的，那么可以将多个回复以列表的形式给出，Rasa会随机地进行选择，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">templates:
+  utter_greeting:
+  - text: &#34;Hey, {name}. How are you?&#34;
+  - text: &#34;Hey, {name}. How is your day going?&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="ignoring-entities-for-certain-intents">针对某种意图忽略实体（Ignoring entities for certain intents）</h2>
+<p>如果你想要忽略某个意图的所有实体，你可以添加<code>use_entities: []</code>，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:
+  - greet:
+  	  use_entities: []
+</code></pre></td></tr></table>
+</div>
+</div><p>如果只需要忽略部分实体，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:
+- greet:
+	use_entities:
+	  - name
+	  - first_name
+	ignore_entities:
+	  - location
+	  - age
+</code></pre></td></tr></table>
+</div>
+</div><p>这意味着，这些意图中的被排除的实体是未经处理的，因此不会影响下一个动作的预测。当你有不关心一个意图中被挑选出来的实体的时候，这是有用的。如果您在没有这个参数的情况下将您的意图列为normal，那么实体将被特性化为normal。</p>
+<p>注意：如果你确实想要这些实体不影响动作预测，建议使用具有相同名字，类型为unfeaturized的slots。</p>
+<h2 id="heading-7">原文连接</h2>
+<p><a href="https://rasa.com/docs/rasa/core/domains/#domains">https://rasa.com/docs/rasa/core/domains/#domains</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-doc/">rasa-doc</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_interactive_learning/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Rasa - Interactive Learning （翻译）</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_blog_integrate_response_retrieval_models/">
+            <span class="next-text nav-default">rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

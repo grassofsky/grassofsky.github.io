@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译) - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译) 欢迎来到Rasa NLU深入理解系列的最后一篇文章。 在这个系列的文章中，我们会将从社区以及客户中" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译)" />
+<meta property="og:description" content="rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译) 欢迎来到Rasa NLU深入理解系列的最后一篇文章。 在这个系列的文章中，我们会将从社区以及客户中" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part3/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译)">
+<meta itemprop="description" content="rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译) 欢迎来到Rasa NLU深入理解系列的最后一篇文章。 在这个系列的文章中，我们会将从社区以及客户中">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2484">
+
+
+
+<meta itemprop="keywords" content="rasa-blog," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译)"/>
+<meta name="twitter:description" content="rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译) 欢迎来到Rasa NLU深入理解系列的最后一篇文章。 在这个系列的文章中，我们会将从社区以及客户中"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">超参数优化</a>
+      <ul>
+        <li><a href="#heading-1">定义查找空间</a></li>
+        <li><a href="#heading-2">配置超参数搜索</a></li>
+        <li><a href="#heading-3">运行</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-4">小结</a></li>
+    <li><a href="#heading-5">原文地址</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa-blog---rasa-nlu-part3----">rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译)</h1>
+<p>欢迎来到Rasa NLU深入理解系列的最后一篇文章。</p>
+<p>在这个系列的文章中，我们会将从社区以及客户中获取的关于Rasa NLU的最佳实践和经验分享给大家。</p>
+<p>快速的回顾一下，之前已经介绍的内容：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/84075497">如何理解你的用户 - Rasa NLU意图分类器</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/84220988">从用户消息中提取实体 - 实体识别</a></li>
+</ul>
+<p>该系列的前两个部分已经为你创建AI助手选择NLU管道提供了所有的工具和知识。最后一部分，将介绍如何对Rasa NLU管道中的组件进行配置调优，以用户最佳的表现。这篇文章包含以下内容：</p>
+<ul>
+<li>如何用Rasa NLU进行大规模参数优化</li>
+<li>哪个超参数在微调时对结果优化最明显</li>
+</ul>
+<h2 id="heading">超参数优化</h2>
+<p>前两部分已经介绍了哪个NLU组件更加适合你的应用场景以及如何对潜在问题进行处理。选择合适的组件是你的AI助手应用成功的关键。但是，如果你想要进一步充分利用组件，你必须要对单个组件的配置参数（叫做超参数）进行调优。寻找最佳配置的方法是，用不同的配置参数进行训练，然后分别在验证集上面进行评估。通过超参数查找，可以找到评估分数最高的超参数配置。由于组件有很多的超参数，以及模型训练是时间密集型的，我们将展示如何使用Docker容器，帮助你将超参数查找更好的扩展到多个机器上。</p>
+<h3 id="heading-1">定义查找空间</h3>
+<p>在开始之前，前克隆<a href="https://github.com/RasaHQ/nlu-hyperopt">rasaHQ/nlu-hyperopt repository</a>。为你的NLU管道定义模板，可以对<code>data/template_config.yml</code>进行更改。并将参数替换成你想要优化的参数，使用大括号括起来，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">language: en
+pipeline:
+- name: &#34;intent_featurizer_count_vectors&#34;
+- name: &#34;intent_classifier_tensorflow_embedding&#34;
+  epochs: {epochs} 
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面的例子中，我们定义了NLU管道用于<code>intent_classifier_tensorflow_embedding</code>意图识别。在超参数查找的时候，我们将试图查找最佳的训练迭代次数。</p>
+<p>下一个步骤是定义你的NLU模型中想要评估的参数的范围。根据你想要评估的超参数，调整<code>nlu_hyperopt/space.py</code>文件中的内容，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">hyperopt</span> <span class="kn">import</span> <span class="n">hp</span>
+
+<span class="n">search_space</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sa"></span><span class="s1">&#39;</span><span class="s1">epochs</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="err">“</span><span class="n">epochs</span><span class="err">”</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>针对查找空间，模型将被以不同的epochs数值进行训练，epochs的取值范围为从1到10。你可以从其他的分布中进行选择。参见<a href="https://github.com/hyperopt/hyperopt/wiki/FMin#21-parameter-expressions">hyperopt docs</a>。</p>
+<p>组件有很多的超参数，那么我们该从什么地方开始呢？由于预训练词嵌入<a href="http://rasa.com/docs/rasa/nlu/components/#sklearnintentclassifier">intent_classifier_sklearn</a>已经在训练中执行了网格搜索，当你使用<a href="http://rasa.com/docs/rasa/nlu/components/#embeddingintentclassifier">intent_classifier_tensorflow_embedding</a>训练你自己的词嵌入的时候，超参数优化会更你更多的额外的好处。该组件的重要的超参数是来自 <a href="http://rasa.com/docs/rasa/nlu/components/#countvectorsfeaturizer">intent_featurizer_count_vectors</a>组件和分类器本身的。对于组件 <a href="http://rasa.com/docs/rasa/nlu/components/#countvectorsfeaturizer">intent_featurizer_count_vectors</a>，我们建议考虑<code>min_df</code>，<code>max_df</code>，和<code>max_features</code>。更详细介绍参见：<a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">Sklearn documentation</a>。</p>
+<p><a href="http://rasa.com/docs/rasa/nlu/components/#embeddingintentclassifier">tensorflow classifier</a>含有很多的参数。我们建议从调整embeddings的维度（<code>embed_dim</code>）和隐藏层的大小（<code>hidden_layers_sizes_a,hidden_layers_sizes_b</code>）开始。针对上面三个参数，更大的值能够获得更高的精度，但是也可能会导致过拟合。</p>
+<h3 id="heading-2">配置超参数搜索</h3>
+<p>最后，配置你的尝试。这是通过环境变量的设置实现的。如果你想要顺序的运行超参数查找，或不适用Docker，那么你可以忽略mongo数据库的设置。这个选项的详细介绍见<a href="https://github.com/RasaHQ/nlu-hyperopt/blob/master/README.md">readme</a>，因此为了简单起见，我们将关注最重要的几个参数。</p>
+<p><strong>MAX_EVALS</strong></p>
+<p>这个参数描述了你想要运行多少次评估。如果参数的组合（查找空间）比较小，你也许需要选择一个较小的值。如果查找空间很大，为了更好的覆盖查找空间，必须要执行更多的评估。</p>
+<p><strong>TARGET_METRIC</strong></p>
+<p>这个值定义了用于比较不同训练模型的评价指标。可供的选择有：</p>
+<ul>
+<li><code>f1_score</code>：在评估数据集中查找<code>f1</code>分数最高的模型</li>
+<li>accuracy：在评估数据集中查找准确度最高的模型</li>
+<li>precision：在评估数据集中查找精度最高的模型</li>
+<li><code>threshold_loss</code>：其他的度量方式会选择出置信度最高的意图作为正确的结果，该损失函数仅会选择出预测结果是正确的，并且置信度值高于阈值的结果。这说明了使用fallback策略来消除低置信度预测的歧义。你可以使用参数<code>ABOVE_BELOW_WEIGHT</code>来指定使用阈值之上还是阈值之下的预测作为不正确的预测。</li>
+</ul>
+<p>然后添加训练集用于模型训练，评价集用于模型评估。通过将训练数据放到<code>data/train.md</code>，将评估数据放到<code>data/validation.md</code>进行指定。</p>
+<h3 id="heading-3">运行</h3>
+<p>终于到了运行参数搜索的时间了。你可以选择不使用Docker或使用Docker容器来运行超参数搜索。</p>
+<p>如果你想要在本地运行，通过命令<code>pip install -r requirements.txt</code>安装依赖，然后执行<code>python -m nlu_hyperopt.app</code>。</p>
+<p>如果想要通过Docker运行，可以执行命令：<code>docker-compose up -d --scale hyperopt-work=&lt;number of concurrent workers&gt;</code>。这个会构建包含你的数据集，搜索空间，和模板配置的docker镜像，接着使用mongo数据库并行的运行。当然，你可以在集群运行，将工作分发到不同的机器上。常见的集群编排工具，如Kubernetes，能够处理生成的docker-compose文件。</p>
+<p>当评估结束之后，会在日志中输出最佳的pipeline配置，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">INFO:__main__:The best configuration is:
+
+language: en
+pipeline:
+- name: &#34;intent_featurizer_count_vectors&#34;
+- name: &#34;intent_classifier_tensorflow_embedding&#34;
+  epochs: 8.0
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你通过Docker和mongo数据库进行超参数搜索，所有的评估结果会存储到mongo数据库中。通过执行<code>docker-compose exec mongodb mongo</code>进入mongo容器查看评估结果。下面的命令会输出对应的结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">db.jobs.find({&#34;exp_key&#34; : &#34;default-experiment&#34;, &#34;result.loss&#34;:{$exists: 1}}).sort({&#34;result.loss&#34;: 1})
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading-4">小结</h2>
+<p>这篇博文是我们三篇Rasa NLU深入系列文章中的最后一篇，它反映了我们的最佳实践和建议，以便根据您的需求完全定制NLU管道。你现在应该是一个RASA NLU专家，并有信心为你的个人上下文人工智能助手选择和定制完美的RASA NLU管道。祝贺你！</p>
+<h2 id="heading-5">原文地址</h2>
+<p><a href="https://blog.rasa.com/rasa-nlu-in-depth-part-3-hyperparameters/">https://blog.rasa.com/rasa-nlu-in-depth-part-3-hyperparameters/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-blog/">rasa-blog</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_blog_rasa_nlu_in_depth_part2/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">rasa blog - 深入理解rasa NLU: Part2 - 实体识别 (翻译)</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_blog_designing_rasa_training_stories/">
+            <span class="next-text nav-default">rasa blog - 设计Rasa训练故事</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

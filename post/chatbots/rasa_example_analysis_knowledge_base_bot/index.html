@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对话系统rasa示例简析 - Knowledge Base Bot - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="对话系统rasa示例简析 - Knowledge Base Bot 链接 https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot 示例说明 此处不赘述，参见：https://github.com/RasaHQ/rasa/tree/ma" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_example_analysis_knowledge_base_bot/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对话系统rasa示例简析 - Knowledge Base Bot" />
+<meta property="og:description" content="对话系统rasa示例简析 - Knowledge Base Bot 链接 https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot 示例说明 此处不赘述，参见：https://github.com/RasaHQ/rasa/tree/ma" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_example_analysis_knowledge_base_bot/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="对话系统rasa示例简析 - Knowledge Base Bot">
+<meta itemprop="description" content="对话系统rasa示例简析 - Knowledge Base Bot 链接 https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot 示例说明 此处不赘述，参见：https://github.com/RasaHQ/rasa/tree/ma">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3188">
+
+
+
+<meta itemprop="keywords" content="rasa-example," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对话系统rasa示例简析 - Knowledge Base Bot"/>
+<meta name="twitter:description" content="对话系统rasa示例简析 - Knowledge Base Bot 链接 https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot 示例说明 此处不赘述，参见：https://github.com/RasaHQ/rasa/tree/ma"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对话系统rasa示例简析 - Knowledge Base Bot</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">链接</a></li>
+    <li><a href="#heading-1">示例说明</a></li>
+    <li><a href="#domain">domain描述</a></li>
+    <li><a href="#nlu">nlu描述</a></li>
+    <li><a href="#stories">stories描述</a></li>
+    <li><a href="#action">action描述</a></li>
+    <li><a href="#endpoints">endpoints描述</a></li>
+    <li><a href="#config">config描述</a></li>
+    <li><a href="#knowledge-base-datajson">knowledge_base_data.json</a></li>
+    <li><a href="#heading-2">对话记录</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa---knowledge-base-bot">对话系统rasa示例简析 - Knowledge Base Bot</h1>
+<h2 id="heading">链接</h2>
+<p><a href="https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot">https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot</a></p>
+<h2 id="heading-1">示例说明</h2>
+<p>此处不赘述，参见：https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot/README.md</p>
+<h2 id="domain">domain描述</h2>
+<p>考虑到篇幅长度，对部分内容进行了省略。关于slot可以参见：<a href="https://zhuanlan.zhihu.com/p/83586780">对话系统rasa - slots 翻译</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:           &lt;!-- 定义意图 --&gt;
+  - greet
+  - goodbye
+  &lt;!-- 省略 --&gt;
+
+entities:         &lt;!-- 定义实体 --&gt;
+  - object_type
+  - mention
+  &lt;!-- 省略 --&gt;
+
+slots:           &lt;!-- unfeaturized类型的slot，仅用来存储信息，对对话工作流没有影响 --&gt;   
+  object_type:
+    type: unfeaturized
+  mention:
+    type: unfeaturized
+  &lt;!-- 省略 --&gt;
+
+actions:
+- utter_greet
+- utter_goodbye
+- utter_ask_rephrase
+- utter_iamabot
+- action_query_knowledge_base    &lt;!-- 自定义的action --&gt;
+
+templates:
+  utter_greet:   &lt;!-- 返回的对话，提供多选 --&gt;
+  - text: &#34;Hey!&#34;
+  - text: &#34;Hello! How can I help you?&#34;
+
+  utter_goodbye:
+  - text: &#34;Bye&#34;
+  - text: &#34;Goodbye. See you soon.&#34;
+
+  &lt;!-- 省略 --&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="nlu">nlu描述</h2>
+<p>考虑到篇幅长度，对部分内容进行了省略。训练数据格式可以参见：<a href="https://zhuanlan.zhihu.com/p/83023959">对话系统Rasa-1-训练数据格式 翻译</a>。</p>
+<p>这里简单针对实体进行简单介绍：<code>what [restaurants](object_type:restaurant) can you recommend?</code>这里的格式是：<code>[实体](实体名称：具体值)</code>，如果没有具体值的话，这个值就是实体本身 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## intent:greet &lt;!-- great意图相关的语句 --&gt;
+- hey
+- hello
+&lt;!-- 省略 --&gt;
+
+## intent:goodbye  &lt;!-- goodbye意图相关的语句 --&gt;
+- bye
+- goodbye
+&lt;!-- 省略 --&gt;
+
+## intent:query_knowledge_base &lt;!-- 检索意图相关的语句 --&gt;
+- what [restaurants](object_type:restaurant) can you recommend?
+- list some [restaurants](object_type:restaurant)
+- can you name some [restaurants](object_type:restaurant) please?
+- can you show me some [restaurant](object_type:restaurant) options
+- list [German](cuisine) [restaurants](object_type:restaurant)
+- do you have any [mexican](cuisine) [restaurants](object_type:restaurant)?
+- do you know the [price range](attribute:price-range) of [that one](mention)?
+&lt;!-- 省略 --&gt;
+
+## lookup:restaurant
+- Donath
+- Berlin Burrito Company
+&lt;!-- 省略 --&gt;
+
+## lookup:hotel
+- Hilton
+- B&amp;B
+&lt;!-- 省略 --&gt;
+
+## intent:bot_challenge
+- are you a bot?
+- are you a human?
+&lt;!-- 省略 --&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="stories">stories描述</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## Happy path 1   &lt;!-- 第一个故事包括了三个对话，问候，查询，再见 --&gt;
+* greet
+  - utter_greet
+* query_knowledge_base
+  - action_query_knowledge_base
+* goodbye
+  - utter_goodbye
+
+## Happy path 2  &lt;!-- 第二个故事包括了四个对话，问候，查询，查询，再见 --&gt;
+* greet
+  - utter_greet
+* query_knowledge_base
+  - action_query_knowledge_base &lt;!-- 针对复杂的查询，自定义了实现逻辑 --&gt;
+* query_knowledge_base
+  - action_query_knowledge_base
+* goodbye
+  - utter_goodbye
+
+## Hello &lt;!-- 第三个故事是简单的问候 --&gt;
+* greet
+- utter_greet
+
+## Query Knowledge Base  &lt;!-- 第四个故事是简单的查询 --&gt;
+* query_knowledge_base
+- action_query_knowledge_base
+
+## Bye &lt;!-- 第五个故事是简单的再见 --&gt;
+* goodbye
+- utter_goodbye
+
+## bot challenge &lt;!-- 第六个故事是对bot的质疑 --&gt;
+* bot_challenge
+  - utter_iamabot
+</code></pre></td></tr></table>
+</div>
+</div><p><code>rasa visualize</code>运行结果如下：</p>
+<p><img src="E:/Workspace/data_science/TaskTracker/xiewei.zhong/images/knowledgebasebot_stories.png" alt=""></p>
+<h2 id="action">action描述</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">rasa_sdk.knowledge_base.storage</span> <span class="kn">import</span> <span class="n">InMemoryKnowledgeBase</span>
+<span class="kn">from</span> <span class="nn">rasa_sdk.knowledge_base.actions</span> <span class="kn">import</span> <span class="n">ActionQueryKnowledgeBase</span>
+
+
+<span class="k">class</span> <span class="nc">ActionMyKB</span><span class="p">(</span><span class="n">ActionQueryKnowledgeBase</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+        <span class="c1"># load knowledge base with data from the given file</span>
+        <span class="n">knowledge_base</span> <span class="o">=</span> <span class="n">InMemoryKnowledgeBase</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">knowledge_base_data.json</span><span class="s2">&#34;</span><span class="p">)</span>
+
+        <span class="c1"># overwrite the representation function of the hotel object</span>
+        <span class="c1"># by default the representation function is just the name of the object</span>
+        <span class="n">knowledge_base</span><span class="o">.</span><span class="n">set_representation_function_of_object</span><span class="p">(</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">hotel</span><span class="s2">&#34;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">name</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2"> (</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="n">obj</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">city</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">)</span><span class="s2">&#34;</span>
+        <span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">knowledge_base</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从定义中可见主要的实现逻辑位于ActionQueryKnowledgeBase中，查看https://github.com/RasaHQ/rasa-sdk/blob/master/rasa_sdk/knowledge_base/actions.py文件内部的run函数，具体如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+    <span class="n">object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">)</span> <span class="c1"># object_type</span>
+    <span class="n">last_object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT_TYPE</span><span class="p">)</span> <span class="c1"># knowledge_base_last_object</span>
+    <span class="n">attribute</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">)</span> <span class="c1"># attribute</span>
+
+    <span class="c1"># 笔者添加，用来观察变量</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:run, object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:run, last_object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">last_object_type</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:run, attribtue: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+    
+    <span class="n">new_request</span> <span class="o">=</span> <span class="n">object_type</span> <span class="o">!=</span> <span class="n">last_object_type</span>
+
+    <span class="c1"># 如果没有object_type的slot被匹配上，那么直接返回</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">object_type</span><span class="p">:</span>
+        <span class="c1"># object type always needs to be set as this is needed to query the</span>
+        <span class="c1"># knowledge base</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
+
+    <span class="c1"># 如果没有属性，或者是一个新的请求，查询object_type的实体</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">attribute</span> <span class="ow">or</span> <span class="n">new_request</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_objects</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">attribute</span><span class="p">:</span> <span class="c1"># 如果属性不为空，需要查找到对应的属性</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_attribute</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+
+    <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该函数主要调用了两个函数<code>_query_objects</code>和<code>_query_attribute</code>，<code>_query_objects</code>如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">_query_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span><span class="p">:</span>
+    <span class="c1"># type: (CollectingDispatcher, Tracker) -&gt; List[Dict]</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Queries the knowledge base for objects of the requested object type and</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    outputs those to the user. The objects are filtered by any attribute the</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    user mentioned in the request.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Args:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    dispatcher: the dispatcher</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    tracker: the tracker</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Returns: list of slots</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="c1"># 如果object_type为：restaurant</span>
+    <span class="c1"># 那么object_attributes为：</span>
+    <span class="c1">#   [&#39;id&#39;, &#39;name&#39;, &#39;cuisine&#39;, &#39;outside-seating&#39;, &#39;price-range&#39;]</span>
+    <span class="n">object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">)</span>
+    <span class="n">object_attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_attributes_of_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">)</span>
+
+    <span class="c1"># get all set attribute slots of the object type to be able to filter the</span>
+    <span class="c1"># list of objects</span>
+    <span class="c1"># 获取对象对应的属性，比如用户说&#39;What Italian restaurants do you know?&#39;.</span>
+    <span class="c1"># 那么NER会检测出&#39;Italian&#39;是&#39;cuisine&#39;，我们知道cuisine是restaurant的一个属性。</span>
+    <span class="c1"># 因此, 这个函数返回 [{&#39;name&#39;: &#39;cuisine&#39;, &#39;value&#39;: &#39;Italian&#39;}] </span>
+    <span class="n">attributes</span> <span class="o">=</span> <span class="n">get_attribute_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">,</span> <span class="n">object_attributes</span><span class="p">)</span>
+    <span class="c1"># query the knowledge base</span>
+    <span class="c1"># 根据属性获取对应的restaurant，如果属性为空，则从所有的restaurant中查询，默认返回长度为5</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_objects</span><span class="p">(</span><span class="n">object_type</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
+
+    <span class="c1"># 针对查找结果构建对话</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">utter_objects</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">object_type</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">objects</span><span class="p">:</span>
+        <span class="c1"># 重置当前对象类型的所有属性slot</span>
+        <span class="c1"># 如果用户说Show me all restaurants with Italian cuisine</span>
+        <span class="c1"># NER会识别出restaurant为object_type,Italian为cuisine对象。</span>
+        <span class="c1"># 那么我们会从知识库中提取出cuisine=Italian的restaurant。</span>
+        <span class="c1"># 当列出对象的时候，我们check NER检测出了什么属性。我们拿到了所有set</span>
+        <span class="c1"># 的属性，如cuisine = Italian。如果我们在请求之后没有重置attribute slots，</span>
+        <span class="c1"># 当用户的下一个对话是List all restaurants that have wifi，我们将</span>
+        <span class="c1"># 有两个属性slots，wifi和cuisine。因此，我们查找restaurant的时候需要</span>
+        <span class="c1"># 校验这两个属性。但是用户的表达仅仅针对wifi。</span>
+    	<span class="k">return</span> <span class="n">reset_attribute_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">,</span> <span class="n">object_attributes</span><span class="p">)</span>
+
+    <span class="c1"># 获取主键</span>
+    <span class="n">key_attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_key_attribute_of_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">)</span>
+
+    <span class="c1"># 针对objects小于等于1的情况下才有last_object</span>
+    <span class="n">last_object</span> <span class="o">=</span> <span class="bp">None</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">[</span><span class="n">key_attribute</span><span class="p">]</span>
+
+    <span class="c1"># 笔者添加用来观察变量</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects object_attributes: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_attributes</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects attributes: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects objects: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects key_attribute: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">key_attribute</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects last_object: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">last_object</span><span class="p">)</span>
+    
+    <span class="c1"># slot赋值</span>
+    <span class="n">slots</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>
+        <span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>
+        <span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>
+        <span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT</span><span class="p">,</span> <span class="n">last_object</span><span class="p">)</span><span class="p">,</span>
+        <span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>
+        <span class="n">SlotSet</span><span class="p">(</span>
+            <span class="n">SLOT_LISTED_OBJECTS</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">[</span><span class="n">key_attribute</span><span class="p">]</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span><span class="p">)</span>
+        <span class="p">)</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">slots</span> <span class="o">+</span> <span class="n">reset_attribute_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">,</span> <span class="n">object_attributes</span><span class="p">)</span>    
+</code></pre></td></tr></table>
+</div>
+</div><p><code>_query_attribute</code>如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">_query_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span><span class="p">:</span>
+	<span class="c1"># type: (CollectingDispatcher, Tracker) -&gt; List[Dict]</span>
+	<span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span><span class="s2"></span><span class="s2">	Queries the knowledge base for the value of the requested attribute of the</span><span class="s2">
+</span><span class="s2"></span><span class="s2">	mentioned object and outputs it to the user.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">	Args:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">		dispatcher: the dispatcher</span><span class="s2">
+</span><span class="s2"></span><span class="s2">		tracker: the tracker</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">	Returns: list of slots</span><span class="s2">
+</span><span class="s2"></span><span class="s2">	</span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="c1"># 针对:</span>
+    <span class="c1"># list restaurants</span>
+    <span class="c1"># do you know what cuisine the last one has</span>
+    <span class="c1"># 两个问题，当第二个问题处理的时候，进入到这个函数中：</span>
+    <span class="c1"># 此时object_type为restaurants</span>
+    <span class="c1"># attribute为cuisine</span>
+	<span class="n">object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">)</span>
+	<span class="n">attribute</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">)</span>
+
+    <span class="c1"># 获取用户指代的对象，返回对应的id</span>
+	<span class="n">object_name</span> <span class="o">=</span> <span class="n">get_object_name</span><span class="p">(</span>
+		<span class="n">tracker</span><span class="p">,</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">ordinal_mention_mapping</span><span class="p">,</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">use_last_object_mention</span><span class="p">,</span>
+	<span class="p">)</span>
+    
+    <span class="c1"># 笔者添加用来观察变量</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute attribute: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_name: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">object_name</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">attribute</span><span class="p">:</span>
+		<span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+		<span class="k">return</span> <span class="p">[</span><span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">]</span>
+
+    <span class="c1"># 根据id和对应的对象类型，获取object</span>
+    <span class="c1"># {&#39;id&#39;:2,&#39;name&#39;:&#39;I due forni&#39;, &#39;cuisine&#39;: &#39;Italian&#39;, &#39;outside-seating&#39;: True, &#39;price-range&#39;: &#39;mid-range&#39;}</span>
+	<span class="n">object_of_interest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_of_interest: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_of_interest</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">object_of_interest</span> <span class="ow">or</span> <span class="n">attribute</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">object_of_interest</span><span class="p">:</span>
+		<span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+		<span class="k">return</span> <span class="p">[</span><span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">]</span>
+
+    <span class="c1"># 获取属性对应的值，Italian</span>
+	<span class="n">value</span> <span class="o">=</span> <span class="n">object_of_interest</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
+	<span class="n">repr_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_representation_function_of_object</span><span class="p">(</span>
+		<span class="n">object_type</span>
+	<span class="p">)</span>
+    <span class="c1"># object_representation = &#39;I due forni&#39;</span>
+	<span class="n">object_representation</span> <span class="o">=</span> <span class="n">repr_function</span><span class="p">(</span><span class="n">object_of_interest</span><span class="p">)</span>
+	<span class="n">key_attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_key_attribute_of_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">)</span>
+	<span class="n">object_identifier</span> <span class="o">=</span> <span class="n">object_of_interest</span><span class="p">[</span><span class="n">key_attribute</span><span class="p">]</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute value: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_representation: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_representation</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute key_attribute: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">key_attribute</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_identifier: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_identifier</span><span class="p">)</span>
+
+    <span class="c1"># 用来给用户反馈消息</span>
+	<span class="bp">self</span><span class="o">.</span><span class="n">utter_attribute_value</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">object_representation</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+	<span class="n">slots</span> <span class="o">=</span> <span class="p">[</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>   <span class="c1"># 存储object_type实体值</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>            <span class="c1"># 将attribute重置None</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>              <span class="c1"># 将mention重置为None</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT</span><span class="p">,</span> <span class="n">object_identifier</span><span class="p">)</span><span class="p">,</span> <span class="c1"># 上一次object的id</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># 记录为上一次的object_type实体值</span>
+	<span class="p">]</span>
+
+	<span class="k">return</span> <span class="n">slots</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="endpoints">endpoints描述</h2>
+<p>自定义的action 的服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">action_endpoint:
+  url: &#34;http://localhost:5055/webhook&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="config">config描述</h2>
+<p>pipeline使用模板<code>supervised_embeddings</code>。</p>
+<p>Policy：</p>
+<ul>
+<li>KerasPolicy用Keras中实现的神经网络来选择下一个action；</li>
+<li>MemoizationPolicy用来记忆你的训练数据中的对话，当在训练数据中能够找到对应的对话，那么confidence为1，否则confidence为0；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">language: en
+pipeline: supervised_embeddings
+
+policies:
+  - name: MemoizationPolicy
+  - name: KerasPolicy
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="knowledge-base-datajson">knowledge_base_data.json</h2>
+<p>酒店和餐馆数据集。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+    &#34;restaurant&#34;: [
+        {
+            &#34;id&#34;: 0,
+            &#34;name&#34;: &#34;Donath&#34;,
+            &#34;cuisine&#34;: &#34;Italian&#34;,
+            &#34;outside-seating&#34;: true,
+            &#34;price-range&#34;: &#34;mid-range&#34;
+        },
+        ......
+    ],
+    &#34;hotel&#34;: [
+        {
+            &#34;id&#34;: 0,
+            &#34;name&#34;: &#34;Hilton&#34;,
+            &#34;price-range&#34;: &#34;expensive&#34;,
+            &#34;breakfast-included&#34;: true,
+            &#34;city&#34;: &#34;Berlin&#34;,
+            &#34;free-wifi&#34;: true,
+            &#34;star-rating&#34;: 5,
+            &#34;swimming-pool&#34;: true
+        },
+        ......
+    ]
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading-2">对话记录</h2>
+<p><img src="./image/knowledgebasebot_chat.png" alt=""></p>
+<p>对应的变量输出为：</p>
+<p><img src="./image/knowledgebasebot_chat_action_log.png" alt=""></p>
+<p>从上面可以观察到，they和it的指代并没有被识别出来，在获取<code>object_name</code>的时候返回了Null。经过代码分析，原因出在如下代码，在对指代的映射中，并没有they和it：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa_sdk/knowledge_base/storage.py</span>
+
+<span class="c1"># ...</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ordinal_mention_mapping</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">1</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">2</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">3</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">4</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">5</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">6</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">7</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">8</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">9</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">10</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ANY</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">LAST</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
+        <span class="p">}</span>
+<span class="c1"># ...</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-example/">rasa-example</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_example_analysis_formbot/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对话系统rasa示例简析 - formbot</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/chat_bots_learning_resource/">
+            <span class="next-text nav-default">0. Chat Bots学习资料</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

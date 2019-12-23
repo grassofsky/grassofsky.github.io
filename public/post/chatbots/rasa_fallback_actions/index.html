@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对话系统Rasa - fallback actions [翻译] - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="对话系统rasa - fallback actions 有些时候，你想要返回到fallback action，比如，回复“Sorry, I didn&#39;t understand that”。你可以处理fallbac" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_fallback_actions/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对话系统Rasa - fallback actions [翻译]" />
+<meta property="og:description" content="对话系统rasa - fallback actions 有些时候，你想要返回到fallback action，比如，回复“Sorry, I didn&#39;t understand that”。你可以处理fallbac" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_fallback_actions/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="对话系统Rasa - fallback actions [翻译]">
+<meta itemprop="description" content="对话系统rasa - fallback actions 有些时候，你想要返回到fallback action，比如，回复“Sorry, I didn&#39;t understand that”。你可以处理fallbac">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1486">
+
+
+
+<meta itemprop="keywords" content="rasa-doc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对话系统Rasa - fallback actions [翻译]"/>
+<meta name="twitter:description" content="对话系统rasa - fallback actions 有些时候，你想要返回到fallback action，比如，回复“Sorry, I didn&#39;t understand that”。你可以处理fallbac"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对话系统Rasa - fallback actions [翻译]</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#fallback-policy">Fallback policy</a></li>
+    <li><a href="#two-stage-fallback-policy">Two-stage Fallback Policy</a></li>
+    <li><a href="#heading">原文地址</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa---fallback-actions">对话系统rasa - fallback actions</h1>
+<p>有些时候，你想要返回到fallback action，比如，回复“Sorry, I didn't understand that”。你可以处理fallback案例，通过添加<code>FallbackPolicy</code>或者<code>TwoStageFallbackPolicy</code>到你的policy集合中。</p>
+<h2 id="fallback-policy">Fallback policy</h2>
+<p><code>FallbackPolicy</code>有一个fallback action，如果意图识别的结果低于<code>nlu_threshold</code>，或者没有一个对话策略预测的action的置信度高于<code>core_threshold</code>，那么这个action就会被执行。</p>
+<p>这个阈值和fallback action可以在policy配置文件中设置，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">policies:
+  - name: &#34;FallbackPolicy&#34;
+    nlu_threshold: 0.4
+    core_threshold: 0.3
+    fallback_action_name: &#34;action_default_fallback&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p><code>action_default_fallback</code>是Rasa Core中默认的action，用来发送<code>utter_default</code>模板的消息给用户。确保在你的domain文件中定义了<code>utter_default</code>。它还将恢复到导致回退的用户消息之前的会话状态，以便不会影响对未来操作的预测。您可以查看下面的操作源：</p>
+<p>~ ~ ~</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">rasa</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">ActionDefaultFallback</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>执行fallback action，回退到之前的对话状态。</p>
+<p>你也可以创建你自己的action来作为fallback（见<a href="https://rasa.com/docs/rasa/core/actions/#custom-actions">custom actions</a> )。如果这样做，请确保在你的policy配置文件中将自定义的fallback写入到<code>FallbackPolicy</code>。比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">policies:
+  - name: &#34;FallbackPolicy&#34;
+    nlu_threshold: 0.4
+    core_threshold: 0.3
+    fallback_action_name: &#34;my_fallback_action&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong>：如果你的自定义fallback action并没有返回<code>UserUtteranceReverted</code>事件，你的机器的下一个预测可能是不准确的，这很有可能是fallback action没有出现在你的stories。</p>
+<p>如果你有个特别的意图，比如<code>out_of_scope</code>，这个意图总是触发fallback action，你需要添加类似下面的story：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## fallback story
+* out_of_scope
+  - action_default_fallback
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="two-stage-fallback-policy">Two-stage Fallback Policy</h2>
+<p><code>TwoStageFallbackPolicy</code> 通过用户输入消除歧义来处理多个阶段低的NLU置信度（在FallbackPolicy中对于低置信度的处理也是采用相同的方式）。</p>
+<ul>
+<li>如果NLU预测得到一个低的置信度分数，用户会被要求对意图的分类结果进行确认（默认action：action_default_ask_affirmation）
+<ul>
+<li>如果他们确认，story继续执行</li>
+<li>如果他们拒绝，用户会被要求对他们的消息进行调整</li>
+</ul>
+</li>
+<li>重新措词（默认action：action_default_ask_rephrase）
+<ul>
+<li>如果重新措辞后的分类结果是合理的，story继续执行</li>
+<li>如果重新措辞之后的分类结果的分数不高，用户被要求对分类的意图进行确认。</li>
+</ul>
+</li>
+<li>第二次确认（默认action：action_default_ask_affirmation）
+<ul>
+<li>如果用户确认意图，story继续</li>
+<li>如果用户拒绝，原始的意图被分类成<code>deny_suggestion_intent_name</code>，得到最终的fallback action <code>fallback_nlu_action_name</code>被触发（如，给人的东西）</li>
+</ul>
+</li>
+</ul>
+<p>rasa core提供了<code>action_default_ask_affirmation</code>和<code>action_default_ask_rephrase</code>的默认实现。<code>action_default_ask_rephrase</code>默认实现响应的是模板 <code>utter_ask_rephrase</code>，需要确认你的domain中间中有这个模板。两个action可以通过自定义action 的方式重写<a href="https://rasa.com/docs/rasa/core/actions/#custom-actions">custom actions</a>。</p>
+<p>可以在策略配置文件中将核心回退操作和最终NLU回退操作指定为TwoStageFallbackPolicy的参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">policies:
+  - name: TwoStageFallbackPolicy
+    nlu_threshold: 0.3
+    core_threshold: 0.3
+    fallback_core_action_name: &#34;action_default_fallback&#34;
+    fallback_nlu_action_name: &#34;action_default_fallback&#34;
+    deny_suggestion_intent_name: &#34;out_of_scope&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading">原文地址</h2>
+<p><a href="https://rasa.com/docs/rasa/core/fallback-actions/">https://rasa.com/docs/rasa/core/fallback-actions/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-doc/">rasa-doc</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_api_events/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对话系统Rasa - Events</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_api_featurization/">
+            <span class="next-text nav-default">对话系统rasa - Featurization （翻译）</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

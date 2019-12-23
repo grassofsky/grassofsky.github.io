@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rasa-blog on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/tags/rasa-blog/</link>
+    <description>Recent content in rasa-blog on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 21 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/rasa-blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_integrate_response_retrieval_models/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_integrate_response_retrieval_models/</guid>
+      <description>rasa blog - integrate response retrieval models in assistants built with Rasa （翻译） 在这篇文章中，我们会介绍rasa新增的（试用阶段）retrieval-based response selection功能。R</description>
+    </item>
+    
+    <item>
+      <title>rasa blog - 为Rasa设置知识库来编码领域知识</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_setup_a_knowledge_base/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_setup_a_knowledge_base/</guid>
+      <description>rasa blog - 为Rasa设置知识库来编码领域知识 这篇文章紧接着rasa blog - 将Rasa和知识库进行集成。在这篇文章中，你将学习知识库的详细内容，以及如</description>
+    </item>
+    
+    <item>
+      <title>rasa blog - 利用Rasa Forms创建上下文对话助手 （翻译）</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_build_assistants_with_rasa_forms/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_build_assistants_with_rasa_forms/</guid>
+      <description>rasa blog - 利用Rasa Forms创建上下文对话助手 （翻译） 一个超越简单的FAQ式交互的上下文对话助手contextual assistant 需要的不仅仅是一个算法</description>
+    </item>
+    
+    <item>
+      <title>rasa blog - 将Rasa和知识库进行集成</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_integrating_rasa_with_knowledge_bases/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_integrating_rasa_with_knowledge_bases/</guid>
+      <description>rasa blog - 将Rasa和知识库进行集成 Knowledge bases: Encode domain knowledge and resolve entities in Rasa 在这个教程中，你将会学到： 如何使用知识库，将你的助手带到下一个等级 知识库的类别，以及使用</description>
+    </item>
+    
+    <item>
+      <title>rasa blog - 深入理解rasa NLU: Part1 - 意图分类 (翻译)</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part1/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part1/</guid>
+      <description>rasa blog - 深入理解rasa NLU: Part1 - 意图分类 (翻译) AI助手需要完成两项任务：理解用户和给出正确的回复。Rasa通过rasa自然语言理解（Rasa N</description>
+    </item>
+    
+    <item>
+      <title>rasa blog - 深入理解rasa NLU: Part2 - 实体识别 (翻译)</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part2/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part2/</guid>
+      <description>rasa blog - 深入理解rasa NLU: Part2 - 实体识别 (翻译) 欢迎来到Rasa NLU深入裂解系列的第二部分。在这个系列的文章中，我们会将从社区以及客户中获取的</description>
+    </item>
+    
+    <item>
+      <title>rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译)</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part3/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_rasa_nlu_in_depth_part3/</guid>
+      <description>rasa blog - 深入理解rasa NLU: Part3 - 超参数调整 (翻译) 欢迎来到Rasa NLU深入理解系列的最后一篇文章。 在这个系列的文章中，我们会将从社区以及客户中</description>
+    </item>
+    
+    <item>
+      <title>rasa blog - 设计Rasa训练故事</title>
+      <link>http://localhost:1313/post/chatbots/rasa_blog_designing_rasa_training_stories/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_blog_designing_rasa_training_stories/</guid>
+      <description>rasa blog - 设计Rasa训练故事 训练数据都是每个机器学习模型的关键部分。对于对话AI来说也是一回事。我们设计了Rasa为了避免手写规则，你的助手应</description>
+    </item>
+    
+  </channel>
+</rss>

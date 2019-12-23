@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rasa-source on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/tags/rasa-source/</link>
+    <description>Recent content in rasa-source on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 21 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/rasa-source/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rasa source - core训练源码走读</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_core/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_core/</guid>
+      <description>rasa source - core训练源码走读 通过在rasa/cli/train.py: train_core函数中添加断点，使用pudb进行python调试调试</description>
+    </item>
+    
+    <item>
+      <title>rasa source - nlu classifiers源码走读</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_nlu_classifiers/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_nlu_classifiers/</guid>
+      <description>rasa source - nlu classifiers源码走读 classifiers包括如下实现： embedding_intent_classifier.py：构建</description>
+    </item>
+    
+    <item>
+      <title>rasa source - nlu 实体提取代码走读</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_nlu_extractor/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_nlu_extractor/</guid>
+      <description>rasa source - nlu 实体提取代码走读 实体提取实现包括如下文件： crf_entity_extractor.py，基于条件随机场的实现 mitie_entit</description>
+    </item>
+    
+    <item>
+      <title>rasa source - nlu中的tokenizer实现走读</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_nlu_tokenizers/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_nlu_tokenizers/</guid>
+      <description>rasa source - nlu中的tokenizer实现走读 所有的tokenizer相关的代码见目录：https://github.com/RasaHQ/ra</description>
+    </item>
+    
+    <item>
+      <title>rasa source - nlu模型训练源码走读</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_train_nlu/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_train_nlu/</guid>
+      <description>rasa source - nlu模型训练源码走读 执行命令为：rasa train nlu 入口函数为：rasa/cli/trian.py: train_nlu，该函数内部调用了ra</description>
+    </item>
+    
+    <item>
+      <title>rasa source - rasa shell 代码走读</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_rasa_shell/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_rasa_shell/</guid>
+      <description>rasa source - rasa shell 代码走读 在rasa/run.py: run函数中添加断点pudb.set_trace()。运行示例，examples/knowled</description>
+    </item>
+    
+    <item>
+      <title>rasa source - 初始化源码分析</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_rasa_init/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_rasa_init/</guid>
+      <description>rasa source - 初始化源码分析 执行命令为：rasa init。 对应的入口函数为：rasa/cli/scaffold.py: run。函数代码如下： 1 2 3 4</description>
+    </item>
+    
+    <item>
+      <title>rasa source - 命令行接口实现源码分析</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_cli_analysis/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_cli_analysis/</guid>
+      <description>rasa source - 命令行接口实现源码分析 关于命令行介绍可以参见：https://rasa.com/docs/rasa/user-guide/comman</description>
+    </item>
+    
+    <item>
+      <title>rasa source - 项目结构分析</title>
+      <link>http://localhost:1313/post/chatbots/rasa_source_struct_analysis/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_source_struct_analysis/</guid>
+      <description>rasa source - 项目结构分析 rasa依赖项分析 相关依赖项定义在setup.py文件中，关于setup.py的介绍可以参见：https://www.cn</description>
+    </item>
+    
+  </channel>
+</rss>

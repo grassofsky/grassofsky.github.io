@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>rasa blog - integrate response retrieval models in assistants built with Rasa （翻译） - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译） 在这篇文章中，我们会介绍rasa新增的（试用阶段）retrieval-based response selection功能。R" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_blog_integrate_response_retrieval_models/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）" />
+<meta property="og:description" content="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译） 在这篇文章中，我们会介绍rasa新增的（试用阶段）retrieval-based response selection功能。R" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_blog_integrate_response_retrieval_models/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）">
+<meta itemprop="description" content="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译） 在这篇文章中，我们会介绍rasa新增的（试用阶段）retrieval-based response selection功能。R">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3054">
+
+
+
+<meta itemprop="keywords" content="rasa-blog," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）"/>
+<meta name="twitter:description" content="rasa blog - integrate response retrieval models in assistants built with Rasa （翻译） 在这篇文章中，我们会介绍rasa新增的（试用阶段）retrieval-based response selection功能。R"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#retrieval-actions">Retrieval Actions</a></li>
+    <li><a href="#superivised-response-selector">Superivised Response Selector</a></li>
+    <li><a href="#training-data">Training Data</a>
+      <ul>
+        <li><a href="#retrieval-intents">Retrieval Intents</a></li>
+        <li><a href="#response-phrases">Response Phrases</a></li>
+        <li><a href="#retrieval-actions-1">Retrieval actions</a></li>
+      </ul>
+    </li>
+    <li><a href="#playing-a-bit-more-with-response-selector">Playing a bit more with Response Selector</a></li>
+    <li><a href="#why-is-the-feature-experimental">Why is the feature experimental?</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa-blog---integrate-response-retrieval-models-in-assistants-built-with-rasa-">rasa blog - integrate response retrieval models in assistants built with Rasa （翻译）</h1>
+<p>在这篇文章中，我们会介绍rasa新增的（试用阶段）retrieval-based response selection功能。Rasa1.3.0引入了<a href="https://rasa.com/docs/rasa/core/retrieval-actions/">Retrieval Action</a>和<a href="https://rasa.com/docs/rasa/nlu/components/#response-selector">ResponseSelector</a> NLU组件。该功能使得对于 <a href="https://rasa.com/docs/rasa/dialogue-elements/small-talk/">small talk</a><strong>,</strong> <a href="https://rasa.com/docs/rasa/dialogue-elements/small-talk/#chitchat">chitchat</a>, <a href="https://rasa.com/docs/rasa/dialogue-elements/completing-tasks/#simple-questions">FAQ</a> 相关问题的处理变得更加简洁。简单的讲，本文主要覆盖了三个主要的思想：</p>
+<ol>
+<li>使用Rasa能够更加方便的处理单轮对话</li>
+<li>将单轮对话定义到训练数据中，而不是简单的定义到domain文件中</li>
+<li>创建模型用于单轮交互的回复选择</li>
+</ol>
+<h2 id="retrieval-actions">Retrieval Actions</h2>
+<p>Retrieval actions被用来处理FAQs，chitchat等单轮交互的问题。这里的单轮交互，意味着助手总是以相同的方式进行回复，不用在意之前的交互。具体示例如下：</p>
+<p><img src="./image/SRS-Blog-2.png" alt=""></p>
+<p>当用户寻问Sara（我们的demo机器人）推荐的python版本的时候，Sara应该总是回答相同的答案。并且和之前的对话不相关。</p>
+<p>在这个功能提出来之前，我们需要针对每个FAQ问题创建一个story，看上去是这样子的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## Ask Python version
+* ask_faq_python_version
+    - utter_ask_python_version
+   
+## Ask languages supported in Rasa
+* ask_faq_languages
+    - utter_ask_languages
+
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>如果使用retrieval action，你只需要一个story，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## Some question from FAQ
+* ask_faq
+    - respond_faq
+</code></pre></td></tr></table>
+</div>
+</div><p>那么有什么不同呢？所有FAQ相关的意图都被合并成单个<strong>retrieval intent</strong>，并且响应也成为了单个action <code>respond_faq</code>。这使得能够很容易的将所有的FAQ视为相同的方式，当做与具体意图无关的retrieval action。</p>
+<p>由于此处的意图和之前的消息没有关系，我们不需要一个复杂的pjolicy来预测相关的retrieval action。但是，由于只有一个retrieval action，我们需要构建一个机器学习模型来从action的一系列的候选选项中挑选出合适的回复。我们是怎么实现的呢？</p>
+<h2 id="superivised-response-selector">Superivised Response Selector</h2>
+<p>我们介绍一个NLU中新的组件，RespjonseSelector。这个组件的工作如下：</p>
+<ul>
+<li>收集每个用户消息和候选响应的词袋特征</li>
+<li>将词袋特征输入到稠密连接层，计算每个的嵌入向量</li>
+<li>使用相似度计算公式计算用户输入消息和候选响应嵌入向量之间的相似度</li>
+<li>是正确的问答对之间的相似度最大化，错配的问答对之间的相似度最小化。这是训练模型过程中由最优化函数实现</li>
+<li>获取用户输入和所有候选响应之间的相似度，挑选出相似度最高的作为针对用户输入的响应</li>
+</ul>
+<p><img src="./image/SRS-Blog--1--1.png" alt=""></p>
+<p>这个看上去和EmbeddingIntentClassifier的工作方式很相似，它们之间的主要不同点是意图文字被响应的实际文字给取代了。</p>
+<p>这个组件需要放在tokenizer，featurizer，和intent classifier之后。如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">language: &#34;en&#34;
+pipeline:
+- name: &#34;WhitespaceTokenizer&#34;
+- name: &#34;CountVectorsFeaturizer&#34;
+- name: &#34;EmbeddingIntentClassifier&#34;
+- name: &#34;ResponseSelector&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="training-data">Training Data</h2>
+<p>让我们来看一下训练数据。</p>
+<h3 id="retrieval-intents">Retrieval Intents</h3>
+<p>我们的ask_faq意图NLU示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## intent: ask_faq/python_version
+- What version of python is supported?
+- What version of python should I have to install Rasa package?
+
+## intent: ask_faq/languages
+- Does Rasa support Chinese?
+- What languages does Rasa stack support?
+</code></pre></td></tr></table>
+</div>
+</div><p>这里有两个相关的意图，<code>ask_faq/python_version</code>和<code>ask_faq/languages</code>。意图分类器将上面的意图合并成为retrieval意图，<code>ask_faq</code>。只有ResponseSelector关心<code>ask_faq/python_version</code>和<code>ask_faq/languages</code>的不同。</p>
+<h3 id="response-phrases">Response Phrases</h3>
+<p>现在实际的响应文本是训练数据的一部分了，因此不再出现在你的domain文件中。这是标准的机器响应和retrieval actions很重要的一个不通电。由于我们直接通过用户的输入消息选择回复，响应选择是朝着端到端chatbot训练迈出的一步。因此，我们使用类似于<a href="https://rasa.com/docs/rasa/user-guide/evaluating-models/#end-to-end-evaluation">end-to-end evaluation</a>中的故事格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## FAQ python version &lt;!--name of story--&gt;
+* ask_faq/python_version
+    - Rasa currently supports python 3.5, 3.6 and 3.7! We recommend using python 3.6.
+    
+## FAQ supported languages &lt;!--name of story--&gt;
+* ask_faq/languages
+    - Most components inside Rasa NLU are language independent so you can build a chatbot in any language.
+</code></pre></td></tr></table>
+</div>
+</div><p>这里强制将这些回复写入到单个独立的文件中（你可以命名为responses.md，或其他），并且在这个文件中不能有其他的NLU训练数据。这个独立的文件还是可以放在相同的文件夹下面。</p>
+<h3 id="retrieval-actions-1">Retrieval actions</h3>
+<p>rasa使用命名约定来匹配检索意图的名称，如ask_faq匹配到对应的action，名字为repond_ask_faq。repond_前缀用来定义retrieval action。你应该在你的domain文件中添加retrieval actions。这里有两个途径用来触发这些actions：</p>
+<p>1- 如果你需要在监听下一个用户输入的时候总是响应respond，可以使用MappingPolicy，将retrieval意图与actions进行关联，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:
+  - ask_faq: {triggers: respond_ask_faq}
+</code></pre></td></tr></table>
+</div>
+</div><p>2- 如果你定义随后的actions（比如，询问用户是否需要继续），在stories中像其他action一样包含其他action。</p>
+<p><img src="./image/SRS-Blog--2--1.png" alt=""></p>
+<p>story类似如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">* greet
+    - utter_greet_user
+* contact_sales
+    - utter_moreinformation
+    - sales_form
+    - form{&#34;name&#34;: &#34;sales_form&#34;}
+* ask_faq
+    - respond_ask_faq
+    - utter_ask_continue_sales
+* affirm
+    - utter_great
+    - sales_form
+    - form{&#34;name&#34;: null}
+</code></pre></td></tr></table>
+</div>
+</div><p>总的来说，我们试着在两个主要因素上简化训练数据格式：</p>
+<ol>
+<li>开发人员经验：训练数据格式对于开发人员尽可能的直观，不能和现有的训练数据格式有很大的区别。</li>
+<li>逻辑意义：训练数据的所有元素都应该符合Rasa内部元素的现有逻辑结构——例如，训练数据不应该在域文件中。</li>
+</ol>
+<h2 id="playing-a-bit-more-with-response-selector">Playing a bit more with Response Selector</h2>
+<p>rasa允许您有多个检索意图和相应的多个检索操作作为助手的一部分。在这种情况下，您有两个选项：</p>
+<p>1- 您可以构建一个共享响应选择器模型，该模型将在您的助手的所有检索意图中对用户话语和响应话语对进行培训。在这种情况下，不需要在响应选择器的配置中定义检索意图参数。</p>
+<p>2- 可以为每个检索意图构建特定的响应选择器模型每一个模型都将训练用户话语和根据检索意图分组的响应话语对。因此，NLU配置中的响应选择器组件的数量应与训练数据中的检索意图的数量相同为此，请使用每个响应选择器组件配置中的retrieval_intent参数定义相应的检索意图：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">pipeline:   
+- name: ……   
+- name: &#34;ResponseSelector&#34;
+  retrieval_intent: ask_faq     
+  …… # other architectural parameters
+- name: &#34;ResponseSelector&#34;
+  retrieval_intent: chitchat
+  …… # other architectural parameters
+</code></pre></td></tr></table>
+</div>
+</div><p>选择特例的选择模型，还是选择共享，这是受用户使用情况驱动的。如果对话中的特别的retrieval intent是领域相关的，如，FAQ相关的问题，这样和chitchat或greeting意图进行共享，就不太合适了。使用各自独立的模型，可以对参数进行定制。比如，当使用平衡批处理作为批处理策略时，如果某些常见问题的数据比其他常见问题的数据多得多，则培训可能会有所改进。</p>
+<p>我们希望开发人员能够灵活的尝试和测试对他们最有效的方法。在我们的实验中，为所有检索意图构建一个共享响应选择器模型，与为每个检索意图创建单独的模型相比，得到了相似的结果。如果您观察到不同的结果，请在论坛上与我们分享（<a href="https://forum.rasa.com/t/supervised-response-selector-experimental/13714">forum</a>.）。</p>
+<h2 id="why-is-the-feature-experimental">Why is the feature experimental?</h2>
+<p>随着response selector和retrieval actions的引入，我们提出了一种处理单轮交互的新方法。训练数据格式并不完全支持端到端训练，但仍然是朝着这个方向迈出的一步。此外，响应选择器组件位于Rasa NLU和Core的交叉点尽管我们相信端到端的培训是一个令人兴奋的领域，但我们希望在进一步深入之前，从社区获得关于总体开发人员体验、模型性能和功能本身的足够反馈。因此，我们计划暂时保持这个特性的实验性这意味着可以根据我们收到的反馈更改或删除功能。</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>我们现在有了一种全新的方法来处理rasa助手中的单轮交互。此外，由于该功能是实验性的，我们鼓励您尝试并给出反馈如果你正在使用这个新组件构建机器人程序，或者只是测试它，请随时在论坛中发布它的运行情况。我们很高兴看到您用这个组件构建了哪些有趣的新用例！</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-blog/">rasa-blog</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_domains/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Rasa - 领域 [翻译]</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_blog_setup_a_knowledge_base/">
+            <span class="next-text nav-default">rasa blog - 为Rasa设置知识库来编码领域知识</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

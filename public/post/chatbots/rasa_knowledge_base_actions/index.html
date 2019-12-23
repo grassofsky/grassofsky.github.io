@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对话系统rasa - Knowledge Base Actions （翻译） - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="对话系统rasa - Knowledge Base Actions （翻译） rasa文集 grassofsky：rasa文章导引（用于收藏） 警告：这个功能处于试验阶段。我们引入试验的功能" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_knowledge_base_actions/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对话系统rasa - Knowledge Base Actions （翻译）" />
+<meta property="og:description" content="对话系统rasa - Knowledge Base Actions （翻译） rasa文集 grassofsky：rasa文章导引（用于收藏） 警告：这个功能处于试验阶段。我们引入试验的功能" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_knowledge_base_actions/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="对话系统rasa - Knowledge Base Actions （翻译）">
+<meta itemprop="description" content="对话系统rasa - Knowledge Base Actions （翻译） rasa文集 grassofsky：rasa文章导引（用于收藏） 警告：这个功能处于试验阶段。我们引入试验的功能">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6576">
+
+
+
+<meta itemprop="keywords" content="rasa-doc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对话系统rasa - Knowledge Base Actions （翻译）"/>
+<meta name="twitter:description" content="对话系统rasa - Knowledge Base Actions （翻译） rasa文集 grassofsky：rasa文章导引（用于收藏） 警告：这个功能处于试验阶段。我们引入试验的功能"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对话系统rasa - Knowledge Base Actions （翻译）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rasa">rasa文集</a></li>
+    <li><a href="#actionqueryknowledgebase">使用ActionQueryKnowledgeBase</a>
+      <ul>
+        <li><a href="#heading">创建知识库</a></li>
+        <li><a href="#nlu">定义NLU数据</a></li>
+        <li><a href="#action">创建一个Action用来查询你的知识库</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-1">它是如何工作的</a>
+      <ul>
+        <li><a href="#heading-2">从知识库中检索对象</a></li>
+        <li><a href="#heading-3">从知识库中检索对象的属性</a></li>
+        <li><a href="#heading-4">消除指代</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-5">定制化</a>
+      <ul>
+        <li><a href="#actionqueryknowledgebase-1">定制化ActionQueryKnowledgeBase</a></li>
+        <li><a href="#actions">创建你自己的基于知识库的Actions</a></li>
+        <li><a href="#inmemoryknowledgebase">定制化InMemoryKnowledgeBase</a></li>
+        <li><a href="#heading-6">创建你自己的知识库</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa---knowledge-base-actions-">对话系统rasa - Knowledge Base Actions （翻译）</h1>
+<h2 id="rasa">rasa文集</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/88112269">grassofsky：rasa文章导引（用于收藏）</a></p>
+<p><strong>警告</strong>：这个功能处于试验阶段。我们引入试验的功能，为了从我们的社区中过去反馈，因此我们建议你进行尝试。但是，这个功能可能在未来的版本中被改变或去除。有任何的反馈，请在<a href="https://forum.rasa.com/">forum</a>进行分享。</p>
+<p>基于knowledge的action使得你能够处理类似的对话：</p>
+<p><img src="./image/knowledge-base-example.png" alt=""></p>
+<p>对话AI中的一个常见问题是，用户并不是总是通过名字来指向特定的对象，还经常使用如“第一个”或者“它”等指代来表示对象。我们需要记录这些信息，用来获取指代具体指向的内容。</p>
+<p>此外，在对话过程中，用户可能想要获取额外的信息，比如，一个餐馆的外面是否有座位，或者价格怎样。为了回答用户的这些问题，需要有餐饮领域的知识。由于这些信息通常是变动的，因此对这些信息进行硬编码是不合适的。</p>
+<p>为了解决上面的挑战，Rasa能够集成知识库。为了使用这个集成，你可以在<code>ActionQueryKnowledgeBase</code>的基础上创建自定义的action，这是一个预先写好的自定义action，包含用来从知识库检索对象和属性的逻辑。</p>
+<p>你可以在<a href="https://github.com/RasaHQ/rasa/blob/master/examples/knowledgebasebot/">knowledge base bot</a>看到完整的示例。下面介绍实现该自定义的action。</p>
+<h2 id="actionqueryknowledgebase">使用<code>ActionQueryKnowledgeBase</code></h2>
+<h3 id="heading">创建知识库</h3>
+<p>用于回答用户问题的数据会被存储到知识库中。知识库可以用来存储复杂的数据结构。我们建议你从使用<code>InMemoryKnowledgeBase</code>开始。一旦你想要使用大量的数据的时候，你可以选择创建自定义知识库。</p>
+<p>为了初始化<code>InMemoryKnowledgeBase</code>，你需要以json的格式提供数据。下面的例子中包含了restaurants和hotels的数据。json结构应该包含每个对象类型的关键字，如restaurant和hotel。每个对象类型与一系列的对象对应 - 这里有3个restaurants和3个hotels。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;restaurant&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Donath&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;cuisine&#34;</span><span class="p">:</span> <span class="s2">&#34;Italian&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;outside-seating&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;price-range&#34;</span><span class="p">:</span> <span class="s2">&#34;mid-range&#34;</span>
+        <span class="p">}</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Berlin Burrito Company&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;cuisine&#34;</span><span class="p">:</span> <span class="s2">&#34;Mexican&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;outside-seating&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&#34;price-range&#34;</span><span class="p">:</span> <span class="s2">&#34;cheap&#34;</span>
+        <span class="p">}</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;I due forni&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;cuisine&#34;</span><span class="p">:</span> <span class="s2">&#34;Italian&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;outside-seating&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;price-range&#34;</span><span class="p">:</span> <span class="s2">&#34;mid-range&#34;</span>
+        <span class="p">}</span>
+    <span class="p">]</span><span class="p">,</span>
+    <span class="nt">&#34;hotel&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Hilton&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;price-range&#34;</span><span class="p">:</span> <span class="s2">&#34;expensive&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;breakfast-included&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;city&#34;</span><span class="p">:</span> <span class="s2">&#34;Berlin&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;free-wifi&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;star-rating&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="nt">&#34;swimming-pool&#34;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Hilton&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;price-range&#34;</span><span class="p">:</span> <span class="s2">&#34;expensive&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;breakfast-included&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;city&#34;</span><span class="p">:</span> <span class="s2">&#34;Frankfurt am Main&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;free-wifi&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;star-rating&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&#34;swimming-pool&#34;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;B&amp;B&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;price-range&#34;</span><span class="p">:</span> <span class="s2">&#34;mid-range&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;breakfast-included&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&#34;city&#34;</span><span class="p">:</span> <span class="s2">&#34;Berlin&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;free-wifi&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&#34;star-rating&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&#34;swimming-pool&#34;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一旦数据定义到json文件中，如，data.json，你将能够使用这个数据文件创建<code>InMemoryKnowledgeBase</code>，它可以被传递给action，用来检索知识库。</p>
+<p>想要使用默认实现，你的知识库中的每个对象治好有name和id两个属性。如果没有，你需要自定义你的<code>InMemoryKnowledgeBase</code>。</p>
+<h3 id="nlu">定义NLU数据</h3>
+<p>这一节：</p>
+<ul>
+<li>我们会引入新的意图，<code>query_knowledge_base</code></li>
+<li>我们将标记<code>mention</code>实体，使得我们的模型能够检测出对象的间接指代，如“the first one”</li>
+<li>我们将使用<a href="https://rasa.com/docs/rasa/nlu/training-data-format/#entity-synonyms">synonyms</a>扩展</li>
+</ul>
+<p>为了让机器理解用户想要从知识库中检索知识，你需要定义新的意图。我们这里称之为<code>query_knowledge_base</code>。</p>
+<p>我们可以将ActionQueryKnowledgeBase可以处理的请求分为两类：（1）用户想要获取特定类型的对象列表，或者（2）用户想要知道对象的某个属性。意图需要包含这些请求的不同变体：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## intent:query_knowledge_base
+- what [restaurants](object_type:restaurant) can you recommend?
+- list some [restaurants](object_type:restaurant)
+- can you name some [restaurants](object_type:restaurant) please?
+- can you show me some [restaurant](object_type:restaurant) options
+- list [German](cuisine) [restaurants](object_type:restaurant)
+- do you have any [mexican](cuisine) [restaurants](object_type:restaurant)?
+- do you know the [price range](attribute:price-range) of [that one](mention)?
+- what [cuisine](attribute) is [it](mention)?
+- do you know what [cuisine](attribute) the [last one](mention:LAST) has?
+- does the [first one](mention:1) have [outside seating](attribute:outside-seating)?
+- what is the [price range](attribute:price-range) of [Berlin Burrito Company](restaurant)?
+- what about [I due forni](restaurant)?
+- can you tell me the [price range](attribute) of [that restaurant](mention)?
+- what [cuisine](attribute) do [they](mention) have?
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的例子仅显示除了与restaurant领域相关的示例。你需要对你的知识库中出现的每个对象类型添加示例到<code>query_knowledge_base</code>意图。</p>
+<p>除了针对每个查询类型，要添加多样的训练示例之外，你还需要标注示例中的实体：</p>
+<ul>
+<li><code>object_type</code>：每当训练示例引用知识库中的特定对象类型时，应将该对象类型标记为实体。使用<a href="https://rasa.com/docs/rasa/nlu/training-data-format/#entity-synonyms">synonyms</a> 将<code>restaurants</code>映射到<code>restaurant</code>，正确的对象类型作为知识库中的key列举出来。</li>
+<li><code>mention</code>：如果用户通过“the first one”，“that one”或者“it”指代一个对象，你应该将它们标记为&quot;mention&rdquo;。我们也使用synonyms将一些指代映射到同义词。后面会介绍消除指代。</li>
+<li><code>attribute</code>：定义在你的知识库中的所有的属性值应该在nlu data中被标记为<code>attribute</code>。同样，使用同义词将属性名的变体映射到知识库中使用的属性名。</li>
+</ul>
+<p>记住在你的domain文件中添加这些实体（entities和slots）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">entities:
+  - object_type
+  - mention
+  - attribute
+
+slots:
+  object_type:
+    type: unfeaturized
+  mention:
+    type: unfeaturized
+  attribute:
+    type: unfeaturized
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="action">创建一个Action用来查询你的知识库</h3>
+<p>为了创建你自己的基于知识库的action，你需要继承<code>ActionQueryKnowledgeBase</code>，并将知识库传递给<code>ActionQueryKnowledgeBase</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyKnowledgeBaseAction</span><span class="p">(</span><span class="n">ActionQueryKnowledgeBase</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+        <span class="n">knowledge_base</span> <span class="o">=</span> <span class="n">InMemoryKnowledgeBase</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">data.json</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">knowledge_base</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一旦你创建<code>ActionQueryKnowledgeBase</code>，你需要将<code>KnowledgeBase</code> 传递给构造函数。这个可以是 <code>InMemoryKnowledgeBase</code> 或者你自己实现的<code>KnowledgeBase</code>。你只能从一个知识库中提取信息，因为不支持同时使用多个知识库。</p>
+<p>这就是完整的action的代码，这个action的名字是<code>action_query_knowledge_base</code>。不要忘了在domain中添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">actions:
+- action_query_knowledge_base
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong>：如果你重写了默认的action名字action_query_knowledge_base。你需要在你的domain文件中添加三个unfeaturized slots：<code>knowledge_base_objects</code>, <code>knowledge_base_last_object</code>, <code>knowledge_base_last_object_type</code>。这些slots在<code>ActionQueryKnowledgeBase</code>内部会被使用到。如果你保持默认的名字，这些slots会被自动添加。</p>
+<p>你也需要确保stories中包含<code>query_knowledge_base</code>意图和 <code>action_query_knowledge_base</code>行为。如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## Happy Path
+* greet
+  - utter_greet
+* query_knowledge_base
+  - action_query_knowledge_base
+* goodbye
+  - utter_goodbye
+</code></pre></td></tr></table>
+</div>
+</div><p>最后一件需要处理的事情是，在你的domain文件中定义 <code>utter_ask_rephrase</code>。如果这个action不知道如何处理用户的请求，它将使用模板来要求用户进行重新描述。比如，domain中的模板如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">utter_ask_rephrase:
+- text: &#34;Sorry, I&#39;m not sure I understand. Could you rephrase it?&#34;
+- text: &#34;Could you please rephrase your message? I didn&#39;t quite get that.&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>当添加完所有相关的内容后，该action可以用来查询知识库了。</p>
+<h2 id="heading-1">它是如何工作的</h2>
+<p><code>ActionQueryKnowledgeBase</code> 会对当前请求中提取出来的实体进行检索，也会依据之前设定的slots来决定需要检索什么。</p>
+<h3 id="heading-2">从知识库中检索对象</h3>
+<p>为了从知识库中检索任何类型的对象，用户的请求中需要包含对象类型。如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Can you please name some restaurants?
+</code></pre></td></tr></table>
+</div>
+</div><p>这个问题包含了关心的对象类型是：“restaurant”。bot会挑选这个实体构建查询语句，否则action将不知道用户关心什么对象。</p>
+<p>当用户说：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">What Italian restaurant options in Berlin do I have?
+</code></pre></td></tr></table>
+</div>
+</div><p>用户想要检索包括以下信息的restaurant，1）有Italian口味，2）位于Berlin。如果NER从用户的请求中检测出了这些属性，action将用这些属性对知识库中的restaurant进行过滤。</p>
+<p>为了让bot检测出这些属性，你需要将Italian和Berlin在NLU数据中标记为实体：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">What [Italian](cuisine) [restaurant](object_type) options in [Berlin](city) do I have?.
+</code></pre></td></tr></table>
+</div>
+</div><p>这些属性的名字，‘cuisine’和‘city’，应该和知识库中的内容一致。你也需要在domain文件中添加对应的实体和slots。</p>
+<h3 id="heading-3">从知识库中检索对象的属性</h3>
+<p>如果用户想要获取对象的特定信息，请求将包含对象和感兴趣的属性，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">What is the cuisine of Berlin Burrito Company?
+</code></pre></td></tr></table>
+</div>
+</div><p>用户想要获取restaurant（Berlin Burrito Company）的cuisine（感兴趣的属性）。</p>
+<p>在NLU数据中，这些属性和对象的标记如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">What is the [cuisine](attribute) of [Berlin Burrito Company](restaurant)?
+</code></pre></td></tr></table>
+</div>
+</div><p>确保添加restaurant作为entity和slot到你的domain文件中。</p>
+<h3 id="heading-4">消除指代</h3>
+<p>根据上面的例子，用户可能并不总是用自己的名字来指代餐馆。用户可以通过其名称引用感兴趣的对象，例如“Berlin Burrito Company”（对象的表示字符串），也可以通过提及引用先前列出的对象，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">What is the cuisine of the second restaurant you mentioned?
+</code></pre></td></tr></table>
+</div>
+</div><p>我们的action能够将这些指代解析成对应知识库中的对象。更具体的说，它能够解决两种指代类型：（1）序列提及，如“the first one”，和（2）如it和that one形式的指代。</p>
+<p><strong>ordinal mentions</strong></p>
+<p>当用户用列表中的位置指代一个对象的时候，他被称为ordinal mentions。比如：</p>
+<ul>
+<li>User: What restaurants in Berlin do you know?</li>
+<li>Bot: Found the following objects of type ‘restaurant’: 1: I due forni 2: PastaBar 3: Berlin Burrito Company</li>
+<li>User: Does the first one have outside seating?</li>
+</ul>
+<p>用户使用the first one指代“I due forni”，使用“the second one”指代PastaBar，也可能还会使用“3”，“any”。</p>
+<p>Ordinal mentions通常会在将对象列表返回给用户进行选的时候用到。为了知道对应的实际对象，我们使用了ordinal mention 映射。默认的映射如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">1</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">2</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">3</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">4</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">5</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">6</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">7</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">8</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">9</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">10</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ANY</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">LAST</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>由于ordinal mention映射没有包括“the first one”一类的指代，此处就需要用到<a href="https://rasa.com/docs/rasa/nlu/training-data-format/#entity-synonyms">Entity Synonyms</a> 将“the first one”映射到“1”：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Does the [first one](mention:1) have [outside seating](attribute:outside-seating)?
+</code></pre></td></tr></table>
+</div>
+</div><p>NER检测出first one为mention实体，但是在mention slot中设置了1。因此我们的action能够采用mention slot和ordinal mention映射将first one解析为实际对象“I due forni”。</p>
+<p>你可以在实现自己的<code>KnowledgeBase</code> 时候调用函数<code>set_ordinal_mention_mapping()</code>来重写ordinal mention映射。</p>
+<p><strong>其他指代</strong></p>
+<p>让我们来看一下下面的对话：</p>
+<ul>
+<li>User: What is the cuisine of PastaBar?</li>
+<li>Bot: PastaBar has an Italian cuisine.</li>
+<li>User: Does it have wifi?</li>
+<li>Bot: Yes.</li>
+<li>User: Can you give me an address?</li>
+</ul>
+<p>问题“Does it have wifi?”,中it指代“PastaBar”。如果NER识别出it为mention实体，知识库action能够将其解析为对话中最近一次提到的对象，“PastaBar”.</p>
+<p>在下一个输入中，用户没有直接指出“PastaBar”对象。知识库的action将检测出用户想要获取特定的属性，此处是，address。如果没有指代，或对象没有被NER识别出来，action假设用户指代的是最近提到的对象，“PastaBar”。</p>
+<p>你可以禁用这种行为，通过在初始化action的时候将 <code>use_last_object_mention</code>设定为<code>False</code>。</p>
+<h2 id="heading-5">定制化</h2>
+<h3 id="actionqueryknowledgebase-1">定制化<code>ActionQueryKnowledgeBase</code></h3>
+<p>如果你想要定义bot会对用户说什么，你可以重写 <code>ActionQueryKnowledgeBase</code>的以下两个函数：</p>
+<ul>
+<li><code>utter_objects()</code></li>
+<li><code>utter_attribute_value()</code></li>
+</ul>
+<p><code>utter_objects()</code>用于当用户请求一系列的对象的时候。一旦bot从知识库中获取了对象，它将用默认的消息返回给用户，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Found the following objects of type ‘restaurant’: 1: I due forni 2: PastaBar 3: Berlin Burrito Company
+</code></pre></td></tr></table>
+</div>
+</div><p>如果没有找到对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">I could not find any objects of type ‘restaurant’.
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你想要改变对话格式，你可以在你的action中重写<code>utter_objects()</code>。</p>
+<p>函数<code>utter_attribute_value()</code>决定当用户询问对象特定的属性的时候bot会返回的消息。</p>
+<p>如果找到了感兴趣的属性，回复为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">‘Berlin Burrito Company’ has the value ‘Mexican’ for attribute ‘cuisine’.
+</code></pre></td></tr></table>
+</div>
+</div><p>否则为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Did not find a valid value for attribute ‘cuisine’ for object ‘Berlin Burrito Company’.
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你想要改变对话格式，你可以在你的action中重写 <code>utter_attribute_value()</code>.。</p>
+<p><strong>注意</strong>：此处给出了如何使用自定义知识库的blog。<a href="https://zhuanlan.zhihu.com/p/85911378">rasa blog - 将Rasa和知识库进行集成</a></p>
+<h3 id="actions">创建你自己的基于知识库的Actions</h3>
+<p><code>ActionQueryKnowledgeBase</code> 能够让你很方便的将知识库集成到你的action。但是，这个action只能够处理两种用户请求：</p>
+<ul>
+<li>从知识库中获取对象列表</li>
+<li>从知识库中获取特定对象的属性</li>
+</ul>
+<p>action不能够比较对象，或考虑对象之间的关系。此外，总是将其他的指代解释为交谈中最近一次提到的对象并不总是合理的。</p>
+<p>如果你想处理更加复杂的用例，你可以自定义action。我们在 <code>rasa_sdk.knowledge_base.utils</code>添加了一些helper函数 (<a href="https://github.com/RasaHQ/rasa-sdk/tree/master/rasa_sdk/knowledge_base/">link to code</a> ) 帮助你实现你自己的方案。我们建议你使用<code>KnowledgeBase</code> 的接口，这样你仍然可以在你的action中使用<code>ActionQueryKnowledgeBase</code>。</p>
+<p>如果你写基于knowledge的action用来处理上面提到过的或新的场景，可以通过 <a href="https://forum.rasa.com/">forum</a>告诉我们。</p>
+<h3 id="inmemoryknowledgebase">定制化<code>InMemoryKnowledgeBase</code></h3>
+<p><code>InMemoryKnowledgeBase</code>类继承自<code>KnowledgeBase</code>.你可以通过重写下面函数自定义<code>InMemoryKnowledgeBase</code>：</p>
+<p>~~ <code>get_key_attribute_of_object()</code>：为了跟踪用户上次谈论的对象，我们将key属性的值存储在一个特定的槽中。每个对象都应该有一个唯一的键属性，类似于关系数据库中的主键。默认情况下，每个对象类型的key属性的名称都设置为id。你可以通过调用 <code>set_key_attribute_of_object()</code>重写特定对象的key属性的名字。</p>
+<p>~~ <code>get_representation_function_of_object()</code>:让我们关注下面的restaurant。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Donath&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;cuisine&#34;</span><span class="p">:</span> <span class="s2">&#34;Italian&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;outside-seating&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;price-range&#34;</span><span class="p">:</span> <span class="s2">&#34;mid-range&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当用户要求bot列出任意Italian restaurant，它不需要restaurant的详细信息。相反，你需要提供一个有意义的名称来标识餐厅——在大多数情况下，对象的名称将起作用。函数 <code>get_representation_function_of_object()</code>返回lambda函数，将上述的restaurant对象映射到他的名字。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">name</span><span class="s2">&#34;</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>每当bot讨论到特定的对象的时候，这个函数都会被调用，因此用户需要对对象提供一个有意义的名字。</p>
+<p>默认情况下，lambda函数返回对象的“name”属性。如果你的对象没有“name”属性，或者对象的“name”属性含糊不清的，你应该调用 <code>set_representation_function_of_object()</code>针对这个对象类型设置性的lambda函数。</p>
+<p>~~ <code>set_ordinal_mention_mapping()</code>，ordinal mention 映射用来解决ordinal mention，比如“second one”。默认情况下，这个映射是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">1</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">2</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">3</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">4</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">5</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">6</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">7</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">8</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">9</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">10</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ANY</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span><span class="p">,</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">LAST</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>你可以通过调用函数<code>set_ordinal_mention_mapping()</code>重写它。如果你想要进一步了解如何使用此映射，请继续查看之前的<strong>消除指代</strong>的内容。</p>
+<p>请参阅<a href="https://github.com/RasaHQ/rasa/blob/master/examples/knowledgebasebot/actions.py">example bot</a>获取InMemoryKnowledgeBase的示例实现，该示例使用了方法<code>set_representation_function_of_object（）</code>覆盖对象类型“hotel”的默认表示。InMemoryKnowledgeBase本身的实现可以在<a href="https://github.com/RasaHQ/rasa-sdk/tree/master/rasa_sdk/knowledge_base/">rasa-sdk</a> 包中找到。</p>
+<h3 id="heading-6">创建你自己的知识库</h3>
+<p>如果你有更多的数据，或你想要使用更加复杂的数据结构，比如，包含不同对象之间的关系，你可以创建你自己的知识库实现。只要集成<code>KnowledgeBase</code>类，和实现<code>get_objects()</code>，<code>get_object()</code>，``get_attributes_of_object()`方法。<a href="https://github.com/RasaHQ/rasa-sdk/tree/master/rasa_sdk/knowledge_base/">knowledge base code</a>提供了这些函数应该做什么的详细介绍。</p>
+<p>你可以进一步的自定义你的知识库，通过<strong>定制化<code>InMemoryKnowledgeBase</code></strong>一节中提到的方法。</p>
+<p><strong>注意</strong>：相关的blog，<a href="https://zhuanlan.zhihu.com/p/85925978">rasa blog - 为Rasa设置知识库来编码领域知识</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-doc/">rasa-doc</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_forms/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对话系统Rasa - forms [翻译]</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_api_lock_stores/">
+            <span class="next-text nav-default">对话系统rasa - Lock Stores （翻译）</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

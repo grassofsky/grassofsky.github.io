@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>rasa对话系统demo实战 - 简单的火车票查询助手 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="rasa对话系统Demo实战 - 简单的火车票查询助手 描述 目的 基于rasa构建用于火车票查询的对话系统Demo。 对话示例 1 2 3 4 5 6 7 8 9 10 11 12" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_in_action_train_bookings/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="rasa对话系统demo实战 - 简单的火车票查询助手" />
+<meta property="og:description" content="rasa对话系统Demo实战 - 简单的火车票查询助手 描述 目的 基于rasa构建用于火车票查询的对话系统Demo。 对话示例 1 2 3 4 5 6 7 8 9 10 11 12" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_in_action_train_bookings/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="rasa对话系统demo实战 - 简单的火车票查询助手">
+<meta itemprop="description" content="rasa对话系统Demo实战 - 简单的火车票查询助手 描述 目的 基于rasa构建用于火车票查询的对话系统Demo。 对话示例 1 2 3 4 5 6 7 8 9 10 11 12">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2323">
+
+
+
+<meta itemprop="keywords" content="rasa-example," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="rasa对话系统demo实战 - 简单的火车票查询助手"/>
+<meta name="twitter:description" content="rasa对话系统Demo实战 - 简单的火车票查询助手 描述 目的 基于rasa构建用于火车票查询的对话系统Demo。 对话示例 1 2 3 4 5 6 7 8 9 10 11 12"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">rasa对话系统demo实战 - 简单的火车票查询助手</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">描述</a>
+      <ul>
+        <li><a href="#heading-1">目的</a></li>
+        <li><a href="#heading-2">对话示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-3">详细实现</a>
+      <ul>
+        <li><a href="#heading-4">意图设计</a></li>
+        <li><a href="#nlu">nlu设计</a></li>
+        <li><a href="#stories">stories设计</a></li>
+        <li><a href="#domain">domain内容</a></li>
+        <li><a href="#config">config实现</a></li>
+        <li><a href="#regexdateextractor">RegexDateExtractor实现</a></li>
+        <li><a href="#action">action的实现</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-5">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasademo---">rasa对话系统Demo实战 - 简单的火车票查询助手</h1>
+<h2 id="heading">描述</h2>
+<h3 id="heading-1">目的</h3>
+<p>基于rasa构建用于火车票查询的对话系统Demo。</p>
+<h3 id="heading-2">对话示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">bot&gt; 您好，欢迎使用火车票查询助手。
+bot&gt; 请问，您的出发时间是？
+user&gt; 明天上午11:00
+bot&gt; 请问，您的出发地点是？
+user&gt; 武汉
+bot&gt; 请问，您的目的地是？
+user&gt; 上海
+bot&gt; 您好，您需要查询的信息是：
+     2019-11-01 11:00 武汉到上海的车票信息
+     您的查询结果是：
+     1. ...
+     2. ...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading-3">详细实现</h2>
+<p>对话设计的相关内容可以参见：https://zhuanlan.zhihu.com/p/83203455。此处没有涉及很多的对话设计。</p>
+<h3 id="heading-4">意图设计</h3>
+<p>针对火车票预订的对话系统，需要识别的用户意图有：</p>
+<ul>
+<li>对话触发，start</li>
+</ul>
+<h3 id="nlu">nlu设计</h3>
+<p>由于该示例作为简单的任务型对话系统，以form的形式进行，没有对nlu进行设计。</p>
+<h3 id="stories">stories设计</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## happy path
+* start
+  - utter_welcome
+  - ticket_form
+  - form{&#34;name&#34;: &#34;ticket_form&#34;}
+  - form{&#34;name&#34;: null}
+  - action_show_result
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="domain">domain内容</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:
+  - start
+  
+slots:
+  starting_time:
+    type: unfeaturized
+    auto_fill: false
+  starting_loc:
+    type: unfeaturized
+    auto_fill: false
+  arriving_loc:
+    type: unfeaturized
+    auto_fill: false
+
+forms:
+  - ticket_form
+  
+actions:
+  - utter_welcome
+  - action_show_result
+  
+templates:
+  utter_welcome:
+    - text: &#34;您好，欢迎使用火车票查询助手。&#34;
+  utter_ask_starting_time:
+    - text: &#34;请问，您的出发时间是？&#34;
+  utter_ask_starting_loc:
+    - text: &#34;请问，您的出发地点是？&#34;
+  utter_ask_arriving_loc:
+    - text: &#34;请问，您的目的地是？&#34;
+  utter_default:
+    - text: &#34;我的大脑不够用了，请重试！&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="config">config实现</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">language: zh
+pipeline:
+  - name: JiebaTokenizer
+  - name: CRFEntityExtractor
+  - name: &#34;rasa_ext.extractors.regex_date_extractor.RegexDateExtractor&#34;
+    entity_name: &#34;starting_time&#34;
+  - name: CountVectorsFeaturizer
+  - name: EmbeddingIntentClassifier
+  
+policies:
+  - name: FormPolicy
+  - name MemorizationPolicy
+    max_history: 1
+  - name: KerasPolicy
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="regexdateextractor">RegexDateExtractor实现</h3>
+<p>此处说明为了介绍如何对Rasa的组件进行扩展，给出了基于正则表达式日期提取的Extractor实现，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">rasa.nlu.extractors</span> <span class="kn">import</span> <span class="n">EntityExtractor</span>
+<span class="kn">from</span> <span class="nn">rasa.nlu.model</span> <span class="kn">import</span> <span class="n">Metadata</span>
+<span class="kn">from</span> <span class="nn">rasa.nlu.training_data</span> <span class="kn">import</span> <span class="n">Message</span><span class="p">,</span> <span class="n">TrainingData</span>
+
+<span class="kn">import</span> <span class="nn">rasa_ext.utils.date_parser</span> <span class="kn">as</span> <span class="nn">data_parser</span>
+
+<span class="k">class</span> <span class="nc">RegexDateExtractor</span><span class="p">(</span><span class="n">EntityExtractor</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">provides</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">entities</span><span class="s2">&#34;</span><span class="p">]</span>
+    
+    <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">entity_name</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">time</span><span class="s2">&#34;</span>
+    <span class="p">}</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    	<span class="bp">self</span><span class="p">,</span>
+        <span class="n">component_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RegexDateExtractor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">component_config</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
+        <span class="n">json_ents</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+        <span class="n">date_times</span> <span class="o">=</span> <span class="n">date_parser</span><span class="o">.</span><span class="n">time_extract</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">date_time</span> <span class="ow">in</span> <span class="n">date_times</span><span class="p">:</span>
+            <span class="n">json_ents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="p">{</span>
+                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">start</span><span class="s1">&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">end</span><span class="s1">&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">value</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">date_time</span><span class="p">,</span>
+                <span class="sa"></span><span class="s1">&#39;</span><span class="s1">entity</span><span class="s1">&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_config</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">entity_name</span><span class="s1">&#39;</span><span class="p">]</span>
+            <span class="p">}</span><span class="p">)</span>
+        <span class="n">message</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+        	<span class="sa"></span><span class="s2">&#34;</span><span class="s2">entities</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">entities</span><span class="s2">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="p">]</span><span class="p">)</span> <span class="o">+</span> <span class="n">json_ents</span><span class="p">,</span> <span class="n">add_to_output</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其中，date_parser的实现见参考：https://blog.csdn.net/lilong117194/article/details/81212961。</p>
+<h3 id="action">action的实现</h3>
+<p>action文件中需要实现两个action，TicketForm和ActionShowResult，其中关于车票信息的查询见：https://zhuanlan.zhihu.com/p/27969976。具体如下：</p>
+<p><strong>此处需要注意的是</strong>：查票信息查询https://zhuanlan.zhihu.com/p/27969976中的实现，没法正常获取车票信息，cry。<strong>请高手帮忙</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pdb</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">rasa_sdk</span> <span class="kn">import</span> <span class="n">Tracker</span>
+<span class="kn">from</span> <span class="nn">rasa_sdk</span> <span class="kn">import</span> <span class="n">Action</span>
+<span class="kn">from</span> <span class="nn">rasa_sdk.executor</span> <span class="kn">import</span> <span class="n">CollectingDispatcher</span>
+<span class="kn">from</span> <span class="nn">rasa_sdk.forms</span> <span class="kn">import</span> <span class="n">FormAction</span>
+<span class="kn">from</span> <span class="nn">rasa_sdk.events</span> <span class="kn">import</span> <span class="n">Form</span><span class="p">,</span> <span class="n">AllSlotsReset</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">EventType</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TicketForm</span><span class="p">(</span><span class="n">FormAction</span><span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">火车票查询的action</span><span class="s2">&#34;&#34;&#34;</span>
+    
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ticket_form</span><span class="s2">&#34;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">required_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
+        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A list of required slots that the form has to fill</span><span class="s2">&#34;&#34;&#34;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">starting_time</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">starting_loc</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">arriving_loc</span><span class="s2">&#34;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dispatcher</span><span class="p">:</span> <span class="n">CollectingDispatcher</span><span class="p">,</span>
+        <span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span><span class="p">,</span>
+        <span class="n">domain</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span><span class="p">:</span>
+        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Define what the form has to do</span><span class="s2">
+</span><span class="s2"></span><span class="s2">           after all required slots are filled</span><span class="s2">&#34;&#34;&#34;</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_submit</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">slot_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">starting_time</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_entity</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">starting_time</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">starting_loc</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_text</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">arriving_loc</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_text</span><span class="p">(</span><span class="p">)</span>
+        <span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">ActionShowResult</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+        <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="p">)</span>
+        <span class="c1"># 12306的城市名和城市代码js文件url</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://kyfw.12306.cn/otn/resources/js/framework/station_name.js?station_version=1.9018</span><span class="s1">&#39;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="s1">([</span><span class="se">\u4e00</span><span class="s1">-</span><span class="se">\u9fa5</span><span class="s1">]+)</span><span class="s1">\</span><span class="s1">|([A-Z]+)</span><span class="s1">&#39;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">station</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">action_show_result</span><span class="s2">&#34;</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
+       <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Execute the side effects of this action.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">        Args:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            dispatcher: the dispatcher which is used to</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                send messages back to the user. Use</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``dipatcher.utter_message()`` or any other</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``rasa_sdk.executor.CollectingDispatcher``</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                method.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            tracker: the state tracker for the current</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                user. You can access slot values using</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``tracker.get_slot(slot_name)``, the most recent user message</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                is ``tracker.latest_message.text`` and any other</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``rasa_sdk.Tracker`` property.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            domain: the bot</span><span class="s2">&#39;</span><span class="s2">s domain</span><span class="s2">
+</span><span class="s2"></span><span class="s2">        Returns:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            A dictionary of ``rasa_sdk.events.Event`` instances that is</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                returned through the endpoint</span><span class="s2">
+</span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
+        <span class="n">starting_time</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">starting_time</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">starting_loc</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">starting_loc</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">arriving_loc</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">arriving_loc</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">prefix_info</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">您好，您需要查询的信息是:</span><span class="se">\n</span><span class="s1"> {} {}到{}的车票信息</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">starting_time</span><span class="p">,</span> <span class="n">starting_loc</span><span class="p">,</span> <span class="n">arriving_loc</span><span class="p">)</span>
+        
+        <span class="n">list_starting_time</span> <span class="o">=</span> <span class="n">starting_time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1"> </span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">date_time</span> <span class="o">=</span> <span class="n">list_starting_time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">hour_time</span> <span class="o">=</span> <span class="n">list_starting_time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">(</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_query_url</span><span class="p">(</span><span class="n">date_time</span><span class="p">,</span> <span class="n">starting_loc</span><span class="p">,</span> <span class="n">arriving_loc</span><span class="p">)</span>
+        <span class="n">info_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_train_info</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">hour_time</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">info_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_message</span><span class="p">(</span><span class="n">prefix_info</span> <span class="o">+</span> <span class="sa"></span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">info_list</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_message</span><span class="p">(</span><span class="n">prefix_info</span> <span class="o">+</span> <span class="n">info_list</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_query_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_time</span><span class="p">,</span> <span class="n">starting_loc</span><span class="p">,</span> <span class="n">arriving_loc</span><span class="p">)</span><span class="p">:</span>
+        <span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        返回调用api的url链接</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        </span><span class="s1">&#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">date_time</span>
+            <span class="n">from_station_name</span> <span class="o">=</span> <span class="n">starting_loc</span>
+            <span class="n">to_station_name</span> <span class="o">=</span> <span class="n">arriving_loc</span>
+            <span class="n">from_station</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">from_station_name</span><span class="p">]</span>
+            <span class="n">to_station</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">to_station_name</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">date</span><span class="p">,</span><span class="n">from_station</span><span class="p">,</span><span class="n">to_station</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
+
+        <span class="c1"># api url 构造</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://kyfw.12306.cn/otn/leftTicket/query?</span><span class="s1">&#39;</span>
+            <span class="sa"></span><span class="s1">&#39;</span><span class="s1">leftTicketDTO.train_date={}&amp;</span><span class="s1">&#39;</span>
+            <span class="sa"></span><span class="s1">&#39;</span><span class="s1">leftTicketDTO.from_station={}&amp;</span><span class="s1">&#39;</span>
+            <span class="sa"></span><span class="s1">&#39;</span><span class="s1">leftTicketDTO.to_station={}&amp;</span><span class="s1">&#39;</span>
+            <span class="sa"></span><span class="s1">&#39;</span><span class="s1">purpose_codes=ADULT</span><span class="s1">&#39;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">from_station</span><span class="p">,</span> <span class="n">to_station</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">url</span>
+
+    <span class="k">def</span> <span class="nf">query_train_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">hour_time</span><span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        查询火车票信息：</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        返回 信息查询列表</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        </span><span class="s1">&#39;&#39;&#39;</span>
+        <span class="n">time_list</span> <span class="o">=</span> <span class="n">hour_time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">:</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">total_minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span>
+
+        <span class="n">info_list</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="c1"># 获取返回的json数据里的data字段的result结果</span>
+            <span class="n">raw_trains</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="p">)</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">data</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">result</span><span class="s1">&#39;</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">raw_train</span> <span class="ow">in</span> <span class="n">raw_trains</span><span class="p">:</span>
+                <span class="c1"># 循环遍历每辆列车的信息</span>
+                <span class="n">data_list</span> <span class="o">=</span> <span class="n">raw_train</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">|</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="c1"># 车次号码</span>
+                <span class="n">train_no</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                <span class="c1"># 出发站</span>
+                <span class="n">from_station_code</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+                <span class="n">from_station_name</span> <span class="o">=</span> <span class="n">code_dict</span><span class="p">[</span><span class="n">from_station_code</span><span class="p">]</span>
+                <span class="c1"># 终点站</span>
+                <span class="n">to_station_code</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+                <span class="n">to_station_name</span> <span class="o">=</span> <span class="n">code_dict</span><span class="p">[</span><span class="n">to_station_code</span><span class="p">]</span>
+                <span class="c1"># 出发时间</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+                <span class="n">start_time_vec</span> <span class="o">=</span> <span class="n">start_time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">:</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">start_total_minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_time_vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_time_vec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span>
+                <span class="c1"># 忽略超过120分钟的车次</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">start_total_minutes</span> <span class="o">-</span> <span class="n">total_minutes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">120</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># 到达时间</span>
+                <span class="n">arrive_time</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+                <span class="c1"># 总耗时</span>
+                <span class="n">time_fucked_up</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+                <span class="c1"># 一等座</span>
+                <span class="n">first_class_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span> <span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
+                <span class="c1"># 二等座</span>
+                <span class="n">second_class_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">30</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
+                <span class="c1"># 软卧</span>
+                <span class="n">soft_sleep</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
+                <span class="c1"># 硬卧</span>
+                <span class="n">hard_sleep</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">28</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
+                <span class="c1"># 硬座</span>
+                <span class="n">hard_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">29</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
+                <span class="c1"># 无座</span>
+                <span class="n">no_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
+
+                <span class="c1"># 打印查询结果</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">车次:{}</span><span class="se">\n</span><span class="s1">出发站:{}</span><span class="se">\n</span><span class="s1">目的地:{}</span><span class="se">\n</span><span class="s1">出发时间:{}</span><span class="se">\n</span><span class="s1">到达时间:{}</span><span class="se">\n</span><span class="s1">消耗时间:{}</span><span class="se">\n</span><span class="s1">座位情况：</span><span class="se">\n</span><span class="s1"> 一等座：「{}」 </span><span class="se">\n</span><span class="s1">二等座：「{}」</span><span class="se">\n</span><span class="s1">软卧：「{}」</span><span class="se">\n</span><span class="s1">硬卧：「{}」</span><span class="se">\n</span><span class="s1">硬座：「{}」</span><span class="se">\n</span><span class="s1">无座：「{}」</span><span class="se">\n</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">train_no</span><span class="p">,</span> <span class="n">from_station_name</span><span class="p">,</span> <span class="n">to_station_name</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">arrive_time</span><span class="p">,</span> <span class="n">time_fucked_up</span><span class="p">,</span> <span class="n">first_class_seat</span><span class="p">,</span>
+                    <span class="n">second_class_seat</span><span class="p">,</span> <span class="n">soft_sleep</span><span class="p">,</span> <span class="n">hard_sleep</span><span class="p">,</span> <span class="n">hard_seat</span><span class="p">,</span> <span class="n">no_seat</span><span class="p">)</span><span class="p">)</span>
+
+                <span class="n">info_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">info_list</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">12306查询失败，请重试</span><span class="s1">&#39;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>另外需要注意的是：在使用demo运行过程中，如果需要进行多次查询，中间需要执行<code>/restart</code>，将slot信息重置。</strong></p>
+<h2 id="heading-5">参考</h2>
+<ul>
+<li>日期实体提取：https://blog.csdn.net/lilong117194/article/details/81212961</li>
+<li>查票信息查询：https://zhuanlan.zhihu.com/p/27969976</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-example/">rasa-example</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_rich_text/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">rasa如何支持富文本</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_input_suggestion/">
+            <span class="next-text nav-default">rasa对话系统如何实现联想输入</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

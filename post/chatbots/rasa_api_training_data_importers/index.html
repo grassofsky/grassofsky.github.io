@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对话系统rasa - Training Data Importers（翻译） - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="对话系统rasa - Training Data Importers（翻译） 默认情况下，可以使用命令行参数指定rasa在磁盘上查找训练数据的位置。然后，rasa加载任何" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_api_training_data_importers/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对话系统rasa - Training Data Importers（翻译）" />
+<meta property="og:description" content="对话系统rasa - Training Data Importers（翻译） 默认情况下，可以使用命令行参数指定rasa在磁盘上查找训练数据的位置。然后，rasa加载任何" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_api_training_data_importers/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="对话系统rasa - Training Data Importers（翻译）">
+<meta itemprop="description" content="对话系统rasa - Training Data Importers（翻译） 默认情况下，可以使用命令行参数指定rasa在磁盘上查找训练数据的位置。然后，rasa加载任何">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1705">
+
+
+
+<meta itemprop="keywords" content="rasa-doc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对话系统rasa - Training Data Importers（翻译）"/>
+<meta name="twitter:description" content="对话系统rasa - Training Data Importers（翻译） 默认情况下，可以使用命令行参数指定rasa在磁盘上查找训练数据的位置。然后，rasa加载任何"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对话系统rasa - Training Data Importers（翻译）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rasafileimporterdefault">RasaFileImporter(default)</a></li>
+    <li><a href="#multiprojectimporterexperimental">MultiProjectImporter(experimental)</a></li>
+    <li><a href="#writing-a-custom-importer">Writing a Custom Importer</a>
+      <ul>
+        <li><a href="#trainingdataimporter">TrainingDataImporter</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading">原文链接</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa---training-data-importers">对话系统rasa - Training Data Importers（翻译）</h1>
+<p>默认情况下，可以使用命令行参数指定rasa在磁盘上查找训练数据的位置。然后，rasa加载任何可能的训练文件并使用它们来训练您的助手。</p>
+<p>如果有必要，你可以自定义Rasa如何导入训练数据。潜在的使用场景有：</p>
+<ul>
+<li>使用自定义parser加载其他格式的训练数据</li>
+<li>使用不同的途径收集训练数据（如，从不同的资源加载数据）</li>
+</ul>
+<p>你可以让Rasa加载和使用你自定义的importer，通过在Rasa配置文件中添加importers，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">importers:
+- name: &#34;module.CustomImporter&#34;
+  parameter1: &#34;value&#34;
+  parameter2: &#34;value2&#34;
+- name: &#34;module.AnotherCustomImporter&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p><code>name</code>用来说明那个importer需要被加载。任何其他额外的参数以构造函数参数的形式传入。</p>
+<p><strong>注意</strong>：你可以指定多个importers。Rasa会自动将结果合并。</p>
+<h2 id="rasafileimporterdefault">RasaFileImporter(default)</h2>
+<p>默认情况下Rasa使用RasaFileImporter。如果您想单独使用它，则不必在配置文件中指定任何内容。如果要与其他导入程序一起使用，请将其添加到配置文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">importers:
+- name: &#34;RasaFileImporter&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="multiprojectimporterexperimental">MultiProjectImporter(experimental)</h2>
+<p><strong>警告</strong>：此功能目前处于试验阶段，将来可能会更改或删除。请在论坛上分享您对该功能的反馈，以帮助我们将此功能准备就绪。</p>
+<p>使用该importer，你可以通过组合多个可重用的rasa项目来构建上下文ai助手。例如，你可以处理一个项目的闲聊，并用另一个项目问候。这些项目可以单独开发，然后在训练你的时候合并以创建你的助手。</p>
+<p>一个目录结构的示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">.
+├── config.yml
+└── projects
+    ├── GreetBot
+    │   ├── data
+    │   │   ├── nlu.md
+    │   │   └── stories.md
+    │   └── domain.yml
+    └── ChitchatBot
+        ├── config.yml
+        ├── data
+        │   ├── nlu.md
+        │   └── stories.md
+        └── domain.yml
+</code></pre></td></tr></table>
+</div>
+</div><p>在本例中，上下文ai助手导入chitchatbot项目，然后导入greetbot项目。项目导入在每个项目的配置文件中定义。要指示rasa使用multiprojectimporter模块，请将此部分放在根项目的配置文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">importers:
+- name: MultiProjectImporter
+</code></pre></td></tr></table>
+</div>
+</div><p>然后指定要导入的项目。在我们的示例中，根项目中的config.yml如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">imports:
+- projects/ChitchatBot
+</code></pre></td></tr></table>
+</div>
+</div><p>ChitChatBot的配置文件中要引用GreeBot，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">imports:
+- ../GreetBot
+</code></pre></td></tr></table>
+</div>
+</div><p>GreetBot项目没有指定更多的项目，因此config.yml可以忽略。</p>
+<p>rasa使用引用配置文件中的相对路径导入项目。只要允许文件访问，这些文件可以位于文件系统中的任何位置。</p>
+<p>在训练过程中， rasa将导入所有需要的训练文件，将它们合并，并训练一名统一的ai助理。在运行时合并训练数据，因此不会创建或显示包含训练数据的其他文件。</p>
+<p><strong>注意</strong>：在训练过程中，rasa使用根项目目录的policy和NLU pipeline配置文件。导入项目中policy和NLU配置文件会被忽略。</p>
+<p><strong>注意</strong>：相同的意图，实体，slots，模板，actions和forms将被合并，如，如果两个项目中都有意图为greet的训练数据，他们的训练数据会被合并。</p>
+<h2 id="writing-a-custom-importer">Writing a Custom Importer</h2>
+<p>如果你要创建自定义importer，需要实现<a href="https://rasa.com/docs/rasa/api/training-data-importers/#training-data-importers-trainingfileimporter">TrainingDataImporter</a>类一些接口，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">rasa</span>
+<span class="kn">from</span> <span class="nn">rasa.core.domain</span> <span class="kn">import</span> <span class="n">Domain</span>
+<span class="kn">from</span> <span class="nn">rasa.core.interpreter</span> <span class="kn">import</span> <span class="n">RegexInterpreter</span><span class="p">,</span> <span class="n">NaturalLanguageInterpreter</span>
+<span class="kn">from</span> <span class="nn">rasa.core.training.structures</span> <span class="kn">import</span> <span class="n">StoryGraph</span>
+<span class="kn">from</span> <span class="nn">rasa.importers.importer</span> <span class="kn">import</span> <span class="n">TrainingDataImporter</span>
+<span class="kn">from</span> <span class="nn">rasa.nlu.training_data</span> <span class="kn">import</span> <span class="n">TrainingData</span>
+
+<span class="k">class</span> <span class="nc">MyImporter</span><span class="p">(</span><span class="n">TrainingDataImporter</span><span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Example implementation of a custom importer component.</span><span class="s2">&#34;&#34;&#34;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="n">domain_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="n">training_data_paths</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">,</span> <span class="n">Text</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">)</span><span class="p">:</span>
+        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Constructor of your custom file importer.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">        Args:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            config_file: Path to configuration file from command line arguments.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            domain_path: Path to domain file from command line arguments.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            training_data_paths: Path to training files from command line arguments.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            **kwargs: Extra parameters passed through configuration in configuration file.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
+
+        <span class="k">pass</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Domain</span><span class="p">:</span>
+        <span class="n">path_to_domain_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_custom_get_domain_file</span><span class="p">(</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Domain</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path_to_domain_file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_custom_get_domain_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">get_stories</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">interpreter</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">NaturalLanguageInterpreter</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="n">RegexInterpreter</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+        <span class="n">template_variables</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="n">use_e2e</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="n">exclusion_percentage</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">StoryGraph</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">rasa.core.training.dsl</span> <span class="kn">import</span> <span class="n">StoryFileReader</span>
+
+        <span class="n">path_to_stories</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_custom_get_story_file</span><span class="p">(</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">await</span> <span class="n">StoryFileReader</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="n">path_to_stories</span><span class="p">,</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_custom_get_story_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="n">path_to_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_custom_get_config_file</span><span class="p">(</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rasa</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_config_file</span><span class="p">(</span><span class="n">path_to_config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_custom_get_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">get_nlu_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">en</span><span class="s2">&#34;</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">TrainingData</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">rasa.nlu.training_data</span> <span class="kn">import</span> <span class="n">loading</span>
+
+        <span class="n">path_to_nlu_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_custom_get_nlu_file</span><span class="p">(</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loading</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">path_to_nlu_file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_custom_get_nlu_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="trainingdataimporter">TrainingDataImporter</h3>
+<h4 id="class-rasaimportersimpotertrainingdataimporter">class rasa.importers.impoter.TrainingDataImporter</h4>
+<p>不同机制加载数据的通用接口。</p>
+<h4 id="get-domain">get_domain()</h4>
+<p>获取bot的domain</p>
+<p><strong>Returns:</strong> 加载的Domain</p>
+<p><strong>Return type</strong>: Domain</p>
+<h4 id="get-config">get_config()</h4>
+<p>获取被用于训练的将配置</p>
+<p><strong>Returns:</strong> 字典形式存储的配置</p>
+<p><strong>Return type</strong>:<code>Dict</code>[~KT, ~VT]</p>
+<h4 id="get-nlu-datalanguageen">get_nlu_data(language='en&rsquo;)</h4>
+<p>获取被用于训练的NLU训练数据</p>
+<p><strong>参数</strong>：language，可以用来只加载某种语言的训练数据</p>
+<p><strong>Returns:</strong> 加载的NLU <code>TrainingData</code></p>
+<p><strong>Return type</strong>:<code>TrainingData</code></p>
+<h4 id="get-storiesinterpreterrasacoreinterpreterregexinterpreter-object-template-variablesnone-use-e2efalse-exclusion-percentagenone"><code>get_stories</code>(<em>interpreter=&lt;rasa.core.interpreter.RegexInterpreter object&gt;</em>, <em>template_variables=None</em>, <em>use_e2e=False</em>, <em>exclusion_percentage=None</em>)</h4>
+<p>获取被用于训练的故事</p>
+<p><strong>参数</strong></p>
+<ul>
+<li>interpreter - 应该用来解析端到端学习注释的解释器。</li>
+<li>template_variables - 读取故事文件的时候需要被替换掉的模板值</li>
+<li>use_e2e - 指定是否分析端到端学习批注。</li>
+<li>exclusion_percentage - 训练数据中需要被排除的比例</li>
+</ul>
+<p><strong>Returns:</strong> 包含所有故事的<code>StoryGraph</code></p>
+<p><strong>Return type</strong>:<code>StoryGraph</code></p>
+<h2 id="heading">原文链接</h2>
+<p><a href="https://rasa.com/docs/rasa/api/training-data-importers/">https://rasa.com/docs/rasa/api/training-data-importers/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-doc/">rasa-doc</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_api_tracker_stores/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对话系统rasa - tracker Stores （翻译）</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_responses/">
+            <span class="next-text nav-default">对话系统Rasa - 响应 [翻译]</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

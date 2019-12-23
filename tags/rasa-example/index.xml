@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rasa-example on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/tags/rasa-example/</link>
+    <description>Recent content in rasa-example on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 21 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/rasa-example/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rasa对话系统demo实战 - 简单的火车票查询助手</title>
+      <link>http://localhost:1313/post/chatbots/rasa_in_action_train_bookings/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_in_action_train_bookings/</guid>
+      <description>rasa对话系统Demo实战 - 简单的火车票查询助手 描述 目的 基于rasa构建用于火车票查询的对话系统Demo。 对话示例 1 2 3 4 5 6 7 8 9 10 11 12</description>
+    </item>
+    
+    <item>
+      <title>对话系统rasa示例简析 - concertbot</title>
+      <link>http://localhost:1313/post/chatbots/rasa_example_analysis_concertbot/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_example_analysis_concertbot/</guid>
+      <description>对话系统rasa示例简析 - concertbot 链接 https://github.com/RasaHQ/rasa/tree/master/examples/concertbot 示例说明 此处不赘述，参见：https://sourcegraph.com/github.com/RasaH</description>
+    </item>
+    
+    <item>
+      <title>对话系统rasa示例简析 - formbot</title>
+      <link>http://localhost:1313/post/chatbots/rasa_example_analysis_formbot/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_example_analysis_formbot/</guid>
+      <description>对话系统rasa示例简析 - formbot [TOC] 链接 https://github.com/RasaHQ/rasa/tree/master/examples/formbot 示例说明 详细见：https://github.com/RasaHQ/rasa/blob/master/e</description>
+    </item>
+    
+    <item>
+      <title>对话系统rasa示例简析 - Knowledge Base Bot</title>
+      <link>http://localhost:1313/post/chatbots/rasa_example_analysis_knowledge_base_bot/</link>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_example_analysis_knowledge_base_bot/</guid>
+      <description>对话系统rasa示例简析 - Knowledge Base Bot 链接 https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot 示例说明 此处不赘述，参见：https://github.com/RasaHQ/rasa/tree/ma</description>
+    </item>
+    
+  </channel>
+</rss>

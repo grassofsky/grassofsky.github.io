@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对话系统rasa - Featurization （翻译） - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="对话系统rasa - Featurization （翻译） 为了将机器学习算法应用到对话AI，我们需要构建对话的词向量表示方式。 每个故事都对应一个tracker，该trac" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_api_featurization/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对话系统rasa - Featurization （翻译）" />
+<meta property="og:description" content="对话系统rasa - Featurization （翻译） 为了将机器学习算法应用到对话AI，我们需要构建对话的词向量表示方式。 每个故事都对应一个tracker，该trac" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_api_featurization/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="对话系统rasa - Featurization （翻译）">
+<meta itemprop="description" content="对话系统rasa - Featurization （翻译） 为了将机器学习算法应用到对话AI，我们需要构建对话的词向量表示方式。 每个故事都对应一个tracker，该trac">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1966">
+
+
+
+<meta itemprop="keywords" content="rasa-doc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对话系统rasa - Featurization （翻译）"/>
+<meta name="twitter:description" content="对话系统rasa - Featurization （翻译） 为了将机器学习算法应用到对话AI，我们需要构建对话的词向量表示方式。 每个故事都对应一个tracker，该trac"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对话系统rasa - Featurization （翻译）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#state-featurizers">State Featurizers</a>
+      <ul>
+        <li><a href="#1-tracker-active-features">1. Tracker提供的一系列的 active features，有：</a></li>
+        <li><a href="#2-feature">2. 将Feature转换成数值数组：</a></li>
+      </ul>
+    </li>
+    <li><a href="#tracker-featurizers">Tracker Featurizers</a>
+      <ul>
+        <li><a href="#1-full-dialogue">1. Full Dialogue</a></li>
+        <li><a href="#2-max-history">2. Max History</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa---featurization-">对话系统rasa - Featurization （翻译）</h1>
+<p>为了将机器学习算法应用到对话AI，我们需要构建对话的词向量表示方式。</p>
+<p>每个故事都对应一个tracker，该tracker由每次action前的对话状态组成。</p>
+<h2 id="state-featurizers">State Featurizers</h2>
+<p>trackers历史中的每个event都会创建一个新的状态（如，运行bot action，接收用户消息，设置槽位值）。特征化tracker中的单个状态，有以下几个步骤：</p>
+<h3 id="1-tracker-active-features">1. Tracker提供的一系列的 active features，有：</h3>
+<ul>
+<li>表示intents和entitiies的feature，如果这是一个Turn中的第一个状态，如，这是解析用户消息后我们将采取的第一个操作。（如，<code>[intent_restaurant_search, entity_cuisine]</code>）。</li>
+<li>表示当前定义的slots的feature，如，如果用户之前提到了他们要查找的restaurants的位置，<code>slot_location</code>。</li>
+<li>表示存储在插槽中的任何api调用结果的特性，如，slot_matches</li>
+<li>表示最后一个action是什么的特征，如，<code>pre_action_listen</code></li>
+</ul>
+<h3 id="2-feature">2. 将Feature转换成数值数组：</h3>
+<p>对于监督式学习我们使用常见的标记，X和y。X的形状是<code>(num_data_points, time_dimension, num_input_features)</code>和y的形状是<code>(num_data_points, num_bot_features)</code>或者<code>(num_data_points, time_dimension, num_bot_features)</code>包含被编码为one-hot向量的目标类别标签。</p>
+<p>目标标签与bot将采取的action相关。将features转换成向量形式，这里有不同的featurizers：</p>
+<ul>
+<li><code>BinarySingleStateFeaturizer</code>创建二进制one-hot编码：向量X,y表示某个意图、实体、先前的action或slot，如，<code>[0 0 1 0 0 1 ...]</code>.</li>
+<li><code>LabelTokenizerSingleStateFeaturizer</code> 基于feature label创建一个向量：所有的active feature标签（如，pre_action_listen）被划分成token，并且被表示成词袋的形式。如，actions <code>utter_explane_details_hotel</code>和<code>utter_explain_details_restaurant</code>通常将有3个features，不同的是一个单独的feature表示一个domain。用于用户输入的labels（intents，entities）和机器的action被单独的进行featurized。两个类别的标签被特殊的字符（<code>split_symbol</code>）进行分词（如，<code>action_search_restaurant = {action, search, restaurant}</code>），创建两个词汇表。使用适合的词汇表，针对每个label会创建一个词袋的表示形式。slot被featurized成二进制向量，表示他们在对话的每个步骤中出现了还是没有出现。</li>
+</ul>
+<p><strong>注意</strong>：如果领域中定义了可能的<code>actions</code>，<code>[ActionGreet, ActionGoodbye]</code>，<code>4</code>额外的默认的actions会添加：<code>[ActionListen(), ActionRestart(), ActionDefaultFallback(), ActionDeactivateForm()]</code>。因此，label 0表示action listen，1表示restart，2表示greeting，3表示goodbye。</p>
+<h2 id="tracker-featurizers">Tracker Featurizers</h2>
+<p>在预测一个动作时，包含比当前状态多一点的历史记录通常是有用的。TrackerFeaturizer遍历跟踪程序状态，并未每个状态调用一个SingleStateFeaturizer。有两种不同的tracker featurizers：</p>
+<h3 id="1-full-dialogue">1. Full Dialogue</h3>
+<p><code>FullDialogueTrackerFeaturizer</code> 创建故事的数值表示，以馈送到一个递归神经网络，其中整个对话馈送到一个网络，并且梯度从所有时间步反向传播。因此X数组的形状是<code>(num_stories, max_dialogue_length, num_input_features)</code>，y的形状是<code>(num_stories, max_dialogues_length, num_bot_features)</code>。对于所有功能，较小的对话都用-1填充，表示没有策略值。</p>
+<h3 id="2-max-history">2. Max History</h3>
+<p><code>MaxHistoryTrackerFeaturizer</code> 为每个bot操作或语句创建一个以前的跟踪器状态数组，参数max_history定义X中每行的状态数。执行重复数据消除，是为了根据他们之前的状态过滤掉重复的turns（bot actions或者bot utterances）。因此X的形状是：<code>(num_unique_turns, max_history, num_input_features)</code>，y的形状是<code>(num_unique_turns, num_bot_features)</code>。</p>
+<p>针对一些算法，需要一个flat feature向量，因此X可以reshape成<code>(num_unique_turns,max_history * num_input_features)</code>。如果需要数字目标类标签而不是一个热向量，可以使用<code>y.argmax(axis=-1)</code>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-doc/">rasa-doc</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_fallback_actions/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对话系统Rasa - fallback actions [翻译]</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_forms/">
+            <span class="next-text nav-default">对话系统Rasa - forms [翻译]</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

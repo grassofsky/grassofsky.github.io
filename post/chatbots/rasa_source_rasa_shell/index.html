@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>rasa source - rasa shell 代码走读 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="rasa source - rasa shell 代码走读 在rasa/run.py: run函数中添加断点pudb.set_trace()。运行示例，examples/knowled" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_source_rasa_shell/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="rasa source - rasa shell 代码走读" />
+<meta property="og:description" content="rasa source - rasa shell 代码走读 在rasa/run.py: run函数中添加断点pudb.set_trace()。运行示例，examples/knowled" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_source_rasa_shell/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="rasa source - rasa shell 代码走读">
+<meta itemprop="description" content="rasa source - rasa shell 代码走读 在rasa/run.py: run函数中添加断点pudb.set_trace()。运行示例，examples/knowled">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2987">
+
+
+
+<meta itemprop="keywords" content="rasa-source," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="rasa source - rasa shell 代码走读"/>
+<meta name="twitter:description" content="rasa source - rasa shell 代码走读 在rasa/run.py: run函数中添加断点pudb.set_trace()。运行示例，examples/knowled"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">rasa source - rasa shell 代码走读</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">小结</a></li>
+    <li><a href="#heading-1">补充知识点</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa-source---rasa-shell-">rasa source - rasa shell 代码走读</h1>
+<p>在<code>rasa/run.py: run</code>函数中添加断点<code>pudb.set_trace()</code>。运行示例，<code>examples/knowledgebasebot</code>。</p>
+<p>相关的函数调用栈：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">- rasa/run.py: run
+  - rasa/core/run.py: serve_application
+    - create_http_input_channels
+      - `_create_single_channel` - 创建CmdlineInput channel，CmdlineInput的主要实现均在于基类中
+    - configure_app
+</code></pre></td></tr></table>
+</div>
+</div><p>首先来看一下configure_app函数，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">configure_app</span><span class="p">(</span>
+    <span class="n">input_channels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">InputChannel</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">cors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">auth_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">enable_api</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="n">jwt_secret</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">jwt_method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">route</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">/webhooks/</span><span class="s2">&#34;</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_PORT</span><span class="p">,</span>
+    <span class="n">endpoints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AvailableEndpoints</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">log_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+<span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Run the agent.</span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="kn">from</span> <span class="nn">rasa</span> <span class="kn">import</span> <span class="n">server</span>
+
+    <span class="n">rasa</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">configure_file_logging</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">enable_api</span><span class="p">:</span>  <span class="c1"># False</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">create_app</span><span class="p">(</span>
+            <span class="n">cors_origins</span><span class="o">=</span><span class="n">cors</span><span class="p">,</span>
+            <span class="n">auth_token</span><span class="o">=</span><span class="n">auth_token</span><span class="p">,</span>
+            <span class="n">jwt_secret</span><span class="o">=</span><span class="n">jwt_secret</span><span class="p">,</span>
+            <span class="n">jwt_method</span><span class="o">=</span><span class="n">jwt_method</span><span class="p">,</span>
+            <span class="n">endpoints</span><span class="o">=</span><span class="n">endpoints</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># 创建Sanic对象</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="n">_create_app_without_api</span><span class="p">(</span><span class="n">cors</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">input_channels</span><span class="p">:</span>
+        <span class="c1"># 将input_channels注册到app</span>
+        <span class="n">channels</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">route</span><span class="o">=</span><span class="n">route</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">input_channels</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span><span class="p">:</span>
+        <span class="n">rasa</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">list_routes</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="c1"># configure async loop logging</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">configure_async_logging</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span><span class="p">:</span>
+            <span class="n">rasa</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">enable_async_loop_debugging</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+
+    <span class="c1"># 添加task，在app起来之后会被调用</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">configure_async_logging</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">cmdline</span><span class="s2">&#34;</span> <span class="ow">in</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">input_channels</span><span class="p">}</span><span class="p">:</span>
+
+        <span class="n">async</span> <span class="k">def</span> <span class="nf">run_cmdline_io</span><span class="p">(</span><span class="n">running_app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">)</span><span class="p">:</span>
+            <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Small wrapper to shut down the server once cmd io is done.</span><span class="s2">&#34;&#34;&#34;</span>
+            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># allow server to start</span>
+            <span class="n">await</span> <span class="n">console</span><span class="o">.</span><span class="n">record_messages</span><span class="p">(</span>
+                <span class="n">server_url</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">http</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Killing Sanic server now.</span><span class="s2">&#34;</span><span class="p">)</span>
+            <span class="n">running_app</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="p">)</span>  <span class="c1"># kill the sanic serverx</span>
+	    <span class="c1"># 添加shell运行的关键函数，run_cmdline_io</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">run_cmdline_io</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">app</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的函数添加了两个task，在app运行起来之后会被调用。</p>
+<p>接着来看一下serve_application，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">serve_application</span><span class="p">(</span>
+    <span class="n">model_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">channel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_PORT</span><span class="p">,</span>
+    <span class="n">credentials</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">cors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">auth_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">enable_api</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="n">jwt_secret</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">jwt_method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">endpoints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AvailableEndpoints</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">remote_storage</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">log_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">ssl_certificate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">ssl_keyfile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">ssl_ca_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="n">ssl_password</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+<span class="p">)</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">rasa</span> <span class="kn">import</span> <span class="n">server</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">channel</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">credentials</span><span class="p">:</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">cmdline</span><span class="s2">&#34;</span>
+
+    <span class="c1"># 创建的是CmdlineInput，该类的主要实现位于RestInput类中</span>
+    <span class="n">input_channels</span> <span class="o">=</span> <span class="n">create_http_input_channels</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">credentials</span><span class="p">)</span>
+
+    <span class="c1"># 创建sanic app</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">configure_app</span><span class="p">(</span>
+        <span class="n">input_channels</span><span class="p">,</span>
+        <span class="n">cors</span><span class="p">,</span>
+        <span class="n">auth_token</span><span class="p">,</span>
+        <span class="n">enable_api</span><span class="p">,</span>
+        <span class="n">jwt_secret</span><span class="p">,</span>
+        <span class="n">jwt_method</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+        <span class="n">endpoints</span><span class="o">=</span><span class="n">endpoints</span><span class="p">,</span>
+        <span class="n">log_file</span><span class="o">=</span><span class="n">log_file</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">ssl_context</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">create_ssl_context</span><span class="p">(</span>
+        <span class="n">ssl_certificate</span><span class="p">,</span> <span class="n">ssl_keyfile</span><span class="p">,</span> <span class="n">ssl_ca_file</span><span class="p">,</span> <span class="n">ssl_password</span>
+    <span class="p">)</span>
+    <span class="n">protocol</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">https</span><span class="s2">&#34;</span> <span class="k">if</span> <span class="n">ssl_context</span> <span class="k">else</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">http</span><span class="s2">&#34;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Starting Rasa server on </span><span class="s2">&#34;</span>
+        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 注册事件，当服务启动之前会被调用</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">register_listener</span><span class="p">(</span>
+        <span class="n">partial</span><span class="p">(</span><span class="n">load_agent_on_start</span><span class="p">,</span> <span class="n">model_path</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">remote_storage</span><span class="p">)</span><span class="p">,</span>
+        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">before_server_start</span><span class="s2">&#34;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">clear_model_files</span><span class="p">(</span><span class="n">_app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">,</span> <span class="n">_loop</span><span class="p">:</span> <span class="n">Text</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">model_directory</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">_app</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">model_directory</span><span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">register_listener</span><span class="p">(</span><span class="n">clear_model_files</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">after_server_stop</span><span class="s2">&#34;</span><span class="p">)</span>
+
+    <span class="n">rasa</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">update_sanic_log_level</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
+
+    <span class="c1"># 启动服务</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">0.0.0.0</span><span class="s2">&#34;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+        <span class="n">ssl</span><span class="o">=</span><span class="n">ssl_context</span><span class="p">,</span>
+        <span class="n">backlog</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ENV_SANIC_BACKLOG</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">100</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">,</span>
+        <span class="n">workers</span><span class="o">=</span><span class="n">rasa</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">number_of_sanic_workers</span><span class="p">(</span>
+            <span class="n">endpoints</span><span class="o">.</span><span class="n">lock_store</span> <span class="k">if</span> <span class="n">endpoints</span> <span class="k">else</span> <span class="bp">None</span>
+        <span class="p">)</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当服务启动之前会调用，load_agent_on_start，让我们来看一下这个函数到底干了些什么：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># noinspection PyUnusedLocal</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">load_agent_on_start</span><span class="p">(</span>
+    <span class="n">model_path</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+    <span class="n">endpoints</span><span class="p">:</span> <span class="n">AvailableEndpoints</span><span class="p">,</span>
+    <span class="n">remote_storage</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">,</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">,</span>
+    <span class="n">loop</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+<span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Load an agent.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Used to be scheduled on server start</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    (hence the `app` and `loop` arguments).</span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="kn">import</span> <span class="nn">rasa.core.brokers.utils</span> <span class="kn">as</span> <span class="nn">broker_utils</span>
+
+    <span class="c1"># noinspection PyBroadException</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># 从model目录中加载模型</span>
+        <span class="k">with</span> <span class="n">model</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">unpacked_model</span><span class="p">:</span>
+            <span class="c1"># 获取nlu模型</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">nlu_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_model_subdirectories</span><span class="p">(</span><span class="n">unpacked_model</span><span class="p">)</span>
+            <span class="c1"># 根据nlu模型创建NaturalLanguageInterpreter</span>
+            <span class="c1"># 此处创建的为RasaNLUInterpreter</span>
+            <span class="n">_interpreter</span> <span class="o">=</span> <span class="n">NaturalLanguageInterpreter</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">nlu_model</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">nlu</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Could not load interpreter from </span><span class="s2">&#39;</span><span class="s2">{}</span><span class="s2">&#39;</span><span class="s2">.</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span><span class="p">)</span>
+        <span class="n">_interpreter</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1"># 事件代理相关，此处无</span>
+    <span class="n">_broker</span> <span class="o">=</span> <span class="n">broker_utils</span><span class="o">.</span><span class="n">from_endpoint_config</span><span class="p">(</span><span class="n">endpoints</span><span class="o">.</span><span class="n">event_broker</span><span class="p">)</span>
+    <span class="c1"># 创建TrackerStore，此处为默认的InMemoryTrackerStore</span>
+    <span class="n">_tracker_store</span> <span class="o">=</span> <span class="n">TrackerStore</span><span class="o">.</span><span class="n">find_tracker_store</span><span class="p">(</span>
+        <span class="bp">None</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">tracker_store</span><span class="p">,</span> <span class="n">_broker</span>
+    <span class="p">)</span>
+    <span class="c1"># 对于的lock为InMemoryLockStore</span>
+    <span class="n">_lock_store</span> <span class="o">=</span> <span class="n">LockStore</span><span class="o">.</span><span class="n">find_lock_store</span><span class="p">(</span><span class="n">endpoints</span><span class="o">.</span><span class="n">lock_store</span><span class="p">)</span>
+
+    <span class="n">model_server</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">model</span> <span class="k">if</span> <span class="n">endpoints</span> <span class="ow">and</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">model</span> <span class="k">else</span> <span class="bp">None</span>
+
+    <span class="c1"># 从模型中创建agent对象</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">agent</span> <span class="o">=</span> <span class="n">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">load_agent</span><span class="p">(</span>
+        <span class="n">model_path</span><span class="p">,</span>
+        <span class="n">model_server</span><span class="o">=</span><span class="n">model_server</span><span class="p">,</span>
+        <span class="n">remote_storage</span><span class="o">=</span><span class="n">remote_storage</span><span class="p">,</span>
+        <span class="n">interpreter</span><span class="o">=</span><span class="n">_interpreter</span><span class="p">,</span>
+        <span class="n">generator</span><span class="o">=</span><span class="n">endpoints</span><span class="o">.</span><span class="n">nlg</span><span class="p">,</span>
+        <span class="n">tracker_store</span><span class="o">=</span><span class="n">_tracker_store</span><span class="p">,</span>
+        <span class="n">lock_store</span><span class="o">=</span><span class="n">_lock_store</span><span class="p">,</span>
+        <span class="n">action_endpoint</span><span class="o">=</span><span class="n">endpoints</span><span class="o">.</span><span class="n">action</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">app</span><span class="o">.</span><span class="n">agent</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Agent could not be loaded with the provided configuration. </span><span class="s2">&#34;</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Load default agent without any model.</span><span class="s2">&#34;</span>
+        <span class="p">)</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">interpreter</span><span class="o">=</span><span class="n">_interpreter</span><span class="p">,</span>
+            <span class="n">generator</span><span class="o">=</span><span class="n">endpoints</span><span class="o">.</span><span class="n">nlg</span><span class="p">,</span>
+            <span class="n">tracker_store</span><span class="o">=</span><span class="n">_tracker_store</span><span class="p">,</span>
+            <span class="n">action_endpoint</span><span class="o">=</span><span class="n">endpoints</span><span class="o">.</span><span class="n">action</span><span class="p">,</span>
+            <span class="n">model_server</span><span class="o">=</span><span class="n">model_server</span><span class="p">,</span>
+            <span class="n">remote_storage</span><span class="o">=</span><span class="n">remote_storage</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">agent</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当app运行起来之后，就会运行之前添加的task，下面再回头来看下run_cmdline_io：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">		<span class="n">async</span> <span class="k">def</span> <span class="nf">run_cmdline_io</span><span class="p">(</span><span class="n">running_app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">)</span><span class="p">:</span>
+            <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Small wrapper to shut down the server once cmd io is done.</span><span class="s2">&#34;&#34;&#34;</span>
+            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># allow server to start</span>
+            <span class="n">await</span> <span class="n">console</span><span class="o">.</span><span class="n">record_messages</span><span class="p">(</span>
+                <span class="n">server_url</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">http</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Killing Sanic server now.</span><span class="s2">&#34;</span><span class="p">)</span>
+            <span class="n">running_app</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="p">)</span>  <span class="c1"># kill the sanic serverx</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该函数调用的是<code>console.record_messages</code>，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/channels/console.py</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">record_messages</span><span class="p">(</span>
+    <span class="n">server_url</span><span class="o">=</span><span class="n">DEFAULT_SERVER_URL</span><span class="p">,</span>
+    <span class="n">auth_token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">sender_id</span><span class="o">=</span><span class="n">UserMessage</span><span class="o">.</span><span class="n">DEFAULT_SENDER_ID</span><span class="p">,</span>
+    <span class="n">max_message_limit</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">use_response_stream</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Read messages from the command line and print bot responses.</span><span class="s2">&#34;&#34;&#34;</span>
+
+    <span class="n">auth_token</span> <span class="o">=</span> <span class="n">auth_token</span> <span class="k">if</span> <span class="n">auth_token</span> <span class="k">else</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">&#34;</span>
+
+    <span class="n">exit_text</span> <span class="o">=</span> <span class="n">INTENT_MESSAGE_PREFIX</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">stop</span><span class="s2">&#34;</span>
+
+    <span class="n">cli_utils</span><span class="o">.</span><span class="n">print_success</span><span class="p">(</span>
+        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Bot loaded. Type a message and press enter </span><span class="s2">&#34;</span>
+        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">(use </span><span class="s2">&#39;</span><span class="s2">{}</span><span class="s2">&#39;</span><span class="s2"> to exit): </span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exit_text</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">num_messages</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">button_question</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_limit_reached</span><span class="p">(</span><span class="n">num_messages</span><span class="p">,</span> <span class="n">max_message_limit</span><span class="p">)</span><span class="p">:</span>
+        <span class="c1"># 获取用户输入文本</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">get_user_input</span><span class="p">(</span><span class="n">button_question</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="n">exit_text</span> <span class="ow">or</span> <span class="n">text</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">use_response_stream</span><span class="p">:</span> <span class="c1"># True</span>
+            <span class="c1"># 发送信息到服务器获取回复</span>
+            <span class="n">bot_responses</span> <span class="o">=</span> <span class="n">send_message_receive_stream</span><span class="p">(</span>
+                <span class="n">server_url</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">text</span>
+            <span class="p">)</span>
+            <span class="n">async</span> <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">bot_responses</span><span class="p">:</span>
+                <span class="n">button_question</span> <span class="o">=</span> <span class="n">print_bot_output</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bot_responses</span> <span class="o">=</span> <span class="n">await</span> <span class="n">send_message_receive_block</span><span class="p">(</span>
+                <span class="n">server_url</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">text</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">bot_responses</span><span class="p">:</span>
+                <span class="n">button_question</span> <span class="o">=</span> <span class="n">print_bot_output</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="n">num_messages</span> <span class="o">+</span><span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">num_messages</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>send_message_receive_stream的实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">async</span> <span class="k">def</span> <span class="nf">send_message_receive_stream</span><span class="p">(</span><span class="n">server_url</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">sender</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">sender_id</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">message</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">message</span><span class="p">}</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">{}/webhooks/rest/webhook?stream=true&amp;token={}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server_url</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">)</span>
+
+    <span class="c1"># Define timeout to not keep reading in case the server crashed in between</span>
+    <span class="n">timeout</span> <span class="o">=</span> <span class="n">ClientTimeout</span><span class="p">(</span><span class="n">DEFAULT_STREAM_READING_TIMEOUT_IN_SECONDS</span><span class="p">)</span>
+    <span class="c1"># TODO: check if this properly receives UTF-8 data</span>
+    <span class="c1"># 通过调用webhooks http api接口，获取响应信息</span>
+    <span class="n">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+        <span class="n">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">raise_for_status</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+
+            <span class="n">async</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">DEFAULT_ENCODING</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那么webhooks对应的路由是在什么地方添加的呢？在上文介绍的configure_app函数内部的<code>rasa.core.channels.channel.register</code>函数实现中，具体如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/channels/channel.py</span>
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span>
+    <span class="n">input_channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">InputChannel</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
+        <span class="c1"># 用来处理消息</span>
+        <span class="n">await</span> <span class="n">app</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">input_channels</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">route</span><span class="p">:</span>
+            <span class="c1"># p： &#39;/webhooks/rest&#39;</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">url_prefix</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c1"># 添加到app的路由上</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span><span class="p">,</span> <span class="n">url_prefix</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">input_channels</span> <span class="o">=</span> <span class="n">input_channels</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那么消息处理的路由函数为CmdlineInput子类RestInput中，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">RestInput</span><span class="p">(</span><span class="n">InputChannel</span><span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A custom http input channel.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    This implementation is the basis for a custom implementation of a chat</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    frontend. You can customize this to send messages to Rasa Core and</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    retrieve responses from the agent.</span><span class="s2">&#34;&#34;&#34;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">rest</span><span class="s2">&#34;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">on_message_wrapper</span><span class="p">(</span>
+        <span class="n">on_new_message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">UserMessage</span><span class="p">]</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+        <span class="n">queue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">,</span>
+        <span class="n">sender_id</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+        <span class="n">input_channel</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">collector</span> <span class="o">=</span> <span class="n">QueueOutputChannel</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="n">UserMessage</span><span class="p">(</span>
+            <span class="n">text</span><span class="p">,</span> <span class="n">collector</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">input_channel</span><span class="o">=</span><span class="n">input_channel</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
+        <span class="p">)</span>
+        <span class="n">await</span> <span class="n">on_new_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="n">await</span> <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># pytype: disable=bad-return-type</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">_extract_sender</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">sender</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="c1"># noinspection PyMethodMayBeStatic</span>
+    <span class="k">def</span> <span class="nf">_extract_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">message</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_extract_input_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">input_channel</span><span class="s2">&#34;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">stream_response</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">on_new_message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">UserMessage</span><span class="p">]</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="p">]</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+        <span class="n">sender_id</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+        <span class="n">input_channel</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
+        <span class="n">async</span> <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">resp</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># 这里的Queue作用于生产者消费者模式</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="p">)</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_message_wrapper</span><span class="p">(</span>
+                    <span class="n">on_new_message</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">input_channel</span><span class="p">,</span> <span class="n">metadata</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># declare variable up front to avoid pytype error</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">await</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">await</span> <span class="n">resp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+            <span class="n">await</span> <span class="n">task</span>
+
+        <span class="k">return</span> <span class="n">stream</span>  <span class="c1"># pytype: disable=bad-return-type</span>
+
+    <span class="c1"># 这里的on_new_message就是上一个片段的代码中出现的：</span>
+    <span class="c1"># async def handler(*args, **kwargs):</span>
+    <span class="c1">#     # 用来处理消息</span>
+    <span class="c1">#     await app.agent.handle_message(*args, **kwargs)</span>
+    <span class="k">def</span> <span class="nf">blueprint</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">on_new_message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">UserMessage</span><span class="p">]</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Blueprint</span><span class="p">:</span>
+        <span class="n">custom_webhook</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">custom_webhook_{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="p">,</span>
+            <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># noinspection PyUnusedLocal</span>
+        <span class="c1"># 最后组合后的url为 ip:port/webhooks/rest/</span>
+        <span class="nd">@custom_webhook.route</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">GET</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">)</span>
+        <span class="n">async</span> <span class="k">def</span> <span class="nf">health</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">HTTPResponse</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">status</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ok</span><span class="s2">&#34;</span><span class="p">}</span><span class="p">)</span>
+
+        <span class="c1"># 最后组合后的url为 ip:port/webhooks/rest/webhook</span>
+        <span class="nd">@custom_webhook.route</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/webhook</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">POST</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">)</span>
+        <span class="n">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">HTTPResponse</span><span class="p">:</span>
+            <span class="n">sender_id</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_sender</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="c1"># 用户输入的消息</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_message</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">should_use_stream</span> <span class="o">=</span> <span class="n">rasa</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">bool_arg</span><span class="p">(</span>
+                <span class="n">request</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">stream</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span>
+            <span class="p">)</span>
+            <span class="n">input_channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_input_channel</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">should_use_stream</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stream_response</span><span class="p">(</span>
+                        <span class="n">on_new_message</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">input_channel</span><span class="p">,</span> <span class="n">metadata</span>
+                    <span class="p">)</span><span class="p">,</span>
+                    <span class="n">content_type</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">text/event-stream</span><span class="s2">&#34;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">collector</span> <span class="o">=</span> <span class="n">CollectingOutputChannel</span><span class="p">(</span><span class="p">)</span>
+                <span class="c1"># noinspection PyBroadException</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">await</span> <span class="n">on_new_message</span><span class="p">(</span>
+                        <span class="n">UserMessage</span><span class="p">(</span>
+                            <span class="n">text</span><span class="p">,</span>
+                            <span class="n">collector</span><span class="p">,</span>
+                            <span class="n">sender_id</span><span class="p">,</span>
+                            <span class="n">input_channel</span><span class="o">=</span><span class="n">input_channel</span><span class="p">,</span>
+                            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="n">CancelledError</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Message handling timed out for </span><span class="s2">&#34;</span>
+                        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">user message </span><span class="s2">&#39;</span><span class="s2">{}</span><span class="s2">&#39;</span><span class="s2">.</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
+                        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">An exception occured while handling </span><span class="s2">&#34;</span>
+                        <span class="sa"></span><span class="s2">&#34;</span><span class="s2">user message </span><span class="s2">&#39;</span><span class="s2">{}</span><span class="s2">&#39;</span><span class="s2">.</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">collector</span><span class="o">.</span><span class="n">messages</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">custom_webhook</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后关于消息的处理会进入到agent中（在之前准备好了的agent在这里有起到作用了）。关于agent的介绍可以参见：https://zhuanlan.zhihu.com/p/88194193。agent的handle_message函数如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">    <span class="n">async</span> <span class="k">def</span> <span class="nf">handle_message</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">:</span> <span class="n">UserMessage</span><span class="p">,</span>
+        <span class="n">message_preprocessor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">,</span> <span class="n">Text</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
+        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Handle a single message.</span><span class="s2">&#34;&#34;&#34;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">UserMessage</span><span class="p">)</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Passing a text to `agent.handle_message(...)` is </span><span class="s2">&#34;</span>
+                <span class="sa"></span><span class="s2">&#34;</span><span class="s2">deprecated. Rather use `agent.handle_text(...)`.</span><span class="s2">&#34;</span>
+            <span class="p">)</span>
+            <span class="c1"># noinspection PyTypeChecker</span>
+            <span class="k">return</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_text</span><span class="p">(</span>
+                <span class="n">message</span><span class="p">,</span> <span class="n">message_preprocessor</span><span class="o">=</span><span class="n">message_preprocessor</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">noop</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Ignoring message as there is no agent to handle it.</span><span class="s2">&#34;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">noop</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+	    <span class="c1"># 创建MessageProcessor</span>
+        <span class="n">processor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_processor</span><span class="p">(</span><span class="n">message_preprocessor</span><span class="p">)</span>
+
+        <span class="n">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock_store</span><span class="o">.</span><span class="n">lock</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">sender_id</span><span class="p">)</span><span class="p">:</span>
+            <span class="c1"># 利用MessageProcessor处理消息</span>
+            <span class="k">return</span> <span class="n">await</span> <span class="n">processor</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>MessageProcessor类为处理消息的集大成者，该类中handle_message实现如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/processor.py</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">handle_message</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">UserMessage</span>
+    <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
+        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Handle a single message with this processor.</span><span class="s2">&#34;&#34;&#34;</span>
+
+        <span class="c1"># preprocess message if necessary</span>
+        <span class="c1"># 将消息记录到tracker中</span>
+        <span class="n">tracker</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">should_save_tracker</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tracker</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy_ensemble</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="p">:</span>
+            <span class="c1"># save tracker state to continue conversation from this state</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_tracker</span><span class="p">(</span><span class="n">tracker</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa"></span><span class="s2">&#34;</span><span class="s2">No policy ensemble or domain set. Skipping action prediction </span><span class="s2">&#34;</span>
+                <span class="sa"></span><span class="s2">&#34;</span><span class="s2">and execution.</span><span class="s2">&#34;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="c1"># 对下一个action进行预测以及执行</span>
+        <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_and_execute_next_action</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
+        <span class="c1"># save tracker state to continue conversation from this state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_tracker</span><span class="p">(</span><span class="n">tracker</span><span class="p">)</span>
+
+        <span class="c1"># 如果有返回消息，则返回</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">output_channel</span><span class="p">,</span> <span class="n">CollectingOutputChannel</span><span class="p">)</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="n">output_channel</span><span class="o">.</span><span class="n">messages</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading">小结</h2>
+<p>关键的类为Agent，和MessageProcessor。其他为与webapi实现相关的逻辑。</p>
+<h2 id="heading-1">补充知识点</h2>
+<ul>
+<li><a href="https://www.osgeo.cn/sanic/sanic/blueprints.html">Sanic Blueprint</a></li>
+<li><a href="https://www.osgeo.cn/sanic/">Sanic 中文文档</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-source/">rasa-source</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_source_train_nlu/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">rasa source - nlu模型训练源码走读</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_source_rasa_init/">
+            <span class="next-text nav-default">rasa source - 初始化源码分析</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

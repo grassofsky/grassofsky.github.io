@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对话系统rasa - tracker - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="对话系统rasa - tracker 1 class rasa.core.trackers.DialogueStateTracker(sender_id, slots, max_event_history=None) 用来维护对话状态。 max_event_history字段只提供这些最后的事件，它可以在tracker_stor" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_api_tracker/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对话系统rasa - tracker" />
+<meta property="og:description" content="对话系统rasa - tracker 1 class rasa.core.trackers.DialogueStateTracker(sender_id, slots, max_event_history=None) 用来维护对话状态。 max_event_history字段只提供这些最后的事件，它可以在tracker_stor" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_api_tracker/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="对话系统rasa - tracker">
+<meta itemprop="description" content="对话系统rasa - tracker 1 class rasa.core.trackers.DialogueStateTracker(sender_id, slots, max_event_history=None) 用来维护对话状态。 max_event_history字段只提供这些最后的事件，它可以在tracker_stor">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1314">
+
+
+
+<meta itemprop="keywords" content="rasa-doc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对话系统rasa - tracker"/>
+<meta name="twitter:description" content="对话系统rasa - tracker 1 class rasa.core.trackers.DialogueStateTracker(sender_id, slots, max_event_history=None) 用来维护对话状态。 max_event_history字段只提供这些最后的事件，它可以在tracker_stor"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对话系统rasa - tracker</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa---tracker">对话系统rasa - tracker</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">rasa</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">trackers</span><span class="o">.</span><span class="n">DialogueStateTracker</span><span class="p">(</span><span class="n">sender_id</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">max_event_history</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>用来维护对话状态。</p>
+<p>max_event_history字段只提供这些最后的事件，它可以在tracker_store中设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">applied_events</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回所有应应用的操作- 不返回已还原事件。</p>
+<p><code>Return type: List [ Event ]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">as_dialogue</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回包含所有对话的Dialogue对象。</p>
+<p>这可以被序列化，然后用来精确地恢复这个跟踪器的状态。</p>
+<p><code>Return type: Dialogue</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">change_form_to</span><span class="p">(</span><span class="n">form_name</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>激活或失活一个form</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">clear_followup_action</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>清除执行时的后续操作。</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">copy</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建这个tracker的副本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">current_slot_values</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回当前设置的slots的值</p>
+<p><code>Return type: Dict [ str, Any ]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">current_state</span><span class="p">(</span><span class="n">event_verbosity</span><span class="o">=</span><span class="o">&lt;</span><span class="n">EventVerbosity</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>作为对象返回当前tracker状态</p>
+<p><code>Return type: Dict [ str, Any ]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">events_after_latest_restart</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回最近重启的event列表</p>
+<p><code>Return type: List [ Event ]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">export_stories</span><span class="p">(</span><span class="n">e2e</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将tracker作为story以Rasa core story格式导出</p>
+<p>返回dumped的tracker</p>
+<p><code>Return type: str</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">export_stories_to_file</span><span class="p">(</span><span class="n">export_path</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">debug.md</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将tracker作为story导出到文件</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="nb">classmethod</span> <span class="n">from_dict</span><span class="p">(</span><span class="n">sender_id</span><span class="p">,</span> <span class="n">events_as_dict</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">max_event_history</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从dump创建tracker</p>
+<p>dump应该是dumped event的数组。当恢复tracker的时候，这些events将会重新执行来重新创建状态</p>
+<p><code>Return type: DialogueStateTracker</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">generate_all_prior_trackers</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回当前tracker之前tracker的生成器。</p>
+<p>结果数组表示每个action之前的trackers。</p>
+<p><code>Return type: Generator[DialogueStateTracker, None, None]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">get_last_event_for</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">action_names_to_exclude</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>获取对应类型的，已经被执行过了的最近的event</p>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>event_type</code>: 你想要查找的event类型</li>
+<li><code>action_names_to_exclude</code>: ActionExecuted类型的events将从结果中排除。可以被用来skip <code>action_listen</code> 事件。</li>
+<li><code>skip</code>: 用来跳过返回一个event之前的n个可能结果。</li>
+</ul>
+<p><strong>返回</strong>：返回匹配的event，否则返回None</p>
+<p><code>Return type: Optional [Event]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">get_latest_entity_values</span><span class="p">(</span><span class="n">entity_type</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在最新消息中为传递的实体名找到实体值。</p>
+<p>如果你仅对第一个给定类型的实体感兴趣，使用<code>next(tracker.get_latest_entity_values(&quot;my_entity_name&quot;), None)</code>。如果没有找到entity，返回None。</p>
+<p><code>Return type: Iterator [ str ]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">get_latest_input_channel</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>获取最新的UserUttered事件的input_channel的名字。</p>
+<p><code>Return type: Optional [ str ]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">get_slot</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>获取slot的值</p>
+<p><code>Return type: Optional [ Any ]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">idx_after_latest_restart</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回事件列表中最近重新启动的idx。</p>
+<p>如果对话没有被重启，返回0.</p>
+<p><code>Return type: int</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">init_copy</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建新的状态tracker，使用相同的初始化值。</p>
+<p><code>Return type: 	DialogueStateTracker</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">is_paused</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当前tracker是否被暂停的状态。</p>
+<p><code>Return type: bool</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">last_executed_action_has</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回上一个ActionExecuted event是否有特定的名字</p>
+<p><strong>参数</strong>：</p>
+<ul>
+<li>name - 需要匹配的名字</li>
+<li>skip - 跳过n个可能的结果</li>
+</ul>
+<p><strong>返回</strong>：如果上一次执行的action的名字是name，返回True，否则为False</p>
+<p><code>Return type: bool</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">past_states</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>根据历史生成该tracker的过去的状态。</p>
+<p><code>Return type: deque</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">recreate_from_dialogue</span><span class="p">(</span><span class="n">dialogue</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用串行对话框更新跟踪器状态。</p>
+<p>这将使用trackerstore中持久化的状态。如果在调用此方法之前跟踪器为空，则最终状态将与从中创建对话的跟踪器相同。</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">reject_action</span><span class="p">(</span><span class="n">action_name</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>通知active form已被拒绝</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">replay_events</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>根据一系列events更新tracker</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">set_form_validation</span><span class="p">(</span><span class="n">validate</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>触发form校验</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">set_latest_action_name</span><span class="p">(</span><span class="n">action_name</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>设置最新操作名称并重置表单验证和拒绝参数</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">travel_back_in_time</span><span class="p">(</span><span class="n">target_time</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建具有特定时间戳状态的新跟踪器。</p>
+<p>将创建一个新的跟踪器，并重放传递时间戳之前的所有事件。将包括恰好在目标时间发生的事件。</p>
+<p><code>Return type: DialogueStateTracker</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">trigger_followup_action</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在执行当前操作后触发另一个操作。</p>
+<p><code>Return type: None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">update</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>根据事件修改跟踪器的状态。</p>
+<p><code>Return type: None</code></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-doc/">rasa-doc</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_stories/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对话系统Rasa - Stories [翻译]</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_api_tracker_stores/">
+            <span class="next-text nav-default">对话系统rasa - tracker Stores （翻译）</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
