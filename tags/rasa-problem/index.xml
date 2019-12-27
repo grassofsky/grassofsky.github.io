@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rasa-problem on grassofsky notebook</title>
+    <link>http://localhost:1313/tags/rasa-problem/</link>
+    <description>Recent content in rasa-problem on grassofsky notebook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 26 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/rasa-problem/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rasa problem - 意图中的use_entities选项</title>
+      <link>http://localhost:1313/post/chatbots/rasa_problem_use_entities/</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/chatbots/rasa_problem_use_entities/</guid>
+      <description>rasa problem - 意图中的use_entities选项 problem描述 准备工作 针对简单的天气查询demo，仅需要提供地点时间。 nlu.md如下： 1 2 3</description>
+    </item>
+    
+  </channel>
+</rss>

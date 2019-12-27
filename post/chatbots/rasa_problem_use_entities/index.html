@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>rasa problem - 意图中的use_entities选项 - grassofsky notebook</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="rasa problem - 意图中的use_entities选项 problem描述 准备工作 针对简单的天气查询demo，仅需要提供地点时间。 nlu.md如下： 1 2 3" /><meta name="keywords" content="grassofsky, notebook" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_problem_use_entities/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="rasa problem - 意图中的use_entities选项" />
+<meta property="og:description" content="rasa problem - 意图中的use_entities选项 problem描述 准备工作 针对简单的天气查询demo，仅需要提供地点时间。 nlu.md如下： 1 2 3" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_problem_use_entities/" />
+<meta property="article:published_time" content="2019-12-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-26T00:00:00+00:00" />
+<meta itemprop="name" content="rasa problem - 意图中的use_entities选项">
+<meta itemprop="description" content="rasa problem - 意图中的use_entities选项 problem描述 准备工作 针对简单的天气查询demo，仅需要提供地点时间。 nlu.md如下： 1 2 3">
+<meta itemprop="datePublished" content="2019-12-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1734">
+
+
+
+<meta itemprop="keywords" content="rasa-problem," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="rasa problem - 意图中的use_entities选项"/>
+<meta name="twitter:description" content="rasa problem - 意图中的use_entities选项 problem描述 准备工作 针对简单的天气查询demo，仅需要提供地点时间。 nlu.md如下： 1 2 3"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">rasa problem - 意图中的use_entities选项</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-26 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#problem">problem描述</a>
+      <ul>
+        <li><a href="#heading">准备工作</a></li>
+        <li><a href="#heading-1">问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-2">问题排查</a></li>
+    <li><a href="#heading-3">解决问题</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa-problem---use-entities">rasa problem - 意图中的use_entities选项</h1>
+<h2 id="problem">problem描述</h2>
+<h3 id="heading">准备工作</h3>
+<p>针对简单的天气查询demo，仅需要提供地点时间。</p>
+<p>nlu.md如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## intent:search_weather
+- [今天](date)[上海](location)的天气怎么样
+- [北京](location)[明天](date)的天气怎么样
+- [杭州](location)的天气
+- 查询[北京](location)的天气
+- [上海](location)的天气
+- 查询天气
+- 查询[明天](date)的天气
+- 查询[今天](date)的天气
+- [北京](location)的天气
+- [宁波](location)的天气
+
+## intent:greet
+- 你好
+- 您好
+</code></pre></td></tr></table>
+</div>
+</div><p>story.md如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## greet
+* greet
+	— utter_greet
+	
+## happy path
+* search_weather
+	- weather_form
+	- form{&#34;name&#34;: &#34;weather_form&#34;}
+	- form{&#34;name&#34;: null}
+</code></pre></td></tr></table>
+</div>
+</div><p>domain.yml如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:
+- search_weather
+- greet
+
+entities:
+- date
+- location
+
+slots:
+  date:
+    type: unfeaturized
+  location:
+    type: unfeaturized
+
+forms:
+- weather_form
+
+actions:
+- utter_greet
+
+templates:
+  utter_greet:
+  - text: &#34;您好&#34;
+  utter_ask_location:
+  - text: &#34;你要查哪个城市的天气&#34;
+  utter_ask_date:
+  - text: &#34;你要查哪天的天气&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>config.yml如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">language: zh
+
+pipeline:
+- name: JiebaTokenizer
+- name: CRFEntityExtractor
+- name: CountVectorsFeaturizer
+- name: EmbeddingIntentClassifier
+
+policies:
+- name: FormPolicy
+- name: MemoizationPolicy
+- name: KerasPolicy
+- name: MappingPolicy
+</code></pre></td></tr></table>
+</div>
+</div><p>actions.py如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">rasa_sdk.forms</span> <span class="kn">import</span> <span class="n">FormAction</span>
+
+
+<span class="k">class</span> <span class="nc">WeatherForm</span><span class="p">(</span><span class="n">FormAction</span><span class="p">)</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">weather_form</span><span class="s2">&#34;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">required_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">date</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">location</span><span class="s2">&#34;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">slot_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">date</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_entity</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">date</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
+            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">location</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_entity</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">location</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">:</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">date</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">location</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">你需要查询{}{}的天气吗？</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_message</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>训练和执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rasa train
+rasa shell
+</code></pre></td></tr></table>
+</div>
+</div><p>启动actions：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rasa run actions
+</code></pre></td></tr></table>
+</div>
+</div><p>试运行如下：</p>
+<p><img src="./image/rasa_use_entities_1.png" alt=""></p>
+<h3 id="heading-1">问题</h3>
+<p>上述运行示例中为什么直接输入“查询北京的天气”没有如期执行对话流程呢？</p>
+<h2 id="heading-2">问题排查</h2>
+<p>先试用debug模式查看情况：<code>rasa shell --debug</code></p>
+<p><img src="./image/rasa_use_entities_2.png" alt=""></p>
+<p>从日志中可以看出，意图识别没有问题，entity识别没有问题，出问题的地方是预测下一个action的时候出错了。预测action的策略有：MemoizationPolicy和KerasPolicy，对于小数据量的情况KerasPolicy预测的置信度会非常低，那么出问题的地方就是MemoizationPolicy没有正常运作。那么为什么呢？</p>
+<p>翻找一下MemoizationPolicy源代码，位于，RASAPATH/rasa/core/policies/memoization.py。</p>
+<p><code>MemoizationPolicy-&gt;predict_action_probabilities-&gt;recall-&gt;_recall_states-&gt;self.lookup.get</code>。</p>
+<p>通过一步一步的跟踪，发现最有可能出现问题的地方是在查找表中没有找到对应的action，导致的。为了进一步确定问题。需要将查找表进行输出。lookup是在训练的时候构建的。通过对ENABLE_FEATURE_STRING_COMPRESSION参数的设置，来设定是否需要对key进行字符串压缩。为了更便捷的查看lookup，暂时将该变量设置为false，同时，将lookup输出。在<code>MemoizationPolicy::train</code>函数中添加如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">train</span><span class="p">(</span>
+	<span class="bp">self</span><span class="p">,</span>
+	<span class="n">training_trackers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DialogueStateTracker</span><span class="p">]</span><span class="p">,</span>
+	<span class="n">domain</span><span class="p">:</span> <span class="n">Domain</span><span class="p">,</span>
+	<span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="o">.</span><span class="o">.</span><span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Current lookup is: {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="p">)</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Memorized {} unique examples.</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后删除model下面的模型，进行重新训练<code>rasa train --debug</code>。可以看到对应的输出（对格式进行了手动调整）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Current lookup is: {
+&#39;[null, null, null, null, {}]&#39;: 0, 
+&#39;[null, null, null, {}, {intent_search_weather: 1.0, prev_action_listen: 1.0}]&#39;: 9, &#39;[null, null, {}, {intent_search_weather: 1.0, prev_action_listen: 1.0}, {intent_search_weather: 1.0, prev_weather_form: 1.0}]&#39;: 0, 
+&#39;[null, null, null, {}, {intent_greet: 1.0, prev_action_listen: 1.0}]&#39;: 8, 
+&#39;[null, null, {}, {intent_greet: 1.0, prev_action_listen: 1.0}, 
+{intent_greet: 1.0, prev_utter_greet: 1.0}]&#39;: 0
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>接着输出查找的key，需要添加如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">_recall_states</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span><span class="p">]</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Search feature is: {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_create_feature_key</span><span class="p">(</span><span class="n">states</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_create_feature_key</span><span class="p">(</span><span class="n">states</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再执行<code>rasa shell --debug</code>。得到对应的输出为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"> Search feature is: [null, null, null, {}, {entity_location: 1.0, intent_search_weather: 1.0, prev_action_listen: 1.0}]
+</code></pre></td></tr></table>
+</div>
+</div><p>和之前的lookup对比，发现多出来一个entity_location，那么怎么可以将entity_location排除呢？</p>
+<h2 id="heading-3">解决问题</h2>
+<p>此时需要使用use_entities。将domain改为如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">intents:
+- search_weather:
+	use_entities: []
+- greet
+
+entities:
+- date
+- location
+
+slots:
+  date:
+    type: unfeaturized
+  location:
+    type: unfeaturized
+
+forms:
+- weather_form
+
+actions:
+- utter_greet
+
+templates:
+  utter_greet:
+  - text: &#34;您好&#34;
+  utter_ask_location:
+  - text: &#34;你要查哪个城市的天气&#34;
+  utter_ask_date:
+  - text: &#34;你要查哪天的天气&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>此时的运行结果如下：</p>
+<p><img src="./image/rasa_use_entities_3.png" alt=""></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-26
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-problem/">rasa-problem</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/chatbots/rasa_http_api/">
+            <span class="next-text nav-default">rasa - http api测试</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:grass-of-sky@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/grassofsky" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zhong-xie-wei-32" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对话系统Rasa-训练数据格式 [翻译] - grassofsky notebook</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="对话系统Rasa-训练数据格式 [翻译] 数据格式 支持Markdown和Json两种格式，通常情况下Markdonw更合适（Json格式的介绍省" /><meta name="keywords" content="grassofsky, notebook" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/chatbots/rasa_training_data_format/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对话系统Rasa-训练数据格式 [翻译]" />
+<meta property="og:description" content="对话系统Rasa-训练数据格式 [翻译] 数据格式 支持Markdown和Json两种格式，通常情况下Markdonw更合适（Json格式的介绍省" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/chatbots/rasa_training_data_format/" />
+<meta property="article:published_time" content="2019-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-21T00:00:00+00:00" />
+<meta itemprop="name" content="对话系统Rasa-训练数据格式 [翻译]">
+<meta itemprop="description" content="对话系统Rasa-训练数据格式 [翻译] 数据格式 支持Markdown和Json两种格式，通常情况下Markdonw更合适（Json格式的介绍省">
+<meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2070">
+
+
+
+<meta itemprop="keywords" content="rasa-doc," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对话系统Rasa-训练数据格式 [翻译]"/>
+<meta name="twitter:description" content="对话系统Rasa-训练数据格式 [翻译] 数据格式 支持Markdown和Json两种格式，通常情况下Markdonw更合适（Json格式的介绍省"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对话系统Rasa-训练数据格式 [翻译]</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/chatbot/"> chatbot </a>
+            <a href="/categories/rasa/"> rasa </a>
+            <a href="/categories/%E7%BF%BB%E8%AF%91/"> 翻译 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">数据格式</a>
+      <ul>
+        <li><a href="#markdown">Markdown格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-1">提高意图分类和实体识别</a>
+      <ul>
+        <li><a href="#common-examples">通用的例子（common examples）</a></li>
+        <li><a href="#regular-expression-features">正则化特征（Regular Expression Features）</a></li>
+        <li><a href="#lookup-tables">查找表（lookup tables）</a></li>
+      </ul>
+    </li>
+    <li><a href="#normalizing-data">数据标准化（Normalizing Data）</a>
+      <ul>
+        <li><a href="#heading-2">实体同义词</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading-3">生成更多的实体例子</a></li>
+    <li><a href="#heading-4">原文连接</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="rasa--">对话系统Rasa-训练数据格式 [翻译]</h1>
+<h2 id="heading">数据格式</h2>
+<p>支持Markdown和Json两种格式，通常情况下Markdonw更合适（Json格式的介绍省略）。</p>
+<h3 id="markdown">Markdown格式</h3>
+<p>Markdown是用户阅读和书写Rasa NLU最方便的格式。例子给出了使用无序列表的格式，如<code>-</code>,<code>*</code>,<code>+</code>。例子通过意图进行组合，实体和实体的名字通过markdown的链接形式给出，如<code>[entity](entity name)</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## intent:check_balance
+- what is my balance &lt;!-- no entity --&gt;
+- how much do I have on my [savings](source_account) &lt;!-- entity &#34;source_account&#34; has value &#34;savings&#34; --&gt;
+- how much do I have on my [savings account](source_account:savings) &lt;!-- synonyms, method 1--&gt;
+- Could I pay in [yen](currency)?  &lt;!-- entity matched by lookup table --&gt;
+
+## intent:greet
+- hey
+- hello
+
+## synonym:savings   &lt;!-- synonyms, method 2 --&gt;
+- pink pig
+
+## regex:zipcode
+- [0-9]{5}
+
+## lookup:currencies   &lt;!-- lookup table list --&gt;
+- Yen
+- USD
+- Euro
+
+## lookup:additional_currencies  &lt;!-- no list to specify lookup table file --&gt;
+path/to/currencies.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>用于RasaNLU训练的数据被结构化成如下部分：</p>
+<ul>
+<li>通常的例子（common example）</li>
+<li>同义词（synonyms）</li>
+<li>正则化特征（regex features）</li>
+<li>查找表（lookup tables）</li>
+</ul>
+<p>虽然常见的例子是唯一必填的部分，但是其他数据结构有助于减少NLU模型训练需要的例子，并帮助NLU模型对于预测的结果更加有信心。</p>
+<p>同义词可以将提取出来的实体映射到相同的名字，如例子中将&quot;my savings account&quot;映射到&quot;savings&rdquo;。但是，这个仅仅发生在实体被提取出来之后，因此需要提供含有同义词表述的实例，使得Rasa能够通过学习将实体提取出来。</p>
+<p>查找表可以以list或txt文件（以newline分隔）的形式提供。当加载训练数据的时候，这些文件被用来生成大小写不敏感的正则化模式（基于正则化特征）。举个例子，货币列表中的名字很容易被当做实体挑选出来。</p>
+<h2 id="heading-1">提高意图分类和实体识别</h2>
+<h3 id="common-examples">通用的例子（common examples）</h3>
+<p>通用例子的组成主要包括三个部分：<code>text</code>，<code>intent</code>，<code>entities</code>。前两个是字符串，最后一个是数组。</p>
+<ul>
+<li>text是用户消息，必填</li>
+<li>intent是text对应的意图，选填</li>
+<li>entities是text中需要被标识出来的部分，选填</li>
+</ul>
+<p>Entities带有开始和结束值，组成python格式的范围选择，比如，<code>text=&quot;show me chinese restaurants&quot;</code>，那么<code>text[8:15]=='chinese'</code>。实体可以跨单词，实际上，<code>value</code>属性并不直接与子串相关。那样可以映射同义词，或误拼写的词，到相同的一个<code>value</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## intent:restaurant_search
+- show me [chinese](cuisine) restaurants
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="regular-expression-features">正则化特征（Regular Expression Features）</h3>
+<p>正则化表达式可以有助于支持意图分类和实体提取。举个例子，如果你的实体具有固定的结构（如邮编，或email地址），那么可以使用正则化表达式提取这些实体。如邮编可以用下面的表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## regex:zipcode
+- [0-9]{5}
+
+## regex:greet
+- hey[^\\s]*
+</code></pre></td></tr></table>
+</div>
+</div><p>这个名字并没有定义实体或意图，这个仅仅是用户可读的描述，用来帮助记住这些正则表达式的作用，同时是相关模式特征的标题。正如上面的例子中，可以使用正则化特征提高意图分类的性能。</p>
+<p>尽量的使用更加紧缩的匹配形式，如使用<code>hey[^\s]*</code>替换<code>hey.*</code>。由于后一个表达式会匹配到更多无效的信息。</p>
+<p>正则化特征目前仅支持<code>CRFEntityExtractor</code>组件。其他的实体提取器，类似<code>MitieEntityExtractor</code>或<code>SpacyEntityExtractor</code>当前并不能使用正则化特征。当前，所有的意图分类器可以使用所有的正则化特征。</p>
+<p>注意：正则化特征并没有定义实体或意图。他们仅仅提供了模式用来帮助分类器识别实体和相关的意图。因此，你还是需要提供意图和实体的例子。</p>
+<h3 id="lookup-tables">查找表（lookup tables）</h3>
+<p>查找表可以包括在训练数据中。外部提供的数据必须要以newline进行分隔。比如<code>plates.txt</code>可以包含：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">tacos
+beef
+mapo tofu
+burrito
+lettuce wrap
+</code></pre></td></tr></table>
+</div>
+</div><p>训练文件中对应是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## lookup:plates
+plates.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>利用list的实现是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## lookup:plates
+- tacos
+- beef
+- mapo tofu
+- burrito
+- lettuce wrap
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：为了查找表能够有效的被使用，你的训练数据中必须要有一些示例被匹配上。否则，不会使用查找表。</p>
+<p>警告：当使用查找表的时候，如果查找表中存在噪声，这个会损害性能。因此，确保你的查找表中的数据都是干净的。</p>
+<h2 id="normalizing-data">数据标准化（Normalizing Data）</h2>
+<h3 id="heading-2">实体同义词</h3>
+<p>如果你定义的实体具有相同的名字，那么他们会被解析成同义词。如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## intent:search
+- in the center of [NYC](city:New York City)
+- in the center of [New York City](city)
+</code></pre></td></tr></table>
+</div>
+</div><p>正如上面所述，在两个例子中，city的值是<code>New York City</code>，尽管第一个例子中的txt是NYC。无论相同的text被找到，这个值还是会使用同义词替代消息中确切的文本。</p>
+<p>为了在训练数据中使用同义词，需要pipeline中包含EntitySynonmMapper组件。见<a href="https://rasa.com/docs/rasa/nlu/components/#components">Components</a>。</p>
+<p>另一种的同义词的定义方式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## synonym:New York City
+- NYC
+- nyc
+- the big apple
+</code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是：同义词的添加，并不会提高模型对实体的识别能力。<strong>实体必须在使用同义词替换之前识别出来</strong>。</p>
+<h2 id="heading-3">生成更多的实体例子</h2>
+<p>有一些工具可以帮助生成大量的实体示例。如，<a href="https://rodrigopivi.github.io/Chatito/">Chatito</a>。但是，创建人造示例，可能会出导致过拟合，更好的方式是使用查找表，而不是大量的实体值。</p>
+<h2 id="heading-4">原文连接</h2>
+<p><a href="https://rasa.com/docs/rasa/nlu/training-data-format/#training-data-format">https://rasa.com/docs/rasa/nlu/training-data-format/#training-data-format</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-12-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/rasa-doc/">rasa-doc</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_tutorial/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对话系统Rasa-入门教程 [翻译]</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/chatbots/rasa_example_analysis_concertbot/">
+            <span class="next-text nav-default">对话系统rasa示例简析 - concertbot</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:grass-of-sky@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/grassofsky" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zhong-xie-wei-32" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

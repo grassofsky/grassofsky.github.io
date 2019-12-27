@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fastbuild on grassofsky notebook</title>
+    <link>http://localhost:1313/categories/fastbuild/</link>
+    <description>Recent content in fastbuild on grassofsky notebook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 10 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/categories/fastbuild/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fastbuild源码解析-memory-memdebug</title>
+      <link>http://localhost:1313/post/fastbuild/fastbuild_memory_memdebug/</link>
+      <pubDate>Tue, 10 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/fastbuild/fastbuild_memory_memdebug/</guid>
+      <description>简介 fastbuild整个memory模块包括： mem。重载了operator new delete，用于内存泄漏的跟踪 MemTracker。内存泄</description>
+    </item>
+    
+    <item>
+      <title>fastbuild源码解析-memory-mem</title>
+      <link>http://localhost:1313/post/fastbuild/fastbuild_memory_mem/</link>
+      <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/fastbuild/fastbuild_memory_mem/</guid>
+      <description>简介 fastbuild整个memory模块包括： mem。重载了operator new delete，用于内存泄漏的跟踪 MemTracker。内存泄</description>
+    </item>
+    
+    <item>
+      <title>fastbuild源码解析-test framework</title>
+      <link>http://localhost:1313/post/fastbuild/fastbuild_test_framework/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/fastbuild/fastbuild_test_framework/</guid>
+      <description>fastbuild源码解析-test framework test framework使用来干什么的？ test framework是一款类似于gtest的单元测试框架，但是相比</description>
+    </item>
+    
+  </channel>
+</rss>
