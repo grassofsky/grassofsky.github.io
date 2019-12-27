@@ -388,7 +388,7 @@ void main()
 <p>第三个参数必须在，[0,1]范围。但是，GLSL并不会替你进行范围的检查。如果这个值不是在[0,1]的范围内，那么返回的结果是没有定义的。在opengl中”没有定义“的意思是，”返回的值可能不是你想要的“。</p>
 </blockquote>
 <p>我们可以得到如下的结果。</p>
-<p><img src="./image/figure2_1_fragment_position.png" alt=""> <strong>Figrue 2.1</strong> Fragment Position</p>
+<p><img src="/image/figure2_1_fragment_position.png" alt=""> <strong>Figrue 2.1</strong> Fragment Position</p>
 <p>在这个例子中，越靠近下面的位置更接近白色，越靠近上面的位置，越接近黑色。除了片段着色器，想对于第一章，并没有改变太多的代码。</p>
 <h2 id="heading-2">顶点属性</h2>
 <p>在片段着色器中使用片段的位置是非常有用的，但是对于控制三角形的颜色并不是最好的选择。一个更好的方式是，分别设置三角形各个顶点的颜色。这一节中使用了该方式。</p>
@@ -427,7 +427,7 @@ void main()
 <p>4个字节的组合，在glsl中表示成vec4，确切的是一个4个float值的序列。因此，vec4占用了16个字节。</p>
 <p><code>vertexData</code>是一个占用了更多空间的float数组。我们使用它的方式是将其当成两个数组。每连续的4个float可以表示成vec4，前三个vec4表示顶点的位置，后三个vec4表示的是对应顶点位置的颜色。</p>
 <p>在内存中，vertexData数组看起来是这个样子的：</p>
-<p><img src="./image/figure2_2_vertex_array_memory_map.png" alt="">  <strong>Figure 2.2 Vertex Array Memory Map</strong></p>
+<p><img src="/image/figure2_2_vertex_array_memory_map.png" alt="">  <strong>Figure 2.2 Vertex Array Memory Map</strong></p>
 <p>图中上面的两个表示了基本数据类型的存储结构，其中每一个小格子表示一个字节。最下面一行的图表显示了整个数组的存储结构。每一个小格子表示一个float数值。左边的一半用来表示顶点的位置，右边的一半用来表示颜色。</p>
 <p>这里我们拥有的是两个相互临近的数组。其中一个数组在内存中的起始位置是<code>&amp;vertexData[0]</code>，另一个数组的起始位置是<code>&amp;vertexData[12]</code>。</p>
 <p>vertexData中存储的数据会被存储到缓存对象中。下面的代码我们在之前见过：</p>
@@ -553,7 +553,7 @@ float *colorAttribArray[4] = (float *[4])(&amp;(bufferObject+48));
 </div>
 </div><p>这意味着顶点着色器执行的次数是<code>count</code>，并且对应的数据是从<code>start</code>开始的<code>count</code>个元素。</p>
 <p>从缓存对象到顶点着色器的数据流类似如下：</p>
-<p><img src="./image/figure2_3_multiple_vertex_attributes.png" alt="">  <strong>Multiple Vertex Attributes</strong></p>
+<p><img src="/image/figure2_3_multiple_vertex_attributes.png" alt="">  <strong>Multiple Vertex Attributes</strong></p>
 <p>和原来一样，每三个顶点可以组成一个三角形。</p>
 <h3 id="heading-5">顶点着色器</h3>
 <p><strong>Example 2.7 Multi-input Vertex Shader</strong></p>
@@ -631,7 +631,7 @@ void main()
 <p>每个光栅话的三角形都有属于自己的三个输出用来计算三角形片段的值。因此，如果我们渲染两个三角形，一个三角形的渲染并不会影响到另一个三角形的渲染。也就是说，两个三角形之间是独立的。</p>
 <p>从相同的顶点数据，来绘制多个三角形也是有可能的。在后续的内容中我们会进行讨论。</p>
 <h3 id="heading-8">最后的图</h3>
-<p><img src="./image/figure2_4_interpolated_vertex_colors.png" alt="">  <strong>figure2_4_interpolated_vertex_colors.png</strong></p>
+<p><img src="/image/figure2_4_interpolated_vertex_colors.png" alt="">  <strong>figure2_4_interpolated_vertex_colors.png</strong></p>
 <h2 id="heading-9">回顾</h2>
 <p>在这一章中，我们学到了以下内容：</p>
 <ul>

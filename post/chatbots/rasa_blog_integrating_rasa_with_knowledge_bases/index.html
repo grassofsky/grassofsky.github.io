@@ -165,7 +165,7 @@
 <p><strong>Example</strong></p>
 <p>一个上下文助手需要一定知识库的基础上才能够走出反应，如，德国的任何一家银行，这就超出了预先定义的答案。为了满足用户的需求，需要特定的知识库。</p>
 <p>让我们来看一个例子：</p>
-<p><img src="./image/conversation-1.png" alt=""></p>
+<p><img src="/image/conversation-1.png" alt=""></p>
 <p>上面的很多的问题都需要领域的知识库才能够进行正确的回答。用户不单单想问关于某个实体的问题，他们还想要对实体进行比较，或者得到之前对话中更多的实体。对这些信息进行硬编码是没有帮助的。最近的交易会很快的变化，保持交易数据的实时性是很重要的。另外，你的bot需要能够处理类似于&quot;that account&quot;和&quot;the first one&quot;一类的实体，因此实体需要被识别出来，并在后面的对话中还会被使用到。</p>
 <h2 id="heading">什么是知识库</h2>
 <p>知识库是用来存储复杂的数据结构。在你的知识库中存储的数据表示你的领域知识。比如，你可以存储一些银行的信息，或者存储银行和客户之间的关系。存在不同的技术帮助你将这些数据以有效的方式进行存储。为了学习知识库相关的更多的知识，可以查阅：<a href="https://blog.rasa.com/set-up-a-knowledge-base-to-encode-domain-knowledge-for-rasa/">“Set up a knowledge base to encode domain knowledge for Rasa”</a>。</p>
@@ -184,16 +184,16 @@
 <p>让我们来看下，banking bot的新的意图：</p>
 <p><em>query_entities</em></p>
 <p>用户询问列出一些指定类型的实体。</p>
-<p><img src="./image/query_entities-2.png" alt=""></p>
+<p><img src="/image/query_entities-2.png" alt=""></p>
 <p><em>query_attribute</em></p>
 <p>用户想要知道某个实体更多的细节。他们询问那个实体特定的属性。</p>
-<p><img src="./image/query_attribute-3.png" alt=""></p>
+<p><img src="/image/query_attribute-3.png" alt=""></p>
 <p><em>compare_entities</em></p>
 <p>用户已经看到了实体列表。现在想要对这些实体的某个属性进行比较。</p>
-<p><img src="./image/compare_entity.png" alt=""></p>
+<p><img src="/image/compare_entity.png" alt=""></p>
 <p><em>resolve_entity</em></p>
 <p>用户可以选择实体选项，并且他们必须声明之前所指的实体。</p>
-<p><img src="./image/resolve_entity.png" alt=""></p>
+<p><img src="/image/resolve_entity.png" alt=""></p>
 <p><strong>定义新的故事</strong></p>
 <p>使用定义的意图，你可以将上面的对话转换成Rasa的故事。</p>
 <div class="highlight"><div class="chroma">
@@ -275,7 +275,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>假设用户给出了如下的提问：</p>
-<p><img src="./image/whereis.png" alt=""></p>
+<p><img src="/image/whereis.png" alt=""></p>
 <p>从图数据库中检索的实现类似如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -441,7 +441,7 @@ value = graph_database.get_attribute_of(entity_type, key_attribute, entity_name,
 </div>
 </div><h4 id="the-first-one">解决类似于“the first one”的指代</h4>
 <p>让我们看一下对话：</p>
-<p><img src="./image/resolve_mentions_banks-2.png" alt=""></p>
+<p><img src="/image/resolve_mentions_banks-2.png" alt=""></p>
 <p>用户指代first bank，如N26.为了查找headquarders，你需要解决这个指代。我们该怎么做呢？下面的代码并不会工作，bank并没有被显示的提出来，因此NER并不会从问题“what is the headquarters of the first one?”检测到bank。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

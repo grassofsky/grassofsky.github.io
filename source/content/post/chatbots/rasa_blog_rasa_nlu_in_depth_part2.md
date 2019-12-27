@@ -66,7 +66,7 @@ path/to/currencies.txt
 
 如果你任然不知道更好使用哪个组件，那么可以参见下面的图表帮助你进行选择：
 
-![](./image/part2_image_0.png)
+![](/image/part2_image_0.png)
 
 ## 常见问题
 

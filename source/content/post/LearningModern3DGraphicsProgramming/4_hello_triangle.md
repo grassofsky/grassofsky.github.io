@@ -341,7 +341,7 @@ layout(location = 0) in vec4 position;
 
 下面给除了数据如何传输到顶点着色器的示意图：
 
-![](./image/hello_triangle_figure1.1.png)
+![](/image/hello_triangle_figure1.1.png)
 
 没有调用`glEnableVertexAttribArray`，仅仅调用`glVertexAttribPointer`到那个index是没有意义的。enable函数并不一定要放在`glVertexAttribPointer`函数调用之前，但是在渲染命令调用前，enable函数必须要被调用。如果这个属性没被enable，那么渲染的时候将不会用到这个属性。
 
@@ -371,7 +371,7 @@ glDrawArrays(GL_TRIANGLES, 0, 3);
 枚举`GL_TRIANGLES`告诉opengl一系列输入点中的每三个点用来构建一个三角形。由于我们仅仅传入了3个点，我们只得到了一个三角形。
 
 **Figure 1.2. Data Flow to Rasterizer**
-![](./image/data_flow_to_rasterizer.png)
+![](/image/data_flow_to_rasterizer.png)
 
 如果我们传入的是6个点，那么我们就能够得到2个三角形。
 

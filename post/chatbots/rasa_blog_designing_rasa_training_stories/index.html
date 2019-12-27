@@ -155,7 +155,7 @@
 <h2 id="rasa">Rasa故事介绍</h2>
 <p>Rasa stories是训练Rasa Core对话管理模型需要的训练数据的一种表现形式。一个故事可以表示为用户和AI助手之间的实际对话，这种对话被转化成了一种特殊的格式，用户的输入表示成了特定的意图（可以带上对应的实体），助手的回复被表示成了相关的action名字。</p>
 <p>下面给出了Rasa故事的组成：</p>
-<p><img src="./image/stories_gif_new3.gif" alt=""></p>
+<p><img src="/image/stories_gif_new3.gif" alt=""></p>
 <ul>
 <li>一个故事以<code>##</code>前缀开始。这个不是强制的，但是建议讲故事的名字写在上面，有助于阅读以及问题排查。当对你的故事进行命名的时候，最好给一个有意义的唯一的名称，能够这个故事想要表述的对话的类型。</li>
 <li>用户的输入被表示成以<code>'*'</code>开头的意图。</li>
@@ -517,7 +517,7 @@
 </div><p>为了对这样的对话进行建模，你可以尝试Rasa的<a href="https://rasa.com/docs/core/policies/#embedding-policy">EmbeddingPolicy</a> ，它专门被设计用来处理<a href="https://arxiv.org/abs/1811.11707">uncooperative user behaviour</a>，因此对于看不到的对话更容易概括。</p>
 <h2 id="heading-1">需要多少的训练故事</h2>
 <p>这是一个很常见的也是一个很重要的问题。然而并没有一个明确的规则，几十个训练故事足够启动开发。使用更多的训练故事，你的AI助手可以学习的更好，能够更合理的处理复杂的背离happy path的情况。需要记住的是，为了能够实现上面的结果，训练数据中的故事必须覆盖不同的对话场景。为了构建产品级别的助手，你至少需要几百个训练故事（这个依赖于你想要机器处理的领域和对话的复杂度）。随着训练数据的增长，为了更好的debugging，你会考虑将训练数据分成不同的文件。如果你这么做，那么你需要将带训练数据的文件夹传递给训练函数，那么所有文件夹内的文件都会被组成为一个大文件。下面是一个文件夹结构的示例：</p>
-<p><img src="./image/rasa_design_train_data.png" alt=""></p>
+<p><img src="/image/rasa_design_train_data.png" alt=""></p>
 <h2 id="heading-2">小结</h2>
 <p>训练数据对于建立一个成功的人工智能助手至关重要。你需要多少和什么样的故事取决于你的用例，所以记住你开发助手的用户是什么是很重要的。我们一直在寻找使会话数据的创建更容易和更有效的方法。我们很想听听你在为RASA核心模型生成训练故事方面的经验。与我们分享它通过加入Rasa Community Forum讨论！</p>
 <h2 id="heading-3">资源</h2>

@@ -168,7 +168,7 @@
 <p><a href="https://zhuanlan.zhihu.com/p/88112269">grassofsky：rasa文章导引（用于收藏）</a></p>
 <p><strong>警告</strong>：这个功能处于试验阶段。我们引入试验的功能，为了从我们的社区中过去反馈，因此我们建议你进行尝试。但是，这个功能可能在未来的版本中被改变或去除。有任何的反馈，请在<a href="https://forum.rasa.com/">forum</a>进行分享。</p>
 <p>基于knowledge的action使得你能够处理类似的对话：</p>
-<p><img src="./image/knowledge-base-example.png" alt=""></p>
+<p><img src="/image/knowledge-base-example.png" alt=""></p>
 <p>对话AI中的一个常见问题是，用户并不是总是通过名字来指向特定的对象，还经常使用如“第一个”或者“它”等指代来表示对象。我们需要记录这些信息，用来获取指代具体指向的内容。</p>
 <p>此外，在对话过程中，用户可能想要获取额外的信息，比如，一个餐馆的外面是否有座位，或者价格怎样。为了回答用户的这些问题，需要有餐饮领域的知识。由于这些信息通常是变动的，因此对这些信息进行硬编码是不合适的。</p>
 <p>为了解决上面的挑战，Rasa能够集成知识库。为了使用这个集成，你可以在<code>ActionQueryKnowledgeBase</code>的基础上创建自定义的action，这是一个预先写好的自定义action，包含用来从知识库检索对象和属性的逻辑。</p>

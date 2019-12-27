@@ -93,11 +93,11 @@ $\sum_{(a,b)\in E^+,b^-\in E^-}L^{batch}(sim(a,b),sim(a,b_1^-),...,sim(a,b_k^-))
 
 结果显示在表2. 基线是从文献中引用得到的（一些方法仅用于AG news和DBPedia，另一些只用于Yelp15）。StarSpace执行了一系列的方法，和fastText的结果比较一致。在Table3中，我们测试了n-grams>1时训练的速度。与深度学习方法相比，如(Zhang and LeCun 2015)在数据及DBpedia上每一次epoch需要花费5h，fastText和StarSpace都很有效。但是在接下来的章节中，我们可以看到starspace是一个更加通用的系统。
 
-![](./image/starspace_table1.png)
+![](/image/starspace_table1.png)
 
-![](./image/starspace_table2.png)
+![](/image/starspace_table2.png)
 
-![](./image/starspace_table3.png)
+![](/image/starspace_table3.png)
 
 ### Content-based Document Recommendation
 
@@ -123,13 +123,13 @@ Tagspace先前显示为word2vec提供了更好的性能，我们在这里观察�
 
 结果显示在Table4.SE, SME 和LFM的结果来自于(Bordes et al. 2013)，将维度作为超参数（20,50,75）进行优化。RESCAL来自(Nickel et al. 2016)。对于TransE，我们自己运行了该模型，因此我们可以得到不同嵌入维度的结果，因为我们对参数进行了微调，获得了比报告中更好的结果。在相同维度的时候，对TransE和StarSpace进行比较，这两个方法得到相近的效果。注意，针对该数据集使用大的embeddings已经获取了结果的提升 (Kadlec, Bajgar, and Kleindienst 2017)，或者使用更加复杂的，不通用的模型(Shen et al. 2017)。
 
-![](./image/starspace_table4.png)
+![](/image/starspace_table4.png)
 
 **K的影响**  在这一节，我们在freebase 15k数据集上进行试验，根据负搜索例子的数量来说明我们模型的复杂度。我们设置`dim = 50`，算法最大的训练时间大概为1小时。我们报告算法在特定的时间限制内完成的epochs的数量，同时还报告了对于不同k（每个正训练示例搜索的否定数）的可能学习率选择的最佳筛选结果hits@10。我们设置`k=[1,5,10,25,50,100,250,500,1000]`。
 
 结果显示在Table5. 我们观察到在1小时训练时间限制内完成的阶段数接近于k的一个逆线性函数。在这个特定的设置中，[1, 100 ]是k的良好范围，并且在k＝50时达到最好的结果。
 
-![](./image/starspace_table5.png)
+![](/image/starspace_table5.png)
 
 ### Wikipedia Article Search & Sentence Matching
 
@@ -142,11 +142,11 @@ Tagspace先前显示为word2vec提供了更好的性能，我们在这里观察�
 
 我们用公开发布的fastText模型和starspace进行了比较，同时也和针对我们的数据集训练的fastText进行了比较。我们还和TFIDF基线进行了比较。为了公平比较，我们将嵌入模型的维度都设置成300.针对Task1和Task2的结果总结在Table6和7中。StarSpace比TFIDF和fastText有很大的优势，这是因为starspace能够直接针对感兴趣的任务进行训练，而它不在fastText的声明范围内。注意，StarSpace单词级训练在方法上类似于fastText，其结果与fastText相似。至关重要的是，starspace的句子和文档级训练能力带来了性能提升。
 
-![](./image/starspace_table67.png)
+![](/image/starspace_table67.png)
 
 表8比较了starspace和fastText在文章搜索任务（任务1）中对一些随机查询的预测。虽然fastText结果在语义上大致位于空间的正确部分，但它们缺乏更精确的预处理。例如，第一个查询是查找有关奥林匹克滑冰运动员的文章，StarSpace正确理解这些文章，而fastText选择奥林匹克体操运动员。请注意，查询中并没有特别提到skater这个词，星际空间只能通过理解相关短语来理解这一点，例如短语“Blue Swords”指的是国际花样滑冰比赛.另外两个例子得出了类似的结论。
 
-![](./image/starspace_table8.png)
+![](/image/starspace_table8.png)
 
 ### Learning Sentence Embeddings
 

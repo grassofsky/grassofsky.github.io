@@ -27,7 +27,7 @@ tags=["rasa-blog"]
 
 让我们来看一个例子：
 
-![](./image/conversation-1.png)
+![](/image/conversation-1.png)
 
 上面的很多的问题都需要领域的知识库才能够进行正确的回答。用户不单单想问关于某个实体的问题，他们还想要对实体进行比较，或者得到之前对话中更多的实体。对这些信息进行硬编码是没有帮助的。最近的交易会很快的变化，保持交易数据的实时性是很重要的。另外，你的bot需要能够处理类似于"that account"和"the first one"一类的实体，因此实体需要被识别出来，并在后面的对话中还会被使用到。
 
@@ -65,25 +65,25 @@ tags=["rasa-blog"]
 
 用户询问列出一些指定类型的实体。
 
-![](./image/query_entities-2.png)
+![](/image/query_entities-2.png)
 
 *query_attribute*
 
 用户想要知道某个实体更多的细节。他们询问那个实体特定的属性。
 
-![](./image/query_attribute-3.png)
+![](/image/query_attribute-3.png)
 
 *compare_entities*
 
 用户已经看到了实体列表。现在想要对这些实体的某个属性进行比较。
 
-![](./image/compare_entity.png)
+![](/image/compare_entity.png)
 
 *resolve_entity*
 
 用户可以选择实体选项，并且他们必须声明之前所指的实体。
 
-![](./image/resolve_entity.png)
+![](/image/resolve_entity.png)
 
 **定义新的故事**
 
@@ -142,7 +142,7 @@ graph_database = GraphDatabase()
 
 假设用户给出了如下的提问：
 
-![](./image/whereis.png)
+![](/image/whereis.png)
 
 从图数据库中检索的实现类似如下：
 
@@ -261,7 +261,7 @@ entity_type = graph_database.map("entity-type-mapping", entity_type)
 
 让我们看一下对话：
 
-![](./image/resolve_mentions_banks-2.png)
+![](/image/resolve_mentions_banks-2.png)
 
 用户指代first bank，如N26.为了查找headquarders，你需要解决这个指代。我们该怎么做呢？下面的代码并不会工作，bank并没有被显示的提出来，因此NER并不会从问题“what is the headquarters of the first one?”检测到bank。
 

@@ -649,7 +649,7 @@ void main()
 </div><p>布局的位置（lcoation）就是变量position的index属性。该属性值必须大于等于0,它的取值范围是和硬件相关的。</p>
 <p>在代码里，当指向一个属性的时候，都是通过指向index属性实现的。函数<code>glEnableVertexAttribArray</code>，<code>glDisableVertexAttribArray</code>和<code>glVertexAttribPointer</code>的第一个参数都是index属性。在着色器代码里，我们将position变量的index属性设置为0。因此在调用<code>glEnableVertexAttribArray(0)</code>函数的时候，就是使得<code>position</code>的index属性有效。</p>
 <p>下面给除了数据如何传输到顶点着色器的示意图：</p>
-<p><img src="./image/hello_triangle_figure1.1.png" alt=""></p>
+<p><img src="/image/hello_triangle_figure1.1.png" alt=""></p>
 <p>没有调用<code>glEnableVertexAttribArray</code>，仅仅调用<code>glVertexAttribPointer</code>到那个index是没有意义的。enable函数并不一定要放在<code>glVertexAttribPointer</code>函数调用之前，但是在渲染命令调用前，enable函数必须要被调用。如果这个属性没被enable，那么渲染的时候将不会用到这个属性。</p>
 <h3 id="heading-5">光栅化</h3>
 <p>到目前已经完成了将3个顶点传递给opengl，并通过顶点着色器将其转换成了裁剪坐标系中的3个位置。接下来，顶点的位置通过将xyz三个分量，分别除以w分量得到标准化设备坐标系中点。在我们的例子中，3个顶点的w分量是1,因此得到的位置已经是标准化设备坐标系中的位置了。</p>
@@ -681,7 +681,7 @@ void main()
 </div>
 </div><p>枚举<code>GL_TRIANGLES</code>告诉opengl一系列输入点中的每三个点用来构建一个三角形。由于我们仅仅传入了3个点，我们只得到了一个三角形。</p>
 <p><strong>Figure 1.2. Data Flow to Rasterizer</strong>
-<img src="./image/data_flow_to_rasterizer.png" alt=""></p>
+<img src="/image/data_flow_to_rasterizer.png" alt=""></p>
 <p>如果我们传入的是6个点，那么我们就能够得到2个三角形。</p>
 <h3 id="heading-6">片段处理</h3>
 <p>片段着色器是用来计算片段的输出颜色。片段着色器的输入包括片段在窗口空间中的xyz坐标位置。输入中也可以包含一些用户定义的数据。</p>

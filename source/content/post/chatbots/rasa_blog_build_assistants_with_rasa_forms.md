@@ -32,7 +32,7 @@ cd rasa/examples/formbot
 
 按照这篇文章和使用对应的代码，你将构建一个有意思的助手，能够根据你的偏好推荐餐厅，如烹饪，人的数量，位置等其他需求。用户和助手之间的对话看上去如下：
 
-![](./image/typo_fix.gif)
+![](/image/typo_fix.gif)
 
 ### Step1：Extracting details from user inputs using Rasa NLU
 

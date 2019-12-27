@@ -137,7 +137,7 @@ main函数中的第二行用这个lerpValue"对两个vec4进行线性插值。`m
 
 我们可以得到如下的结果。
 
-![](./image/figure2_1_fragment_position.png) **Figrue 2.1** Fragment Position
+![](/image/figure2_1_fragment_position.png) **Figrue 2.1** Fragment Position
 
 在这个例子中，越靠近下面的位置更接近白色，越靠近上面的位置，越接近黑色。除了片段着色器，想对于第一章，并没有改变太多的代码。
 
@@ -177,7 +177,7 @@ const float vertexData[] = {
 
 在内存中，vertexData数组看起来是这个样子的：
 
-![](./image/figure2_2_vertex_array_memory_map.png)  **Figure 2.2 Vertex Array Memory Map**
+![](/image/figure2_2_vertex_array_memory_map.png)  **Figure 2.2 Vertex Array Memory Map**
 
 图中上面的两个表示了基本数据类型的存储结构，其中每一个小格子表示一个字节。最下面一行的图表显示了整个数组的存储结构。每一个小格子表示一个float数值。左边的一半用来表示顶点的位置，右边的一半用来表示颜色。
 
@@ -272,7 +272,7 @@ void glDrawArrays(GLenum type, GLint start, GLint count)
 
 从缓存对象到顶点着色器的数据流类似如下：
 
-![](./image/figure2_3_multiple_vertex_attributes.png)  **Multiple Vertex Attributes**
+![](/image/figure2_3_multiple_vertex_attributes.png)  **Multiple Vertex Attributes**
 
 和原来一样，每三个顶点可以组成一个三角形。
 
@@ -350,7 +350,7 @@ void main()
 
 ### 最后的图
 
-![](./image/figure2_4_interpolated_vertex_colors.png)  **figure2_4_interpolated_vertex_colors.png**
+![](/image/figure2_4_interpolated_vertex_colors.png)  **figure2_4_interpolated_vertex_colors.png**
 
 ## 回顾
 

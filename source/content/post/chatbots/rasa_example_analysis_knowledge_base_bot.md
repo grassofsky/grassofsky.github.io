@@ -410,11 +410,11 @@ policies:
 
 ## 对话记录
 
-![](./image/knowledgebasebot_chat.png)
+![](/image/knowledgebasebot_chat.png)
 
 对应的变量输出为：
 
-![](./image/knowledgebasebot_chat_action_log.png)
+![](/image/knowledgebasebot_chat_action_log.png)
 
 从上面可以观察到，they和it的指代并没有被识别出来，在获取`object_name`的时候返回了Null。经过代码分析，原因出在如下代码，在对指代的映射中，并没有they和it：
 

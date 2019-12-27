@@ -391,12 +391,12 @@ rasa shell
 </code></pre></td></tr></table>
 </div>
 </div><p>试运行如下：</p>
-<p><img src="./image/rasa_use_entities_1.png" alt=""></p>
+<p><img src="/image/rasa_use_entities_1.png" alt=""></p>
 <h3 id="heading-1">问题</h3>
 <p>上述运行示例中为什么直接输入“查询北京的天气”没有如期执行对话流程呢？</p>
 <h2 id="heading-2">问题排查</h2>
 <p>先试用debug模式查看情况：<code>rasa shell --debug</code></p>
-<p><img src="./image/rasa_use_entities_2.png" alt=""></p>
+<p><img src="/image/rasa_use_entities_2.png" alt=""></p>
 <p>从日志中可以看出，意图识别没有问题，entity识别没有问题，出问题的地方是预测下一个action的时候出错了。预测action的策略有：MemoizationPolicy和KerasPolicy，对于小数据量的情况KerasPolicy预测的置信度会非常低，那么出问题的地方就是MemoizationPolicy没有正常运作。那么为什么呢？</p>
 <p>翻找一下MemoizationPolicy源代码，位于，RASAPATH/rasa/core/policies/memoization.py。</p>
 <p><code>MemoizationPolicy-&gt;predict_action_probabilities-&gt;recall-&gt;_recall_states-&gt;self.lookup.get</code>。</p>
@@ -534,7 +534,7 @@ templates:
 </code></pre></td></tr></table>
 </div>
 </div><p>此时的运行结果如下：</p>
-<p><img src="./image/rasa_use_entities_3.png" alt=""></p>
+<p><img src="/image/rasa_use_entities_3.png" alt=""></p>
 
     </div>
 

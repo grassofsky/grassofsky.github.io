@@ -40,15 +40,15 @@ tags=["rasa-blog"]
 
 让我们看一下banking bot的模式。banking bot有四个实体：bank，person，account，card。每个实体都具有一些属性。比如bank实体有name和headquarters属性。下面的图中可以看到bank的所有属性。
 
-![](./image/bank-3.png)
+![](/image/bank-3.png)
 
 正如前面提到的，图数据库可以存储实体之间的关系。比如，bank与person和account通过关系相连：bank为客户（person）提供一个帐户的合同。下图显示了这种关系。
 
-![](./image/contract-1.png)
+![](/image/contract-1.png)
 
 正如你注意到的，关系合同也有一个属性。你可以给关系和实体赋值更多的属性。完整的模式看上去是这样的：
 
-![](./image/schema.png)
+![](/image/schema.png)
 
 一旦你设计完这个schema，你需要用[graql syntax](https://dev.grakn.ai/docs/schema/overview). 进行书写。你可以在[here](https://github.com/RasaHQ/tutorial-knowledge-base/blob/master/knowledge_base/schema.gql).找到banking bot的完整的schema。为了创建你的schema，你需要执行如下的命令：
 
@@ -82,7 +82,7 @@ rasa shell
 
 下面是与银行机器人的简短对话，展示了机器人如何回答有关其用户帐户和交易的几个问题。
 
-![](./image/conversation-3.gif)
+![](/image/conversation-3.gif)
 
 ## 通过添加查找表来优化你的bot
 

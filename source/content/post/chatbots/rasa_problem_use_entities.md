@@ -146,7 +146,7 @@ rasa run actions
 
 试运行如下：
 
-![](./image/rasa_use_entities_1.png)
+![](/image/rasa_use_entities_1.png)
 
 ### 问题
 
@@ -156,7 +156,7 @@ rasa run actions
 
 先试用debug模式查看情况：`rasa shell --debug`
 
-![](./image/rasa_use_entities_2.png)
+![](/image/rasa_use_entities_2.png)
 
 从日志中可以看出，意图识别没有问题，entity识别没有问题，出问题的地方是预测下一个action的时候出错了。预测action的策略有：MemoizationPolicy和KerasPolicy，对于小数据量的情况KerasPolicy预测的置信度会非常低，那么出问题的地方就是MemoizationPolicy没有正常运作。那么为什么呢？
 
@@ -243,4 +243,4 @@ templates:
 
 此时的运行结果如下：
 
-![](./image/rasa_use_entities_3.png)
+![](/image/rasa_use_entities_3.png)

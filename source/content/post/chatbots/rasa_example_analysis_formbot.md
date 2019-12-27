@@ -523,7 +523,7 @@ forms:
 
 `rasa visualize`结果如下：
 
-![](./image/Rasa-Core-Visualisation.jpg)
+![](/image/Rasa-Core-Visualisation.jpg)
 
 ## action描述
 
@@ -721,5 +721,5 @@ policies:
 
 ## 对话记录
 
-![](./image/formbot_chat.png)
+![](/image/formbot_chat.png)
 

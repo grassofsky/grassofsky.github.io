@@ -162,9 +162,9 @@
 <p>严格的来说，向量还可以存在仅仅一维的情况。这样的向量被称为<strong>标量</strong>。</p>
 <p>在几何术语中，向量可以表示两个概念：一个空间中的位置或是一个方向。</p>
 <p>向量的位置表示空间中一个特殊的位置。如，在下图中我们有一个向量位置A。</p>
-<p><img src="./image/figure1_vector_position.png" alt="figure 1 vector position"> <strong>Figure1 vector position</strong></p>
+<p><img src="/image/figure1_vector_position.png" alt="figure 1 vector position"> <strong>Figure1 vector position</strong></p>
 <p>向量也可以表示为方向。方向向量没有一个原点；只用来表示空间中的方向。下图中给出了不同的方向向量，其中B和D虽然画在不同的位置，但它们是相同的方向向量。</p>
-<p><img src="./image/figure2_direction_vectors.png" alt="figure 2 direction vectors"> <strong>Figure2 Direction Vectors</strong></p>
+<p><img src="/image/figure2_direction_vectors.png" alt="figure 2 direction vectors"> <strong>Figure2 Direction Vectors</strong></p>
 <p>对于几何而言，以上的表达方式已经够用了，但是向量还可以被解释成数值。这时候，一个向量表示为一个数字序列，没一个数字表示一个维度。因此，二维的向量有两个数字；三维的向量有三个数字。对于四维向量也是一样的。从数字上来说，标量仅仅是一个数字。</p>
 <p>向量中的没一个数字都被称为<strong>要素（component）</strong>。每一个要素都有自己的名字。对于我们而言，向量的第一个要素被成为X，第二个被成为Y，第三个是Z，第四个是W。</p>
 <p>当用文本的方式来书写向量的时候，它们通常被括号包围。因此，一个3D向量可以是(0,2,4)，其中X为0,Y为2,Z为4.当他们以公式的形式进行书写的时候，表现形式为：</p>
@@ -181,26 +181,26 @@ $$</p>
 <p>当在绘制向量的时候，需要区分位置向量和方向向量。但是，它们两者的数值并没有区别。唯一的区别是你怎么使用它们，而不是怎么用数字表达它们。因此，你可以把一个点考虑成一个向量，然后执行一些操作，最后再将它考虑成一个点。</p>
 <p>虽然向量的各个成分之间是独立的，但是数学公式操作它们的时候，它们是一个整体。在接下来的内容中，我们会通过几何和数值的方式展示一些操作。</p>
 <p><strong>向量加法</strong> 你可以对两个向量执行加法操作。从图形上看是这样的：</p>
-<p><img src="./image/figure3_vector_addition.png" alt="figure3 vector addition"> <strong>Figure3 Vector Addition</strong></p>
+<p><img src="/image/figure3_vector_addition.png" alt="figure3 vector addition"> <strong>Figure3 Vector Addition</strong></p>
 <p>要记得的是，方向向量在不改变具体数值的情况下，可以对其进行移动。因此，如果你将两个向量放置为首位相接，向量的加法可以简单的表示成从第一个向量的尾部指向第二个向量的头。</p>
-<p><img src="./image/figure4_vector_addition_head_to_tail.png" alt="figure4 vector addition head-to-tail"> <strong>Figure4 Vector Addition Head-to-Tail</strong></p>
+<p><img src="/image/figure4_vector_addition_head_to_tail.png" alt="figure4 vector addition head-to-tail"> <strong>Figure4 Vector Addition Head-to-Tail</strong></p>
 <p>从数值上来讲，两个向量的求和就是将两个向量的各个成分相加，</p>
 <p><strong>公式1. 向量相加</strong>
 $$ \vec{a} + \vec{b} = \left[ \begin{matrix} a_x \ a_y \ a_z \end{matrix} \right] + \left[ \begin{matrix} b_x \ b_y \ b_z \end{matrix} \right] = \left[ \begin{matrix} a_x+b_x \ a_y+b_y \ a_z+b_z \end{matrix} \right] $$</p>
 <p>一个操作需要对向量各个成分进行，被称为<strong>分量操作（component-wise operation）</strong>。向量加法就是一个分量操作。任何一个分量操作都需要保证两个向量有相同的维度。</p>
 <p><strong>向量求反和减法</strong> 你可以对一个向量去反，就是逆转一个向量的方向。</p>
-<p><img src="./image/figure5_vector_negation.png" alt="figure5 vector negation"> <strong>Figure5 Vector Negation</strong></p>
+<p><img src="/image/figure5_vector_negation.png" alt="figure5 vector negation"> <strong>Figure5 Vector Negation</strong></p>
 <p>从数值上来看，就是对向量中的每个成分都去反。</p>
 <p><strong>公式2. 向量去反</strong></p>
 <p>$$-\vec{a}=-\left[\begin{matrix}a_x \ a_y \ a_z \end{matrix} \right]=\left[\begin{matrix} -a_x \ -a_y \ -a_z \end{matrix} \right]$$</p>
 <p>正如数值运算，向量的减法就是一个向量和第二个向量的反进行相加。</p>
-<p><img src="./image/figure6_vector_subtraction.png" alt=""> <strong>Figure6 Vector Subtraction</strong></p>
+<p><img src="/image/figure6_vector_subtraction.png" alt=""> <strong>Figure6 Vector Subtraction</strong></p>
 <p><strong>向量乘法</strong> 向量乘法操作是向量操作中为数不多的没有几何概念与之对应的操作。将两个方向或是两个位置进行相乘，并没有什么意义。但这并不是说向量的乘法没有作用。</p>
 <p>数值上，向量的乘法，就是将对应的各个成分相乘。</p>
 <p><strong>公式3. 向量乘法</strong></p>
 <p>$$ \vec{a}<em>\vec{b}=\left[\begin{matrix} a_x \ a_y \ a_z \end{matrix}\right]</em>\left[\begin{matrix}b_x \ b_y \ b_z \end{matrix}\right]=\left[\begin{matrix} a_x<em>b_x \ a_y</em>b_y \ a_z*b_z \end{matrix}\right]$$</p>
 <p><strong>向量缩放操作</strong> 向量可以乘以一个标量。这个标量仅仅是一个数值。更具这个标量的值，这个向量可能被放大或缩小。</p>
-<p><img src="./image/figure7_vector_scaling.png" alt=""> <strong>Figure7 Vector Scaling</strong></p>
+<p><img src="/image/figure7_vector_scaling.png" alt=""> <strong>Figure7 Vector Scaling</strong></p>
 <p>数值运算上，就是将向量的各个成分和标量进行相乘。</p>
 <p><strong>公式4. 向量缩放操作</strong></p>
 <p>$$ s*\vec{a}=a*\left[\begin{matrix} a_x \ a_y \ a_z\end{matrix}\right]=\left[\begin{matrix} s*a_x \ s*a_y \ s*a_z \end{matrix}\right] $$</p>
@@ -232,7 +232,7 @@ $$ \vec{a} + \vec{b} = \left[ \begin{matrix} a_x \ a_y \ a_z \end{matrix} \right
 <h2 id="heading-2">图形和渲染</h2>
 <p>接下去的内容对渲染的过程进行粗略介绍。遇到的部分内容不是很明白也没有关系，在接下去的章节中，会被具体阐述。</p>
 <p>你在电脑屏幕上看到的任何东西，包括你现在阅读的文字是简单的二维像素点的集合。如果你在屏幕上截图，并放很大，就会看到一个个的方格。</p>
-<p><img src="./image/figure8_an_image.png" alt=""> <strong>Figure8. An Image</strong></p>
+<p><img src="/image/figure8_an_image.png" alt=""> <strong>Figure8. An Image</strong></p>
 <p>没一个格子就是一个像素。pixel单词，是从Picture Element中提取出来的。你屏幕上的没一个像素都有一个独立的颜色。二维的像素数组就组成了 <em>图像</em></p>
 <p>因此，任何一种图像操作的目的都是确定将什么颜色放到哪个像素上。不同颜色在不同像素位置的设定形成了文字，窗口，等其他东西。</p>
 <p>既然所有的图像都是二维的像素组成的，那么3D图像是怎么来的呢？3D图像是一系列带颜色的像素组成的，并且给人的视觉上看上去像是一个3D的世界，而不是单纯的2D的图。这个将3D的世界转变成2D图像的过程叫做 <em>渲染</em> 。</p>
@@ -266,7 +266,7 @@ $$ \vec{a} + \vec{b} = \left[ \begin{matrix} a_x \ a_y \ a_z \end{matrix} \right
 <p><strong>标准化坐标</strong> 裁剪空间比较有意思，但是并不是很方便。这个空间的大小对每一个顶点来说是不一样的，这使得一个三角形的可视化变得非常困难。因此，裁剪空间会被转换成更加合理的坐标空间： <em>标准化设备空间</em> 。</p>
 <p>这个过程非常发简单，就是将每一个顶点的X，Y，Z除以W，就能够得到标准化设备空间。</p>
 <p>标准化设备空间，除了它的X，Y，Z坐标范围为[-1,1]以外，其实就可以理解成裁剪空间。两个空间坐标系的方向是一致的。除数W，在将3D的三角形投影到2D的图像的时候，起到了非常重要的作用；我们将在后续的内容中进一步说明。</p>
-<p><img src="./image/figure9_normalized_device_coordinate_space.png" alt=""> <strong>Figure9. Normalized Device Coordinate Space</strong></p>
+<p><img src="/image/figure9_normalized_device_coordinate_space.png" alt=""> <strong>Figure9. Normalized Device Coordinate Space</strong></p>
 <p>这个立方体，表示标准设备空间的边界。</p>
 <p><strong>窗口转换</strong> 接下去的一个阶段是再次变换每个三角形的顶点。这一次是将标准设备坐标系转换到 <em>窗口坐标系</em> 。从名字上可以看出，窗口坐标系就是OpenGL运行的窗口。</p>
 <p>尽管它指的是窗口，但仍然是三维的坐标系。和裁剪空间一样，X是右方向，Y是上方向，Z是远离观察者的方向。唯一不同的是，这些轴的范围依赖于看到的窗口。还有一点需要注意的是，虽然这些点都在窗口坐标系中，但是点的精度并没有损失。点并没有成为整数点，依然是浮点数，因此点的精度和单个像素是不一样的。</p>
@@ -274,11 +274,11 @@ $$ \vec{a} + \vec{b} = \left[ \begin{matrix} a_x \ a_y \ a_z \end{matrix} \right
 <p>需要注意的是，窗口坐标系中，左下角的位置是原点(0,0)。这个与用户通常认知中的屏幕坐标系，左上角是原点是不一样的。如果你想要，通过一定的更改，可以将变换变换到左上角是原点的坐标系中。</p>
 <p>这个过程会在辅助材料中进行详细讨论。</p>
 <p><strong>扫描转换 Scan Conversion</strong> 将三角形的顶点转换到窗口坐标系后，这个三角形还得经历 <em>扫描转换</em> 的过程。这个过程就是依据三角形覆盖的像素点的位置，将三角形分解成不同的像素的过程。</p>
-<p><img src="./image/figure10_scan_converted_triangle.png" alt=""> <strong>Figure10. Scan Converted Triangle</strong></p>
+<p><img src="/image/figure10_scan_converted_triangle.png" alt=""> <strong>Figure10. Scan Converted Triangle</strong></p>
 <p>中间的图显示了输出图像的像素格子的大小；圆圈表示了每个像素的中心位置。每一个像素的中心表示一个 <em>取样(sample)</em> ：像素区域内的离散位置。在扫描转换中，一个三角形将会在三角形3D区域内部每一个像素取样的位置产生一个 <em>碎片(fragment)</em> 。</p>
 <p>右边的图像显示的就是通过扫描转换产生的碎片。这个产生了三角形形状的一个近似。</p>
 <p>待渲染的三角形有公共的边是一个很常见的事情。只要公共的定点是相同的，OpenGL就能够保证扫描转换出来的结果中，两个三角形之间没有采样间隔。</p>
-<p><img src="./image/figure11_shared_edge_scan_conversion.png" alt=""> <strong>Figure11. Shared Edge Scan Conversion</strong></p>
+<p><img src="/image/figure11_shared_edge_scan_conversion.png" alt=""> <strong>Figure11. Shared Edge Scan Conversion</strong></p>
 <p>为了更简单的使用扫描转换，OpenGL同时也保证相同的输入，能够得到完全相同的渲染输出。这个也被称为， <em>不变性保证</em> 。因此，需要用户保证使用相同的输入点，来获得没有间隔的扫描转换。</p>
 <p>扫描转换是一个固有的2D操作。这个过程仅仅使用了三角形在窗口坐标系中的X和Y的值，来确定需要产生哪些碎片。不要忘了Z值，但是Z值和三角形扫描转换并没有直接的关系。</p>
 <p>三角形扫描变化的结果是覆盖在三角形上的有顺序的碎片。每一个碎片都有一个数值与它关联。这个数值包括了碎片在窗口坐标系中的2D位置，同时也有Z的位置。Z值是碎片的深度。还有一些与碎片相关的其他参数，这将在后续的内容中阐述。</p>

@@ -238,9 +238,9 @@
 <li>Yelp reviews数据集，从2015 Yelp数据集挑战中获取（https://www.yelp.com/dataset_challenge）。这个任务用来用户给的评分进行预测（1到5）。包括1.2M训练数据，157K测试数据，5类，约500K单词，193Mtoken。</li>
 </ul>
 <p>结果显示在表2. 基线是从文献中引用得到的（一些方法仅用于AG news和DBPedia，另一些只用于Yelp15）。StarSpace执行了一系列的方法，和fastText的结果比较一致。在Table3中，我们测试了n-grams&gt;1时训练的速度。与深度学习方法相比，如(Zhang and LeCun 2015)在数据及DBpedia上每一次epoch需要花费5h，fastText和StarSpace都很有效。但是在接下来的章节中，我们可以看到starspace是一个更加通用的系统。</p>
-<p><img src="./image/starspace_table1.png" alt=""></p>
-<p><img src="./image/starspace_table2.png" alt=""></p>
-<p><img src="./image/starspace_table3.png" alt=""></p>
+<p><img src="/image/starspace_table1.png" alt=""></p>
+<p><img src="/image/starspace_table2.png" alt=""></p>
+<p><img src="/image/starspace_table3.png" alt=""></p>
 <h3 id="content-based-document-recommendation">Content-based Document Recommendation</h3>
 <p>我们考虑根据用户历史喜欢的文档推送新的文档的任务。在实验中，我们采用和(Weston, Chopra, and Adams 2014) 非常相似的处理流程。这个任务的数据由一个流行的社交网络服务上的一部分人的匿名两周的交互历史组成。在考虑的641385人中，我们收集了他/她点击阅读的公共文章的文本，共给出3119999篇文章。考虑到此人的后续（n-1）点击文章，我们使用我们的模型预测第n篇文章，将其与10000个其他不相关的文章进行排序，并使用排名指标进行评估。通过应用StarSpace获取的第n篇文章的分数：a是之前的n-1篇文章，b是候选的第n篇文章。我们通过计算hit@k，如，正确实体位于前k的比例（k=1,10,20），以及点击文章在10000篇文章中的平均预测排名来衡量结果。</p>
 <p>由于这不是一个分类问题（如，没有一组固定的标签可供分类，而是一组以前从未见过的按用户排列的文档）我们不能直接使用监督分类模型。但是，Starspace能够直接处理这种任务，这是他的主要好处之一。依据(Weston, Chopra, and Adams 2014)，我们使用下面的模型作为baselines：</p>
@@ -257,10 +257,10 @@
 <p>我们提到过，starspace能够用来处理知识表示的任务。我们使用Freebase 15k数据集(Bordes et al. 2013)，该数据集包含了从Freebase（http://www.freebase.com）提取的三元组集合。这个数据集可以看作是一个描述句法集之间三元关系的三模张量。共有14951个概念（mids）和1345个关系类型。训练集包含483142个三元体、50000个验证集和59071个测试集。正如(Bordes et al. 2013)中描述的，评估是这么执行的，针对每个测试三元组，移除头并依次用字典中的实体替换。先用模型对这些三元体进行打分，并排序；正确实体的排序等级会被记录下来。整个流程在对tail进行处理的时候会重复一遍。我们报告这些预测等级的平均值和hits@10。我们还按照(Bordes et al. 2013)执行了相同的筛选评估，除了所有的训练集或测试集中的有效的头或尾都被排除。</p>
 <p>我们比较了许多方法，包括transE(Bordes et al. 2013)。TransE显示出效果优于RESCAL (Nickel, Tresp, and Kriegel 2011), RFM (Jenatton et al. 2012), SE (Bordes et al. 2011) 和 SME (Bordes et al. 2014) ，并且被认为是标准的基准方法。TransE使用了L2相似性，$||head+relation-tail||^2$和SGD更新，头部或尾部单个实体的变化会带来更大的距离。相比较而言，starspace使用了点积，k-negative采样，和两个不同的嵌入来表示关系实体，依赖于出现在a或者b中。</p>
 <p>结果显示在Table4.SE, SME 和LFM的结果来自于(Bordes et al. 2013)，将维度作为超参数（20,50,75）进行优化。RESCAL来自(Nickel et al. 2016)。对于TransE，我们自己运行了该模型，因此我们可以得到不同嵌入维度的结果，因为我们对参数进行了微调，获得了比报告中更好的结果。在相同维度的时候，对TransE和StarSpace进行比较，这两个方法得到相近的效果。注意，针对该数据集使用大的embeddings已经获取了结果的提升 (Kadlec, Bajgar, and Kleindienst 2017)，或者使用更加复杂的，不通用的模型(Shen et al. 2017)。</p>
-<p><img src="./image/starspace_table4.png" alt=""></p>
+<p><img src="/image/starspace_table4.png" alt=""></p>
 <p><strong>K的影响</strong>  在这一节，我们在freebase 15k数据集上进行试验，根据负搜索例子的数量来说明我们模型的复杂度。我们设置<code>dim = 50</code>，算法最大的训练时间大概为1小时。我们报告算法在特定的时间限制内完成的epochs的数量，同时还报告了对于不同k（每个正训练示例搜索的否定数）的可能学习率选择的最佳筛选结果hits@10。我们设置<code>k=[1,5,10,25,50,100,250,500,1000]</code>。</p>
 <p>结果显示在Table5. 我们观察到在1小时训练时间限制内完成的阶段数接近于k的一个逆线性函数。在这个特定的设置中，[1, 100 ]是k的良好范围，并且在k＝50时达到最好的结果。</p>
-<p><img src="./image/starspace_table5.png" alt=""></p>
+<p><img src="/image/starspace_table5.png" alt=""></p>
 <h3 id="wikipedia-article-search--sentence-matching">Wikipedia Article Search &amp; Sentence Matching</h3>
 <p>在这一节，我们将我们的模型应用到wikipedia文章的搜索和句子匹配的问题。我们使用(Chen et al. 2017)引入的维基百科数据集，是英文维基百科2016-12-21的dump。对于每一篇文章，只提取纯文本，所有结构化数据部分（如列表和图）都被剥离。总共包括5075182篇文章，9008962 unique uncased token types。数据集被划分为，5035182训练示例，10000验证集，10000测试集。我们考虑到如下的评估任务：</p>
 <ul>
@@ -269,9 +269,9 @@
 </ul>
 <p>我们可以用一下方式训练我们的starspace模型：每一个step都从我们的训练集中选择一篇wiki文章。然后，从文章中随机挑选出一个句子作为输入，针对于Task2，还需要随机挑选出另一个句子作为label（针对于Task1，就是挑剩下的文章内容）。negative entities可以随机的从训练集中挑选。针对于Task1训练的案例，对于标签特征，我们使用0.8的特征丢失概率，这既规范了训练，又大大加快了训练速度。我们也尝试了starspace单词级别的训练，同时用于task2的句子和单词级别的多任务。</p>
 <p>我们用公开发布的fastText模型和starspace进行了比较，同时也和针对我们的数据集训练的fastText进行了比较。我们还和TFIDF基线进行了比较。为了公平比较，我们将嵌入模型的维度都设置成300.针对Task1和Task2的结果总结在Table6和7中。StarSpace比TFIDF和fastText有很大的优势，这是因为starspace能够直接针对感兴趣的任务进行训练，而它不在fastText的声明范围内。注意，StarSpace单词级训练在方法上类似于fastText，其结果与fastText相似。至关重要的是，starspace的句子和文档级训练能力带来了性能提升。</p>
-<p><img src="./image/starspace_table67.png" alt=""></p>
+<p><img src="/image/starspace_table67.png" alt=""></p>
 <p>表8比较了starspace和fastText在文章搜索任务（任务1）中对一些随机查询的预测。虽然fastText结果在语义上大致位于空间的正确部分，但它们缺乏更精确的预处理。例如，第一个查询是查找有关奥林匹克滑冰运动员的文章，StarSpace正确理解这些文章，而fastText选择奥林匹克体操运动员。请注意，查询中并没有特别提到skater这个词，星际空间只能通过理解相关短语来理解这一点，例如短语“Blue Swords”指的是国际花样滑冰比赛.另外两个例子得出了类似的结论。</p>
-<p><img src="./image/starspace_table8.png" alt=""></p>
+<p><img src="/image/starspace_table8.png" alt=""></p>
 <h3 id="learning-sentence-embeddings">Learning Sentence Embeddings</h3>
 <p>这一节，我们评估了句子嵌入使用我们的模型和SentEval（https://github.com/facebookresearch/SentEval）（(Con- neau et al. 2017) ，用于检测通用目的的句子嵌入的质量）。我们使用了14个转移任务，包括二元分类、多类分类、蕴涵、释义检测、语义关联和语义文本相似度。有关这些传输任务和基线模型的详细说明，请参见(Conneau et al. 2017)。</p>
 <p>我们在上一节的Wikipedia Task 2中训练以下模型，并评估由这些模型生成的句子嵌入：</p>

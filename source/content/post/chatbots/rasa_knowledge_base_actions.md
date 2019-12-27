@@ -15,7 +15,7 @@ tags=["rasa-doc"]
 
 基于knowledge的action使得你能够处理类似的对话：
 
-![](./image/knowledge-base-example.png)
+![](/image/knowledge-base-example.png)
 
 对话AI中的一个常见问题是，用户并不是总是通过名字来指向特定的对象，还经常使用如“第一个”或者“它”等指代来表示对象。我们需要记录这些信息，用来获取指代具体指向的内容。
 

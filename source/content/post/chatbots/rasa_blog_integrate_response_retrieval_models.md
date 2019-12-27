@@ -17,7 +17,7 @@ tags=["rasa-blog"]
 
 Retrieval actions被用来处理FAQs，chitchat等单轮交互的问题。这里的单轮交互，意味着助手总是以相同的方式进行回复，不用在意之前的交互。具体示例如下：
 
-![](./image/SRS-Blog-2.png)
+![](/image/SRS-Blog-2.png)
 
 当用户寻问Sara（我们的demo机器人）推荐的python版本的时候，Sara应该总是回答相同的答案。并且和之前的对话不相关。
 
@@ -57,7 +57,7 @@ Retrieval actions被用来处理FAQs，chitchat等单轮交互的问题。这里
 - 是正确的问答对之间的相似度最大化，错配的问答对之间的相似度最小化。这是训练模型过程中由最优化函数实现
 - 获取用户输入和所有候选响应之间的相似度，挑选出相似度最高的作为针对用户输入的响应
 
-![](./image/SRS-Blog--1--1.png)
+![](/image/SRS-Blog--1--1.png)
 
 这个看上去和EmbeddingIntentClassifier的工作方式很相似，它们之间的主要不同点是意图文字被响应的实际文字给取代了。
 
@@ -121,7 +121,7 @@ intents:
 
 2- 如果你定义随后的actions（比如，询问用户是否需要继续），在stories中像其他action一样包含其他action。
 
-![](./image/SRS-Blog--2--1.png)
+![](/image/SRS-Blog--2--1.png)
 
 story类似如下：
 

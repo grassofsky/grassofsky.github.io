@@ -117,7 +117,7 @@ Current slots:
 
 如果不需要可视化，可以运行`rasa interactive --skip-visualization`。
 
-![](./image/interactive_learning_graph.gif)
+![](/image/interactive_learning_graph.gif)
 
 ## Interactive Learning with Forms
 
