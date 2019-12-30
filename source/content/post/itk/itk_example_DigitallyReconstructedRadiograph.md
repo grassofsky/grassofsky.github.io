@@ -1,3 +1,12 @@
++++
+date="2019-12-30" 
+title="ITK example - digitally reconstructed radiograph"
+categories=["ITK"] 
+tags=["ITK example"]
+
++++
+
+# ITK example - digitally reconstructed radiograph
 
 ## 简介
 
@@ -224,4 +233,3 @@ widgets.VBox([viewer, slider])
 结果示例如下：
 
 ![](/image/itk_example_drr.png)
-
