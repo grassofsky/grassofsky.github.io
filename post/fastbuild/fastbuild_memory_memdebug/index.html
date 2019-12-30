@@ -48,7 +48,7 @@
 <meta itemprop="description" content="简介 fastbuild整个memory模块包括： mem。重载了operator new delete，用于内存泄漏的跟踪 MemTracker。内存泄">
 <meta itemprop="datePublished" content="2018-04-10T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-10T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="908">
+<meta itemprop="wordCount" content="906">
 
 
 
@@ -195,24 +195,24 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// MemDebug.h
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Includes
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// 通过宏定义的方式来确定是不是需要使用MEM_DEBUG功能
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( DEBUG )</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define MEM_DEBUG_ENABLED</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">if defined( MEM_DEBUG_ENABLED )</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define MEM_FILL_NEW_ALLOCATIONS</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( DEBUG )</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define MEM_DEBUG_ENABLED</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">if defined( MEM_DEBUG_ENABLED )</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define MEM_FILL_NEW_ALLOCATIONS</span><span class="cp">
 </span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define MEM_FILL_FREED_ALLOCATIONS  </span><span class="c1">// Will be applied where possible
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// MemDebug
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEM_DEBUG_ENABLED )</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEM_DEBUG_ENABLED )</span><span class="cp">
 </span><span class="cp"></span>    <span class="k">class</span> <span class="nc">MemDebug</span>
     <span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
@@ -227,7 +227,7 @@
         <span class="c1">// 在内存中打上标记
 </span><span class="c1"></span>        <span class="k">static</span> <span class="kt">void</span> <span class="nf">FillMem</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">uint32_t</span> <span class="n">pattern</span> <span class="p">)</span><span class="p">;</span>
     <span class="p">}</span><span class="p">;</span>
-<span class="cp">#</span><span class="cp">endif</span><span class="cp">
+<span class="cp">#</span><span class="cp">endif</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">//------------------------------------------------------------------------------
 </span></code></pre></td></tr></table>
@@ -300,14 +300,14 @@
 </span><span class="c1"></span>
 <span class="c1">// Includes
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/PrecompiledHeader.h&#34;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/PrecompiledHeader.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;MemDebug.h&#34;</span><span class="cp">
+<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;MemDebug.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">if defined( MEM_DEBUG_ENABLED )</span><span class="cp">
+<span class="cp">#</span><span class="cp">if defined( MEM_DEBUG_ENABLED )</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Core
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// FillMem
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------

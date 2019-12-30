@@ -6,10 +6,19 @@
     <description>Recent content in Categories on grassofsky notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ITK</title>
+      <link>http://localhost:1313/categories/itk/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/categories/itk/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>chatbot</title>

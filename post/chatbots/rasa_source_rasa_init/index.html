@@ -218,23 +218,23 @@
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">created [default: current directory]</span><span class="s2">&#34;</span><span class="p">,</span>
             <span class="n">default</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">.</span><span class="s2">&#34;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="o">.</span><span class="n">skip_if</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">no_prompt</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">.</span><span class="s2">&#34;</span><span class="p">)</span>   <span class="c1"># 参数传递了no_prompt，直接使用默认值，不进行提示</span>
+        <span class="o">.</span><span class="n">skip_if</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">no_prompt</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">.</span><span class="s2">&#34;</span><span class="p">)</span>   <span class="c1"># 参数传递了no_prompt，直接使用默认值，不进行提示</span>
         <span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="c1"># 如果path不存在，询问并进行创建</span>
+    <span class="c1"># 如果path不存在，询问并进行创建</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="p">:</span>
         <span class="n">_ask_create_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
-    <span class="c1"># 如果path为空，path不是目录，退出</span>
+    <span class="c1"># 如果path为空，path不是目录，退出</span>
     <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="p">:</span>
         <span class="n">print_cancel</span><span class="p">(</span><span class="p">)</span>
 
-    <span class="c1"># 如果没有传递no_prompt，并且目录下还有东西，则询问进行重写</span>
+    <span class="c1"># 如果没有传递no_prompt，并且目录下还有东西，则询问进行重写</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">no_prompt</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">_ask_overwrite</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 	
-    <span class="c1"># 重点函数实现：初始化项目</span>
+    <span class="c1"># 重点函数实现：初始化项目</span>
     <span class="n">init_project</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
@@ -347,7 +347,7 @@
         <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Do you want to train an initial model? 💪🏽</span><span class="s2">&#34;</span>
     <span class="p">)</span><span class="o">.</span><span class="n">skip_if</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">no_prompt</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 	
-    <span class="c1"># 进行询问确定是否需要训练初始模型</span>
+    <span class="c1"># 进行询问确定是否需要训练初始模型</span>
     <span class="k">if</span> <span class="n">should_train</span><span class="p">:</span>
         <span class="n">print_success</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Training an initial model...</span><span class="s2">&#34;</span><span class="p">)</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">DEFAULT_CONFIG_PATH</span><span class="p">)</span>
@@ -380,7 +380,7 @@
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">should_run</span><span class="p">:</span>
-        <span class="c1"># provide defaults for command line arguments</span>
+        <span class="c1"># provide defaults for command line arguments</span>
         <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">endpoints</span><span class="s2">&#34;</span><span class="p">,</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">credentials</span><span class="s2">&#34;</span><span class="p">,</span>
@@ -391,7 +391,7 @@
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">enable_api</span><span class="s2">&#34;</span><span class="p">,</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">remote_storage</span><span class="s2">&#34;</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="c1"># 设置训练的默认参数</span>
+        <span class="c1"># 设置训练的默认参数</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
@@ -424,13 +424,13 @@
 
 <span class="k">def</span> <span class="nf">create_initial_project</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Text</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">distutils.dir_util</span> <span class="kn">import</span> <span class="n">copy_tree</span>
-	<span class="c1"># 将提前准备好的资源文件，拷贝到对应的目录下</span>
+	<span class="c1"># 将提前准备好的资源文件，拷贝到对应的目录下</span>
     <span class="n">copy_tree</span><span class="p">(</span><span class="n">scaffold_path</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">scaffold_path</span><span class="p">(</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Text</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">pkg_resources</span>
-	<span class="c1"># 将模块的位置和initial_project目录名进行组合，形成资源目录名</span>
+	<span class="c1"># 将模块的位置和initial_project目录名进行组合，形成资源目录名</span>
     <span class="k">return</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">initial_project</span><span class="s2">&#34;</span><span class="p">)</span>
 
 </code></pre></td></tr></table>

@@ -44,7 +44,7 @@
 <meta property="og:description" content="grassofsky personal site." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://localhost:1313/" />
-<meta property="og:updated_time" content="2019-12-26T00:00:00+00:00" />
+<meta property="og:updated_time" content="2019-12-30T00:00:00+00:00" />
 <meta itemprop="name" content="grassofsky notebook">
 <meta itemprop="description" content="grassofsky personal site."><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="grassofsky notebook"/>
@@ -111,6 +111,27 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/learningmodern3dgraphicsprogramming/5_playing_with_colors/">5. 设置颜色</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-05-30 </span>
+      <div class="post-category">
+          <a href="/categories/translation-of-books/"> Translation of books </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      设置颜色 这一章会对上一章中绘制的三角形进行颜色的设定。而不是单纯的设置一个单一的颜色，这里我们会使用两种方式来对这个三角形设置颜色的变化。这
+    </div>
+    <div class="read-more">
+      <a href="/post/learningmodern3dgraphicsprogramming/5_playing_with_colors/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/learningmodern3dgraphicsprogramming/6_various_buffer_object/">6. opengl使用不同的缓存对象</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-05-30 </span>
@@ -152,34 +173,6 @@
     </div>
     <div class="read-more">
       <a href="/post/chatbots/rasa_theory_paper_starspace/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/itk/itk_example_digitallyreconstructedradiograph/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
-重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
-通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
-注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;会是一个更好的选择。
-如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
-输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
-CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
-这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
- SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
- SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &#39;data/CT_3D_lung_fixed.
-    </div>
-    <div class="read-more">
-      <a href="/post/itk/itk_example_digitallyreconstructedradiograph/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

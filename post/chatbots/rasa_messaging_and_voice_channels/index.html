@@ -48,7 +48,7 @@
 <meta itemprop="description" content="对话系统rasa - Messaging and Voice Channels （翻译） 如果你在本机进行测试（而不是服务器上），你回需要使用ngrok。这个可以帮助Facebook，Slack等">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3174">
+<meta itemprop="wordCount" content="3171">
 
 
 
@@ -324,9 +324,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">curl -XPOST http://localhost:5000/webhooks/myio/webhook <span class="se">\</span>
-  -d <span class="s1">&#39;{&#34;sender&#34;: &#34;user1&#34;, &#34;message&#34;: &#34;hello&#34;}&#39;</span> <span class="se">\</span>
-  -H <span class="s2">&#34;Content-type: application/json&#34;</span>
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -XPOST http://localhost:5000/webhooks/myio/webhook <span class="se">\
+</span><span class="se"></span>  -d <span class="s1">&#39;{&#34;sender&#34;: &#34;user1&#34;, &#34;message&#34;: &#34;hello&#34;}&#39;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Content-type: application/json&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>这里myio就是你的组件的名字。</p>
@@ -502,10 +502,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">RestInput</span><span class="p">(</span><span class="n">InputChannel</span><span class="p">)</span><span class="p">:</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A custom http input channel.</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">    This implementation is the basis for a custom implementation of a chat</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    frontend. You can customize this to send messages to Rasa Core and</span><span class="s2">
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A custom http input channel.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    This implementation is the basis for a custom implementation of a chat</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    frontend. You can customize this to send messages to Rasa Core and</span><span class="s2">
 </span><span class="s2"></span><span class="s2">    retrieve responses from the agent.</span><span class="s2">&#34;&#34;&#34;</span>
 
     <span class="nd">@classmethod</span>
@@ -528,12 +528,12 @@
         <span class="p">)</span>
         <span class="n">await</span> <span class="n">on_new_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-        <span class="n">await</span> <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># pytype: disable=bad-return-type</span>
+        <span class="n">await</span> <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># pytype: disable=bad-return-type</span>
 
     <span class="n">async</span> <span class="k">def</span> <span class="nf">_extract_sender</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">sender</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-    <span class="c1"># noinspection PyMethodMayBeStatic</span>
+    <span class="c1"># noinspection PyMethodMayBeStatic</span>
     <span class="k">def</span> <span class="nf">_extract_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">message</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
@@ -555,7 +555,7 @@
                     <span class="n">on_new_message</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">input_channel</span><span class="p">,</span> <span class="n">metadata</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># declare variable up front to avoid pytype error</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># declare variable up front to avoid pytype error</span>
             <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">await</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">:</span>
@@ -564,7 +564,7 @@
                     <span class="n">await</span> <span class="n">resp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
             <span class="n">await</span> <span class="n">task</span>
 
-        <span class="k">return</span> <span class="n">stream</span>  <span class="c1"># pytype: disable=bad-return-type</span>
+        <span class="k">return</span> <span class="n">stream</span>  <span class="c1"># pytype: disable=bad-return-type</span>
 
     <span class="k">def</span> <span class="nf">blueprint</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">on_new_message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">UserMessage</span><span class="p">]</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="p">]</span>
@@ -574,7 +574,7 @@
             <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># noinspection PyUnusedLocal</span>
+        <span class="c1"># noinspection PyUnusedLocal</span>
         <span class="nd">@custom_webhook.route</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">GET</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">)</span>
         <span class="n">async</span> <span class="k">def</span> <span class="nf">health</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">HTTPResponse</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">status</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ok</span><span class="s2">&#34;</span><span class="p">}</span><span class="p">)</span>
@@ -598,7 +598,7 @@
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">collector</span> <span class="o">=</span> <span class="n">CollectingOutputChannel</span><span class="p">(</span><span class="p">)</span>
-                <span class="c1"># noinspection PyBroadException</span>
+                <span class="c1"># noinspection PyBroadException</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">await</span> <span class="n">on_new_message</span><span class="p">(</span>
                         <span class="n">UserMessage</span><span class="p">(</span>

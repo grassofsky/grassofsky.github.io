@@ -286,31 +286,31 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">CRFEntityExtractor</span><span class="p">(</span><span class="n">EntityExtractor</span><span class="p">)</span><span class="p">:</span>
 
-    <span class="n">provides</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">entities</span><span class="s2">&#34;</span><span class="p">]</span> <span class="c1"># 输出是识别后的实体</span>
+    <span class="n">provides</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">entities</span><span class="s2">&#34;</span><span class="p">]</span> <span class="c1"># 输出是识别后的实体</span>
 
-    <span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">tokens</span><span class="s2">&#34;</span><span class="p">]</span>   <span class="c1"># 需要的输入是分词后的结果</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">tokens</span><span class="s2">&#34;</span><span class="p">]</span>   <span class="c1"># 需要的输入是分词后的结果</span>
 
-    <span class="c1"># ...</span>
-    <span class="c1">## </span>
+    <span class="c1"># ...</span>
+    <span class="c1">## </span>
     <span class="k">def</span> <span class="nf">train</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">training_data</span><span class="p">:</span> <span class="n">TrainingData</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RasaNLUModelConfig</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
 
-        <span class="c1"># checks whether there is at least one</span>
-        <span class="c1"># example with an entity annotation</span>
-        <span class="c1"># examples为Message对象组成的列表</span>
+        <span class="c1"># checks whether there is at least one</span>
+        <span class="c1"># example with an entity annotation</span>
+        <span class="c1"># examples为Message对象组成的列表</span>
         <span class="k">if</span> <span class="n">training_data</span><span class="o">.</span><span class="n">entity_examples</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_check_spacy_doc</span><span class="p">(</span><span class="n">training_data</span><span class="o">.</span><span class="n">training_examples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span> <span class="c1"># len(training_examples): 20</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_spacy_doc</span><span class="p">(</span><span class="n">training_data</span><span class="o">.</span><span class="n">training_examples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span> <span class="c1"># len(training_examples): 20</span>
 
-            <span class="c1"># filter out pre-trained entity examples</span>
-            <span class="c1"># 过滤出不需要训练的实体标记，将其entities字段赋值为[]</span>
+            <span class="c1"># filter out pre-trained entity examples</span>
+            <span class="c1"># 过滤出不需要训练的实体标记，将其entities字段赋值为[]</span>
             <span class="n">filtered_entity_examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_trainable_entities</span><span class="p">(</span>
                 <span class="n">training_data</span><span class="o">.</span><span class="n">training_examples</span>
             <span class="p">)</span>
 
-            <span class="c1"># convert the dataset into features</span>
-            <span class="c1"># this will train on ALL examples, even the ones</span>
-            <span class="c1"># without annotations</span>
+            <span class="c1"># convert the dataset into features</span>
+            <span class="c1"># this will train on ALL examples, even the ones</span>
+            <span class="c1"># without annotations</span>
             <span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_dataset</span><span class="p">(</span><span class="n">filtered_entity_examples</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_train_model</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
@@ -358,9 +358,9 @@
     <span class="p">]</span><span class="p">:</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
-            <span class="c1"># 将示例转换成[(entity_start, entity_end, entity)]形式的列表</span>
+            <span class="c1"># 将示例转换成[(entity_start, entity_end, entity)]形式的列表</span>
             <span class="n">entity_offsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_example</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
-            <span class="c1"># _from_json_to_crf主要工作是将json形式的数据转换成crfsuite要求的数据格式</span>
+            <span class="c1"># _from_json_to_crf主要工作是将json形式的数据转换成crfsuite要求的数据格式</span>
             <span class="n">dataset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_from_json_to_crf</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">entity_offsets</span><span class="p">)</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">dataset</span>
 </code></pre></td></tr></table>
@@ -421,16 +421,16 @@
 
         <span class="n">X_train</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_sentence_to_features</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">df_train</span><span class="p">]</span>
         <span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_sentence_to_labels</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">df_train</span><span class="p">]</span>
-        <span class="c1"># 使用了sklearn_crfsuite</span>
+        <span class="c1"># 使用了sklearn_crfsuite</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ent_tagger</span> <span class="o">=</span> <span class="n">sklearn_crfsuite</span><span class="o">.</span><span class="n">CRF</span><span class="p">(</span>
             <span class="n">algorithm</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">lbfgs</span><span class="s2">&#34;</span><span class="p">,</span>
-            <span class="c1"># coefficient for L1 penalty</span>
+            <span class="c1"># coefficient for L1 penalty</span>
             <span class="n">c1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">component_config</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">L1_c</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">,</span>
-            <span class="c1"># coefficient for L2 penalty</span>
+            <span class="c1"># coefficient for L2 penalty</span>
             <span class="n">c2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">component_config</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">L2_c</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">,</span>
-            <span class="c1"># stop earlier</span>
+            <span class="c1"># stop earlier</span>
             <span class="n">max_iterations</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">component_config</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">max_iterations</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">,</span>
-            <span class="c1"># include transitions that are possible, but not observed</span>
+            <span class="c1"># include transitions that are possible, but not observed</span>
             <span class="n">all_possible_transitions</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ent_tagger</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>

@@ -176,7 +176,7 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># python imports</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># python imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">as</span> <span class="nn">gridspec</span>
@@ -197,7 +197,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Plot relation between X and Y</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Plot relation between X and Y</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span><span class="p">)</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="p">[</span><span class="mf">3.54</span><span class="p">,</span> <span class="mf">3.01</span><span class="p">,</span> <span class="mf">3.09</span><span class="p">,</span> <span class="mf">2.48</span><span class="p">,</span> <span class="mf">2.56</span><span class="p">,</span> <span class="mf">3.36</span><span class="p">,</span> <span class="mf">3.18</span><span class="p">,</span> <span class="mf">2.65</span><span class="p">]</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">x</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -236,7 +236,7 @@ $a$和$b$的求解可以通过多种方式实现。此处介绍了两种：1. �
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Calculate using math</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Calculate using math</span>
 <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">Y</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">X</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">*</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
@@ -297,7 +297,7 @@ $a$和$b$的求解可以通过多种方式实现。此处介绍了两种：1. �
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># \brief Get Estimate Y value from a and b</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># \brief Get Estimate Y value from a and b</span>
 <span class="k">def</span> <span class="nf">GetEstimateY</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="n">b</span>
 
@@ -336,7 +336,7 @@ $a$和$b$的求解可以通过多种方式实现。此处介绍了两种：1. �
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 1. initialize a and b</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 1. initialize a and b</span>
 <span class="k">def</span> <span class="nf">Step1</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </code></pre></td></tr></table>
@@ -355,7 +355,7 @@ $a$和$b$的求解可以通过多种方式实现。此处介绍了两种：1. �
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 2. calculate delta, deltaA, deltaB</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 2. calculate delta, deltaA, deltaB</span>
 <span class="k">def</span> <span class="nf">Step2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="p">:</span>
     <span class="n">delta</span> <span class="o">=</span> <span class="n">GetCost</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="n">deltaA</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">X</span><span class="o">+</span><span class="n">b</span><span class="o">-</span><span class="n">Y</span><span class="p">)</span><span class="o">*</span><span class="n">X</span><span class="p">)</span>
@@ -415,7 +415,7 @@ $a$和$b$的求解可以通过多种方式实现。此处介绍了两种：1. �
 
 <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">delta = {}, deltaA = {}, deltaB = {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">)</span><span class="p">)</span>
 
-<span class="c1"># plot vb Vs vdelta</span>
+<span class="c1"># plot vb Vs vdelta</span>
 <span class="n">vb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="n">vdelta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">vb</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">ib</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vb</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">:</span>
@@ -435,7 +435,7 @@ $a$和$b$的求解可以通过多种方式实现。此处介绍了两种：1. �
 <span class="n">p1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="p">[</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span><span class="mi">25000</span><span class="p">]</span><span class="p">)</span>
 <span class="n">p1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="p">)</span>
 
-<span class="c1"># plot va Vs vdelta</span>
+<span class="c1"># plot va Vs vdelta</span>
 <span class="n">va</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 <span class="n">vdelta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">va</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">ia</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">va</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">:</span>
@@ -470,7 +470,7 @@ $$b'=b-lr\frac{\partial{\delta}}{\partial{b}}\mbox{  (10)}$$</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 3 Adjust a and b</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Step 3 Adjust a and b</span>
 <span class="k">def</span> <span class="nf">Step3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">deltaA</span><span class="p">,</span> <span class="n">deltaB</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">lr</span><span class="o">*</span><span class="n">deltaA</span><span class="p">,</span> <span class="n">b</span><span class="o">-</span><span class="n">lr</span><span class="o">*</span><span class="n">deltaB</span><span class="p">)</span>
 </code></pre></td></tr></table>

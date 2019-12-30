@@ -48,7 +48,7 @@
 <meta itemprop="description" content="对话系统rasa示例简析 - Knowledge Base Bot 链接 https://github.com/RasaHQ/rasa/tree/master/examples/knowledgebasebot 示例说明 此处不赘述，参见：https://github.com/RasaHQ/rasa/tree/ma">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3201">
+<meta itemprop="wordCount" content="3188">
 
 
 
@@ -409,11 +409,11 @@ templates:
 
 <span class="k">class</span> <span class="nc">ActionMyKB</span><span class="p">(</span><span class="n">ActionQueryKnowledgeBase</span><span class="p">)</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
-        <span class="c1"># load knowledge base with data from the given file</span>
+        <span class="c1"># load knowledge base with data from the given file</span>
         <span class="n">knowledge_base</span> <span class="o">=</span> <span class="n">InMemoryKnowledgeBase</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">knowledge_base_data.json</span><span class="s2">&#34;</span><span class="p">)</span>
 
-        <span class="c1"># overwrite the representation function of the hotel object</span>
-        <span class="c1"># by default the representation function is just the name of the object</span>
+        <span class="c1"># overwrite the representation function of the hotel object</span>
+        <span class="c1"># by default the representation function is just the name of the object</span>
         <span class="n">knowledge_base</span><span class="o">.</span><span class="n">set_representation_function_of_object</span><span class="p">(</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">hotel</span><span class="s2">&#34;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">name</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2"> (</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="n">obj</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">city</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">)</span><span class="s2">&#34;</span>
         <span class="p">)</span>
@@ -455,29 +455,29 @@ templates:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">:</span>
-    <span class="c1"># ...</span>
-    <span class="n">object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">)</span> <span class="c1"># object_type</span>
-    <span class="n">last_object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT_TYPE</span><span class="p">)</span> <span class="c1"># knowledge_base_last_object</span>
-    <span class="n">attribute</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">)</span> <span class="c1"># attribute</span>
+    <span class="c1"># ...</span>
+    <span class="n">object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">)</span> <span class="c1"># object_type</span>
+    <span class="n">last_object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT_TYPE</span><span class="p">)</span> <span class="c1"># knowledge_base_last_object</span>
+    <span class="n">attribute</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">)</span> <span class="c1"># attribute</span>
 
-    <span class="c1"># 笔者添加，用来观察变量</span>
+    <span class="c1"># 笔者添加，用来观察变量</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:run, object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:run, last_object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">last_object_type</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:run, attribtue: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
     
     <span class="n">new_request</span> <span class="o">=</span> <span class="n">object_type</span> <span class="o">!=</span> <span class="n">last_object_type</span>
 
-    <span class="c1"># 如果没有object_type的slot被匹配上，那么直接返回</span>
+    <span class="c1"># 如果没有object_type的slot被匹配上，那么直接返回</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">object_type</span><span class="p">:</span>
-        <span class="c1"># object type always needs to be set as this is needed to query the</span>
-        <span class="c1"># knowledge base</span>
+        <span class="c1"># object type always needs to be set as this is needed to query the</span>
+        <span class="c1"># knowledge base</span>
         <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
 
-    <span class="c1"># 如果没有属性，或者是一个新的请求，查询object_type的实体</span>
+    <span class="c1"># 如果没有属性，或者是一个新的请求，查询object_type的实体</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">attribute</span> <span class="ow">or</span> <span class="n">new_request</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_objects</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">attribute</span><span class="p">:</span> <span class="c1"># 如果属性不为空，需要查找到对应的属性</span>
+    <span class="k">elif</span> <span class="n">attribute</span><span class="p">:</span> <span class="c1"># 如果属性不为空，需要查找到对应的属性</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_attribute</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
 
     <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
@@ -561,56 +561,56 @@ templates:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">_query_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span><span class="p">:</span>
-    <span class="c1"># type: (CollectingDispatcher, Tracker) -&gt; List[Dict]</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">    Queries the knowledge base for objects of the requested object type and</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    outputs those to the user. The objects are filtered by any attribute the</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    user mentioned in the request.</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">    Args:</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    dispatcher: the dispatcher</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    tracker: the tracker</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">    Returns: list of slots</span><span class="s2">
+    <span class="c1"># type: (CollectingDispatcher, Tracker) -&gt; List[Dict]</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Queries the knowledge base for objects of the requested object type and</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    outputs those to the user. The objects are filtered by any attribute the</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    user mentioned in the request.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Args:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    dispatcher: the dispatcher</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    tracker: the tracker</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Returns: list of slots</span><span class="s2">
 </span><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
-    <span class="c1"># 如果object_type为：restaurant</span>
-    <span class="c1"># 那么object_attributes为：</span>
-    <span class="c1">#   [&#39;id&#39;, &#39;name&#39;, &#39;cuisine&#39;, &#39;outside-seating&#39;, &#39;price-range&#39;]</span>
+    <span class="c1"># 如果object_type为：restaurant</span>
+    <span class="c1"># 那么object_attributes为：</span>
+    <span class="c1">#   [&#39;id&#39;, &#39;name&#39;, &#39;cuisine&#39;, &#39;outside-seating&#39;, &#39;price-range&#39;]</span>
     <span class="n">object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">)</span>
     <span class="n">object_attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_attributes_of_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">)</span>
 
-    <span class="c1"># get all set attribute slots of the object type to be able to filter the</span>
-    <span class="c1"># list of objects</span>
-    <span class="c1"># 获取对象对应的属性，比如用户说&#39;What Italian restaurants do you know?&#39;.</span>
-    <span class="c1"># 那么NER会检测出&#39;Italian&#39;是&#39;cuisine&#39;，我们知道cuisine是restaurant的一个属性。</span>
-    <span class="c1"># 因此, 这个函数返回 [{&#39;name&#39;: &#39;cuisine&#39;, &#39;value&#39;: &#39;Italian&#39;}] </span>
+    <span class="c1"># get all set attribute slots of the object type to be able to filter the</span>
+    <span class="c1"># list of objects</span>
+    <span class="c1"># 获取对象对应的属性，比如用户说&#39;What Italian restaurants do you know?&#39;.</span>
+    <span class="c1"># 那么NER会检测出&#39;Italian&#39;是&#39;cuisine&#39;，我们知道cuisine是restaurant的一个属性。</span>
+    <span class="c1"># 因此, 这个函数返回 [{&#39;name&#39;: &#39;cuisine&#39;, &#39;value&#39;: &#39;Italian&#39;}] </span>
     <span class="n">attributes</span> <span class="o">=</span> <span class="n">get_attribute_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">,</span> <span class="n">object_attributes</span><span class="p">)</span>
-    <span class="c1"># query the knowledge base</span>
-    <span class="c1"># 根据属性获取对应的restaurant，如果属性为空，则从所有的restaurant中查询，默认返回长度为5</span>
+    <span class="c1"># query the knowledge base</span>
+    <span class="c1"># 根据属性获取对应的restaurant，如果属性为空，则从所有的restaurant中查询，默认返回长度为5</span>
     <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_objects</span><span class="p">(</span><span class="n">object_type</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
 
-    <span class="c1"># 针对查找结果构建对话</span>
+    <span class="c1"># 针对查找结果构建对话</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">utter_objects</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">object_type</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">objects</span><span class="p">:</span>
-        <span class="c1"># 重置当前对象类型的所有属性slot</span>
-        <span class="c1"># 如果用户说Show me all restaurants with Italian cuisine</span>
-        <span class="c1"># NER会识别出restaurant为object_type,Italian为cuisine对象。</span>
-        <span class="c1"># 那么我们会从知识库中提取出cuisine=Italian的restaurant。</span>
-        <span class="c1"># 当列出对象的时候，我们check NER检测出了什么属性。我们拿到了所有set</span>
-        <span class="c1"># 的属性，如cuisine = Italian。如果我们在请求之后没有重置attribute slots，</span>
-        <span class="c1"># 当用户的下一个对话是List all restaurants that have wifi，我们将</span>
-        <span class="c1"># 有两个属性slots，wifi和cuisine。因此，我们查找restaurant的时候需要</span>
-        <span class="c1"># 校验这两个属性。但是用户的表达仅仅针对wifi。</span>
+        <span class="c1"># 重置当前对象类型的所有属性slot</span>
+        <span class="c1"># 如果用户说Show me all restaurants with Italian cuisine</span>
+        <span class="c1"># NER会识别出restaurant为object_type,Italian为cuisine对象。</span>
+        <span class="c1"># 那么我们会从知识库中提取出cuisine=Italian的restaurant。</span>
+        <span class="c1"># 当列出对象的时候，我们check NER检测出了什么属性。我们拿到了所有set</span>
+        <span class="c1"># 的属性，如cuisine = Italian。如果我们在请求之后没有重置attribute slots，</span>
+        <span class="c1"># 当用户的下一个对话是List all restaurants that have wifi，我们将</span>
+        <span class="c1"># 有两个属性slots，wifi和cuisine。因此，我们查找restaurant的时候需要</span>
+        <span class="c1"># 校验这两个属性。但是用户的表达仅仅针对wifi。</span>
     	<span class="k">return</span> <span class="n">reset_attribute_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">,</span> <span class="n">object_attributes</span><span class="p">)</span>
 
-    <span class="c1"># 获取主键</span>
+    <span class="c1"># 获取主键</span>
     <span class="n">key_attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_key_attribute_of_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">)</span>
 
-    <span class="c1"># 针对objects小于等于1的情况下才有last_object</span>
+    <span class="c1"># 针对objects小于等于1的情况下才有last_object</span>
     <span class="n">last_object</span> <span class="o">=</span> <span class="bp">None</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">[</span><span class="n">key_attribute</span><span class="p">]</span>
 
-    <span class="c1"># 笔者添加用来观察变量</span>
+    <span class="c1"># 笔者添加用来观察变量</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects object_attributes: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_attributes</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects attributes: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
@@ -618,7 +618,7 @@ templates:
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects key_attribute: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">key_attribute</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_objects last_object: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">last_object</span><span class="p">)</span>
     
-    <span class="c1"># slot赋值</span>
+    <span class="c1"># slot赋值</span>
     <span class="n">slots</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>
         <span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>
@@ -712,34 +712,34 @@ templates:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">_query_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span><span class="p">:</span>
-	<span class="c1"># type: (CollectingDispatcher, Tracker) -&gt; List[Dict]</span>
-	<span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">	Queries the knowledge base for the value of the requested attribute of the</span><span class="s2">
-</span><span class="s2"></span><span class="s2">	mentioned object and outputs it to the user.</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">	Args:</span><span class="s2">
-</span><span class="s2"></span><span class="s2">		dispatcher: the dispatcher</span><span class="s2">
-</span><span class="s2"></span><span class="s2">		tracker: the tracker</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">	Returns: list of slots</span><span class="s2">
+	<span class="c1"># type: (CollectingDispatcher, Tracker) -&gt; List[Dict]</span>
+	<span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span><span class="s2"></span><span class="s2">	Queries the knowledge base for the value of the requested attribute of the</span><span class="s2">
+</span><span class="s2"></span><span class="s2">	mentioned object and outputs it to the user.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">	Args:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">		dispatcher: the dispatcher</span><span class="s2">
+</span><span class="s2"></span><span class="s2">		tracker: the tracker</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">	Returns: list of slots</span><span class="s2">
 </span><span class="s2"></span><span class="s2">	</span><span class="s2">&#34;&#34;&#34;</span>
-    <span class="c1"># 针对:</span>
-    <span class="c1"># list restaurants</span>
-    <span class="c1"># do you know what cuisine the last one has</span>
-    <span class="c1"># 两个问题，当第二个问题处理的时候，进入到这个函数中：</span>
-    <span class="c1"># 此时object_type为restaurants</span>
-    <span class="c1"># attribute为cuisine</span>
+    <span class="c1"># 针对:</span>
+    <span class="c1"># list restaurants</span>
+    <span class="c1"># do you know what cuisine the last one has</span>
+    <span class="c1"># 两个问题，当第二个问题处理的时候，进入到这个函数中：</span>
+    <span class="c1"># 此时object_type为restaurants</span>
+    <span class="c1"># attribute为cuisine</span>
 	<span class="n">object_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">)</span>
 	<span class="n">attribute</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">)</span>
 
-    <span class="c1"># 获取用户指代的对象，返回对应的id</span>
+    <span class="c1"># 获取用户指代的对象，返回对应的id</span>
 	<span class="n">object_name</span> <span class="o">=</span> <span class="n">get_object_name</span><span class="p">(</span>
 		<span class="n">tracker</span><span class="p">,</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">ordinal_mention_mapping</span><span class="p">,</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">use_last_object_mention</span><span class="p">,</span>
 	<span class="p">)</span>
     
-    <span class="c1"># 笔者添加用来观察变量</span>
+    <span class="c1"># 笔者添加用来观察变量</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_type: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute attribute: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_name: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span>
@@ -748,8 +748,8 @@ templates:
 		<span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
 		<span class="k">return</span> <span class="p">[</span><span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">]</span>
 
-    <span class="c1"># 根据id和对应的对象类型，获取object</span>
-    <span class="c1"># {&#39;id&#39;:2,&#39;name&#39;:&#39;I due forni&#39;, &#39;cuisine&#39;: &#39;Italian&#39;, &#39;outside-seating&#39;: True, &#39;price-range&#39;: &#39;mid-range&#39;}</span>
+    <span class="c1"># 根据id和对应的对象类型，获取object</span>
+    <span class="c1"># {&#39;id&#39;:2,&#39;name&#39;:&#39;I due forni&#39;, &#39;cuisine&#39;: &#39;Italian&#39;, &#39;outside-seating&#39;: True, &#39;price-range&#39;: &#39;mid-range&#39;}</span>
 	<span class="n">object_of_interest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_of_interest: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_of_interest</span><span class="p">)</span>
 
@@ -757,12 +757,12 @@ templates:
 		<span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_ask_rephrase</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
 		<span class="k">return</span> <span class="p">[</span><span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">]</span>
 
-    <span class="c1"># 获取属性对应的值，Italian</span>
+    <span class="c1"># 获取属性对应的值，Italian</span>
 	<span class="n">value</span> <span class="o">=</span> <span class="n">object_of_interest</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
 	<span class="n">repr_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_representation_function_of_object</span><span class="p">(</span>
 		<span class="n">object_type</span>
 	<span class="p">)</span>
-    <span class="c1"># object_representation = &#39;I due forni&#39;</span>
+    <span class="c1"># object_representation = &#39;I due forni&#39;</span>
 	<span class="n">object_representation</span> <span class="o">=</span> <span class="n">repr_function</span><span class="p">(</span><span class="n">object_of_interest</span><span class="p">)</span>
 	<span class="n">key_attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_base</span><span class="o">.</span><span class="n">get_key_attribute_of_object</span><span class="p">(</span><span class="n">object_type</span><span class="p">)</span>
 	<span class="n">object_identifier</span> <span class="o">=</span> <span class="n">object_of_interest</span><span class="p">[</span><span class="n">key_attribute</span><span class="p">]</span>
@@ -772,15 +772,15 @@ templates:
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute key_attribute: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">key_attribute</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">fun:_query_attribute object_identifier: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">object_identifier</span><span class="p">)</span>
 
-    <span class="c1"># 用来给用户反馈消息</span>
+    <span class="c1"># 用来给用户反馈消息</span>
 	<span class="bp">self</span><span class="o">.</span><span class="n">utter_attribute_value</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">object_representation</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 	<span class="n">slots</span> <span class="o">=</span> <span class="p">[</span>
-		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>   <span class="c1"># 存储object_type实体值</span>
-		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>            <span class="c1"># 将attribute重置None</span>
-		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>              <span class="c1"># 将mention重置为None</span>
-		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT</span><span class="p">,</span> <span class="n">object_identifier</span><span class="p">)</span><span class="p">,</span> <span class="c1"># 上一次object的id</span>
-		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># 记录为上一次的object_type实体值</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>   <span class="c1"># 存储object_type实体值</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_ATTRIBUTE</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>            <span class="c1"># 将attribute重置None</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_MENTION</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="p">,</span>              <span class="c1"># 将mention重置为None</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT</span><span class="p">,</span> <span class="n">object_identifier</span><span class="p">)</span><span class="p">,</span> <span class="c1"># 上一次object的id</span>
+		<span class="n">SlotSet</span><span class="p">(</span><span class="n">SLOT_LAST_OBJECT_TYPE</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span><span class="p">,</span>  <span class="c1"># 记录为上一次的object_type实体值</span>
 	<span class="p">]</span>
 
 	<span class="k">return</span> <span class="n">slots</span>
@@ -908,9 +908,9 @@ policies:
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa_sdk/knowledge_base/storage.py</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa_sdk/knowledge_base/storage.py</span>
 
-<span class="c1"># ...</span>
+<span class="c1"># ...</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">ordinal_mention_mapping</span> <span class="o">=</span> <span class="p">{</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">1</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">2</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
@@ -925,7 +925,7 @@ policies:
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ANY</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span><span class="p">,</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">LAST</span><span class="s2">&#34;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>
         <span class="p">}</span>
-<span class="c1"># ...</span>
+<span class="c1"># ...</span>
 </code></pre></td></tr></table>
 </div>
 </div>

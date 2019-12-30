@@ -48,7 +48,7 @@
 <meta itemprop="description" content="fastbuild源码解析-test framework test framework使用来干什么的？ test framework是一款类似于gtest的单元测试框架，但是相比">
 <meta itemprop="datePublished" content="2018-04-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2783">
+<meta itemprop="wordCount" content="2749">
 
 
 
@@ -219,9 +219,9 @@
 </span><span class="c1"></span>
 <span class="c1">// Inludes
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;TestFramework/UnitTest.h&#34;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;TestFramework/UnitTest.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="cm">/**
 </span><span class="cm"> * \brief 每个一继承鱼UnitTest的类是一个testgraoup，
@@ -381,9 +381,9 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// UnitTest.h - interface for a unit test
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;UnitTestManager.h&#34;</span><span class="cp">
+<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;UnitTestManager.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// UnitTest - Tests derive from this interface
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
@@ -421,52 +421,52 @@
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
 </span><span class="c1"></span><span class="c1">// assert宏，如果传入的表达式为true，则不进行处理
 </span><span class="c1"></span><span class="c1">// 否则输出哪个文件哪一行出错的内容
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">define TEST_ASSERT( expression )                                   \</span><span class="cp">
-</span><span class="cp"></span>    <span class="k">do</span> <span class="p">{</span>                                                            <span class="err">\</span>
-    <span class="n">PRAGMA_DISABLE_PUSH_MSVC</span><span class="p">(</span><span class="mi">4127</span><span class="p">)</span>                                  <span class="err">\</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="p">(</span> <span class="n">expression</span> <span class="p">)</span> <span class="p">)</span>                                      <span class="err">\</span>
-        <span class="p">{</span>                                                           <span class="err">\</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="n">UnitTestManager</span><span class="o">:</span><span class="o">:</span><span class="n">AssertFailure</span><span class="p">(</span>  <span class="err">#</span><span class="n">expression</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span> <span class="p">)</span> <span class="p">)</span> <span class="err">\</span>
-            <span class="p">{</span>                                                       <span class="err">\</span>
-                <span class="n">BREAK_IN_DEBUGGER</span><span class="p">;</span>                                      <span class="err">\</span>
-            <span class="p">}</span>                                                       <span class="err">\</span>
-        <span class="p">}</span>                                                           <span class="err">\</span>
-    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span> <span class="nb">false</span> <span class="p">)</span><span class="p">;</span>                                              <span class="err">\</span>
-    <span class="n">PRAGMA_DISABLE_POP_MSVC</span>
-
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">define TEST_ASSERT( expression )                                   \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    do {                                                            \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    PRAGMA_DISABLE_PUSH_MSVC(4127)                                  \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        if ( !( expression ) )                                      \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        {                                                           \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">            if ( UnitTestManager::AssertFailure(  #expression, __FILE__, __LINE__ ) ) \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">            {                                                       \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">                BREAK_IN_DEBUGGER;                                      \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">            }                                                       \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        }                                                           \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    } while ( false );                                              \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    PRAGMA_DISABLE_POP_MSVC</span><span class="cp">
+</span><span class="cp"></span>
 <span class="c1">// 在子类中声明函数
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">define DECLARE_TESTS                                               \</span><span class="cp">
-</span><span class="cp"></span>    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">RunTests</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>                                        <span class="err">\</span>
-    <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">GetName</span><span class="p">(</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">define DECLARE_TESTS                                               \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    virtual void RunTests();                                        \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    virtual const char * GetName() const;</span><span class="cp">
+</span><span class="cp"></span>
 <span class="c1">// 用于注册单个的测试用例，Begin,Register，and end
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">define REGISTER_TESTS_BEGIN( testGroupName )                       \</span><span class="cp">
-</span><span class="cp"></span>    <span class="kt">void</span> <span class="n">testGroupName</span><span class="err">#</span><span class="err">#</span><span class="n">Register</span><span class="p">(</span><span class="p">)</span>                                  <span class="err">\</span>
-    <span class="p">{</span>                                                               <span class="err">\</span>
-        <span class="n">UnitTestManager</span><span class="o">:</span><span class="o">:</span><span class="n">RegisterTestGroup</span><span class="p">(</span> <span class="k">new</span> <span class="n">testGroupName</span> <span class="p">)</span><span class="p">;</span>    <span class="err">\</span>
-    <span class="p">}</span>                                                               <span class="err">\</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">testGroupName</span><span class="o">:</span><span class="o">:</span><span class="n">GetName</span><span class="p">(</span><span class="p">)</span> <span class="k">const</span>                     <span class="err">\</span>
-    <span class="p">{</span>                                                               <span class="err">\</span>
-        <span class="k">return</span> <span class="err">#</span><span class="n">testGroupName</span><span class="p">;</span>                                      <span class="err">\</span>
-    <span class="p">}</span>                                                               <span class="err">\</span>
-    <span class="kt">void</span> <span class="n">testGroupName</span><span class="o">:</span><span class="o">:</span><span class="n">RunTests</span><span class="p">(</span><span class="p">)</span>                                  <span class="err">\</span>
-    <span class="p">{</span>                                                               <span class="err">\</span>
-        <span class="n">UnitTestManager</span> <span class="o">&amp;</span> <span class="n">utm</span> <span class="o">=</span> <span class="n">UnitTestManager</span><span class="o">:</span><span class="o">:</span><span class="n">Get</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>             <span class="err">\</span>
-        <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">utm</span><span class="p">;</span>
-
-<span class="cp">#</span><span class="cp">define REGISTER_TEST( testFunction )                               \</span><span class="cp">
-</span><span class="cp"></span>        <span class="n">utm</span><span class="p">.</span><span class="n">TestBegin</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="err">#</span><span class="n">testFunction</span> <span class="p">)</span><span class="p">;</span>                       <span class="err">\</span>
-        <span class="n">testFunction</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>                                             <span class="err">\</span>
-        <span class="n">utm</span><span class="p">.</span><span class="n">TestEnd</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-
-<span class="cp">#</span><span class="cp">define REGISTER_TESTS_END                                          \</span><span class="cp">
-</span><span class="cp"></span>    <span class="p">}</span>
-
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">define REGISTER_TESTS_BEGIN( testGroupName )                       \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    void testGroupName##Register()                                  \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    {                                                               \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        UnitTestManager::RegisterTestGroup( new testGroupName );    \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    }                                                               \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    const char * testGroupName::GetName() const                     \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    {                                                               \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        return #testGroupName;                                      \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    }                                                               \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    void testGroupName::RunTests()                                  \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    {                                                               \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        UnitTestManager &amp; utm = UnitTestManager::Get();             \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        (void)utm;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="cp">#</span><span class="cp">define REGISTER_TEST( testFunction )                               \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        utm.TestBegin( this, #testFunction );                       \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        testFunction();                                             \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        utm.TestEnd();</span><span class="cp">
+</span><span class="cp"></span>
+<span class="cp">#</span><span class="cp">define REGISTER_TESTS_END                                          \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">    }</span><span class="cp">
+</span><span class="cp"></span>
 <span class="c1">// 向UnitTestManager中注册特定的testgroup
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">define REGISTER_TESTGROUP( testGroupName )                         \</span><span class="cp">
-</span><span class="cp"></span>        <span class="k">extern</span> <span class="kt">void</span> <span class="n">testGroupName</span><span class="err">#</span><span class="err">#</span><span class="n">Register</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>                      <span class="err">\</span>
-        <span class="n">testGroupName</span><span class="err">#</span><span class="err">#</span><span class="n">Register</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">define REGISTER_TESTGROUP( testGroupName )                         \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        extern void testGroupName##Register();                      \</span><span class="cp">
+</span><span class="cp"></span><span class="cp">        testGroupName##Register();</span><span class="cp">
+</span><span class="cp"></span>
 <span class="c1">//------------------------------------------------------------------------------
 </span></code></pre></td></tr></table>
 </div>
@@ -543,13 +543,13 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// UnitTestManager
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Includes
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Time/Timer.h&#34;  //&lt; 用于运行时间的计算</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Time/Timer.h&#34;  //&lt; 用于运行时间的计算</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Forward Declarations
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
@@ -567,12 +567,12 @@
 </span><span class="c1"></span>    <span class="kt">bool</span> <span class="nf">RunTests</span><span class="p">(</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">testGroup</span> <span class="o">=</span> <span class="k">nullptr</span> <span class="p">)</span><span class="p">;</span>
 
     <span class="c1">// singleton behaviour
-</span><span class="c1"></span>    <span class="cp">#</span><span class="cp">ifdef RELEASE</span><span class="cp">
+</span><span class="c1"></span>    <span class="cp">#</span><span class="cp">ifdef RELEASE</span><span class="cp">
 </span><span class="cp"></span>        <span class="k">static</span> <span class="kr">inline</span> <span class="n">UnitTestManager</span> <span class="o">&amp;</span> <span class="n">Get</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="n">s_Instance</span><span class="p">;</span> <span class="p">}</span>
-    <span class="err">#</span><span class="k">else</span>
-        <span class="k">static</span>        <span class="n">UnitTestManager</span> <span class="o">&amp;</span> <span class="n">Get</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-    <span class="err">#</span><span class="n">endif</span>
-    <span class="k">static</span> <span class="kr">inline</span> <span class="kt">bool</span>                  <span class="n">IsValid</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span> <span class="n">s_Instance</span> <span class="o">!</span><span class="o">=</span> <span class="mi">0</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
+    <span class="cp">#</span><span class="cp">else</span><span class="cp">
+</span><span class="cp"></span>        <span class="k">static</span>        <span class="n">UnitTestManager</span> <span class="o">&amp;</span> <span class="n">Get</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>    <span class="k">static</span> <span class="kr">inline</span> <span class="kt">bool</span>                  <span class="nf">IsValid</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span> <span class="n">s_Instance</span> <span class="o">!</span><span class="o">=</span> <span class="mi">0</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
 
     <span class="c1">// tests register (using the test declaration macros) via this interface
 </span><span class="c1"></span>    <span class="k">static</span> <span class="kt">void</span> <span class="nf">RegisterTestGroup</span><span class="p">(</span> <span class="n">UnitTest</span> <span class="o">*</span> <span class="n">testGroup</span> <span class="p">)</span><span class="p">;</span>
@@ -872,20 +872,20 @@
 </span><span class="c1"></span>
 <span class="c1">// Includes
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;UnitTestManager.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;UnitTest.h&#34;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;UnitTestManager.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;UnitTest.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemTracker.h&#34;     // 内存泄漏监控</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Profile/Profile.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Strings/AString.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Tracing/Tracing.h&#34;</span><span class="cp">
+<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemTracker.h&#34;     // 内存泄漏监控</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Profile/Profile.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Strings/AString.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Tracing/Tracing.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">if defined( __WINDOWS__ )</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
+<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">if defined( __WINDOWS__ )</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Static Data
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
@@ -905,25 +905,25 @@
     <span class="c1">// if we&#39;re running outside the debugger, we don&#39;t want
 </span><span class="c1"></span>    <span class="c1">// failures to pop up a dialog.  We want them to throw so
 </span><span class="c1"></span>    <span class="c1">// the test framework can catch the exception
-</span><span class="c1"></span>    <span class="cp">#</span><span class="cp">ifdef ASSERTS_ENABLED</span><span class="cp">
+</span><span class="c1"></span>    <span class="cp">#</span><span class="cp">ifdef ASSERTS_ENABLED</span><span class="cp">
 </span><span class="cp"></span>        <span class="k">if</span> <span class="p">(</span> <span class="n">IsDebuggerAttached</span><span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">=</span> <span class="nb">false</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="n">AssertHandler</span><span class="o">:</span><span class="o">:</span><span class="n">SetThrowOnAssert</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span><span class="p">;</span>
         <span class="p">}</span>
-    <span class="err">#</span><span class="n">endif</span>
-<span class="p">}</span>
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span><span class="p">}</span>
 
 <span class="c1">// DESTRUCTOR
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
 </span><span class="c1"></span><span class="n">UnitTestManager</span><span class="o">:</span><span class="o">:</span><span class="o">~</span><span class="n">UnitTestManager</span><span class="p">(</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="err">#</span><span class="n">ifdef</span> <span class="n">ASSERTS_ENABLED</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="n">IsDebuggerAttached</span><span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">=</span> <span class="nb">false</span> <span class="p">)</span>
+    <span class="cp">#</span><span class="cp">ifdef ASSERTS_ENABLED</span><span class="cp">
+</span><span class="cp"></span>        <span class="k">if</span> <span class="p">(</span> <span class="n">IsDebuggerAttached</span><span class="p">(</span><span class="p">)</span> <span class="o">=</span><span class="o">=</span> <span class="nb">false</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="n">AssertHandler</span><span class="o">:</span><span class="o">:</span><span class="n">SetThrowOnAssert</span><span class="p">(</span> <span class="nb">false</span> <span class="p">)</span><span class="p">;</span>
         <span class="p">}</span>
-    <span class="err">#</span><span class="n">endif</span>
-
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>
     <span class="c1">// free all registered tests
 </span><span class="c1"></span>    <span class="n">UnitTest</span> <span class="o">*</span> <span class="n">testGroup</span> <span class="o">=</span> <span class="n">s_FirstTest</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span> <span class="n">testGroup</span> <span class="p">)</span>
@@ -940,13 +940,13 @@
 
 <span class="c1">// Get
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">ifdef DEBUG</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">ifdef DEBUG</span><span class="cp">
 </span><span class="cp"></span>    <span class="cm">/*static*/</span> <span class="n">UnitTestManager</span> <span class="o">&amp;</span> <span class="n">UnitTestManager</span><span class="o">:</span><span class="o">:</span><span class="n">Get</span><span class="p">(</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">ASSERT</span><span class="p">(</span> <span class="n">s_Instance</span> <span class="p">)</span><span class="p">;</span>
         <span class="k">return</span> <span class="o">*</span><span class="n">s_Instance</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="cp">#</span><span class="cp">endif</span><span class="cp">
+<span class="cp">#</span><span class="cp">endif</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// RegisterTest
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
@@ -1052,15 +1052,15 @@
     <span class="o">+</span><span class="o">+</span><span class="n">s_NumTests</span><span class="p">;</span>
 
     <span class="n">OUTPUT</span><span class="p">(</span> <span class="sa"></span><span class="s">&#34;</span><span class="s"> - Test &#39;%s&#39;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">testName</span> <span class="p">)</span><span class="p">;</span>
-    <span class="err">#</span><span class="n">ifdef</span> <span class="n">MEMTRACKER_ENABLED</span>
-        <span class="n">MemTracker</span><span class="o">:</span><span class="o">:</span><span class="n">Reset</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-    <span class="err">#</span><span class="n">endif</span>
-    <span class="n">m_Timer</span><span class="p">.</span><span class="n">Start</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="cp">#</span><span class="cp">ifdef MEMTRACKER_ENABLED</span><span class="cp">
+</span><span class="cp"></span>        <span class="n">MemTracker</span><span class="o">:</span><span class="o">:</span><span class="n">Reset</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>    <span class="n">m_Timer</span><span class="p">.</span><span class="n">Start</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 
-    <span class="err">#</span><span class="n">ifdef</span> <span class="n">PROFILING_ENABLED</span>
-        <span class="n">ProfileManager</span><span class="o">:</span><span class="o">:</span><span class="n">Start</span><span class="p">(</span> <span class="n">testName</span> <span class="p">)</span><span class="p">;</span>
-    <span class="err">#</span><span class="n">endif</span>
-
+    <span class="cp">#</span><span class="cp">ifdef PROFILING_ENABLED</span><span class="cp">
+</span><span class="cp"></span>        <span class="n">ProfileManager</span><span class="o">:</span><span class="o">:</span><span class="n">Start</span><span class="p">(</span> <span class="n">testName</span> <span class="p">)</span><span class="p">;</span>
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>
     <span class="n">testGroup</span><span class="o">-</span><span class="o">&gt;</span><span class="n">PreTest</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -1072,20 +1072,20 @@
 
     <span class="n">info</span><span class="p">.</span><span class="n">m_TestGroup</span><span class="o">-</span><span class="o">&gt;</span><span class="n">PostTest</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 
-    <span class="err">#</span><span class="n">ifdef</span> <span class="n">PROFILING_ENABLED</span>
-        <span class="n">ProfileManager</span><span class="o">:</span><span class="o">:</span><span class="n">Stop</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="cp">#</span><span class="cp">ifdef PROFILING_ENABLED</span><span class="cp">
+</span><span class="cp"></span>        <span class="n">ProfileManager</span><span class="o">:</span><span class="o">:</span><span class="n">Stop</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 
         <span class="c1">// flush the profiling buffers, but don&#39;t profile the sync itself
 </span><span class="c1"></span>        <span class="c1">// (because it leaves an outstanding memory alloc, it looks like a leak)
 </span><span class="c1"></span>        <span class="n">ProfileManager</span><span class="o">:</span><span class="o">:</span><span class="n">SynchronizeNoTag</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-    <span class="err">#</span><span class="n">endif</span>
-
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>
     <span class="kt">float</span> <span class="n">timeTaken</span> <span class="o">=</span> <span class="n">m_Timer</span><span class="p">.</span><span class="n">GetElapsed</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 
     <span class="n">info</span><span class="p">.</span><span class="n">m_TimeTaken</span> <span class="o">=</span> <span class="n">timeTaken</span><span class="p">;</span>
 
-    <span class="err">#</span><span class="n">ifdef</span> <span class="n">MEMTRACKER_ENABLED</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="n">MemTracker</span><span class="o">:</span><span class="o">:</span><span class="n">GetCurrentAllocationCount</span><span class="p">(</span><span class="p">)</span> <span class="o">!</span><span class="o">=</span> <span class="mi">0</span> <span class="p">)</span>
+    <span class="cp">#</span><span class="cp">ifdef MEMTRACKER_ENABLED</span><span class="cp">
+</span><span class="cp"></span>        <span class="k">if</span> <span class="p">(</span> <span class="n">MemTracker</span><span class="o">:</span><span class="o">:</span><span class="n">GetCurrentAllocationCount</span><span class="p">(</span><span class="p">)</span> <span class="o">!</span><span class="o">=</span> <span class="mi">0</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="n">info</span><span class="p">.</span><span class="n">m_MemoryLeaks</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
             <span class="n">OUTPUT</span><span class="p">(</span> <span class="sa"></span><span class="s">&#34;</span><span class="s"> - Test &#39;%s&#39; in %2.3fs : *** FAILED (Memory Leaks)***</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">m_TestName</span><span class="p">,</span> <span class="n">timeTaken</span> <span class="p">)</span><span class="p">;</span>
@@ -1093,8 +1093,8 @@
             <span class="n">TEST_ASSERT</span><span class="p">(</span> <span class="nb">false</span> <span class="p">)</span><span class="p">;</span>
             <span class="k">return</span><span class="p">;</span>
         <span class="p">}</span>
-    <span class="err">#</span><span class="n">endif</span>
-
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>
     <span class="n">OUTPUT</span><span class="p">(</span> <span class="sa"></span><span class="s">&#34;</span><span class="s"> - Test &#39;%s&#39; in %2.3fs : PASSED</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">info</span><span class="p">.</span><span class="n">m_TestName</span><span class="p">,</span> <span class="n">timeTaken</span> <span class="p">)</span><span class="p">;</span>
     <span class="n">info</span><span class="p">.</span><span class="n">m_Passed</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>

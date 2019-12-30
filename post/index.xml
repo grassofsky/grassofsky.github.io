@@ -6,10 +6,19 @@
     <description>Recent content in Posts on grassofsky notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ITK example - digitally reconstructed radiograph</title>
+      <link>http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/</guid>
+      <description>ITK example - digitally reconstructed radiograph 简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。 重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/class</description>
+    </item>
     
     <item>
       <title>rasa problem - 意图中的use_entities选项</title>
@@ -619,24 +628,6 @@
 我们使用6种不同的任务来评估方法的质量，包括文本识别，知识库中的链接预测，文档推荐，文章查找，句子匹配和学习通用的句子嵌入。StarSpace的开源项目见：https://github.com/facebookresearch/Starspace。
 2. Related Word 隐藏的文本表示，或者是嵌入（embeddings），是词或文档的向量化表示，通常以非监督的方式从庞大的语料库中学习得到。这个领域中关于神经网络嵌入的工作有：(Bengio et al. 2003)，(Collobert et al. 2011)，word2vec(Mikolov et al. 2013)和最近的fastText(Bojanowski et al. 2017).在我们的试验中，我们和用于无监督嵌入的可伸缩模型的代表word2vec以及fastText进行了比较，同时还在SentEval(Conneau et al. 2017)任务上进行了句子嵌入的比较。
 在监督嵌入的领域中，SSI(Bai et al. 2009)和WSABIE (Weston, Bengio, and Usunier 2011)是早期在NLU或信息提取任务((Weston et al. 2013), (Hermann et al. 2014))中使用的模型。更近一点的工作有：(Tang, Qin, and Liu 2015), (Zhang and LeCun 2015), (Conneau et al.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/</guid>
-      <description>简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
-重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
-通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
-注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&amp;lt;InputImageType, TInterpolatorPrecisionType&amp;gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&amp;lt; InputImageType, TCoordRep &amp;gt;会是一个更好的选择。
-如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
-输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
-CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
-这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
- SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
- SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &amp;#39;data/CT_3D_lung_fixed.</description>
     </item>
     
   </channel>

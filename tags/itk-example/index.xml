@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ITK example on grassofsky notebook</title>
+    <link>http://localhost:1313/tags/itk-example/</link>
+    <description>Recent content in ITK example on grassofsky notebook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/itk-example/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ITK example - digitally reconstructed radiograph</title>
+      <link>http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/</guid>
+      <description>ITK example - digitally reconstructed radiograph 简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。 重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/class</description>
+    </item>
+    
+  </channel>
+</rss>

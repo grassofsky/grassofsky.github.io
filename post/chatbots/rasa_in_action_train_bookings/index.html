@@ -48,7 +48,7 @@
 <meta itemprop="description" content="rasa对话系统Demo实战 - 简单的火车票查询助手 描述 目的 基于rasa构建用于火车票查询的对话系统Demo。 对话示例 1 2 3 4 5 6 7 8 9 10 11 12">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2312">
+<meta itemprop="wordCount" content="2323">
 
 
 
@@ -635,7 +635,7 @@ policies:
         <span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span><span class="p">,</span>
         <span class="n">domain</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span><span class="p">:</span>
-        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Define what the form has to do</span><span class="s2">
+        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Define what the form has to do</span><span class="s2">
 </span><span class="s2"></span><span class="s2">           after all required slots are filled</span><span class="s2">&#34;&#34;&#34;</span>
         <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_submit</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
@@ -651,7 +651,7 @@ policies:
 <span class="k">class</span> <span class="nc">ActionShowResult</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
         <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="p">)</span>
-        <span class="c1"># 12306的城市名和城市代码js文件url</span>
+        <span class="c1"># 12306的城市名和城市代码js文件url</span>
         <span class="n">url</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://kyfw.12306.cn/otn/resources/js/framework/station_name.js?station_version=1.9018</span><span class="s1">&#39;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="n">pattern</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="s1">([</span><span class="se">\u4e00</span><span class="s1">-</span><span class="se">\u9fa5</span><span class="s1">]+)</span><span class="s1">\</span><span class="s1">|([A-Z]+)</span><span class="s1">&#39;</span>
@@ -664,23 +664,23 @@ policies:
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
-       <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Execute the side effects of this action.</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">        Args:</span><span class="s2">
-</span><span class="s2"></span><span class="s2">            dispatcher: the dispatcher which is used to</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                send messages back to the user. Use</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                ``dipatcher.utter_message()`` or any other</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                ``rasa_sdk.executor.CollectingDispatcher``</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                method.</span><span class="s2">
-</span><span class="s2"></span><span class="s2">            tracker: the state tracker for the current</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                user. You can access slot values using</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                ``tracker.get_slot(slot_name)``, the most recent user message</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                is ``tracker.latest_message.text`` and any other</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                ``rasa_sdk.Tracker`` property.</span><span class="s2">
-</span><span class="s2"></span><span class="s2">            domain: the bot</span><span class="s2">&#39;</span><span class="s2">s domain</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        Returns:</span><span class="s2">
-</span><span class="s2"></span><span class="s2">            A dictionary of ``rasa_sdk.events.Event`` instances that is</span><span class="s2">
-</span><span class="s2"></span><span class="s2">                returned through the endpoint</span><span class="s2">
+       <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Execute the side effects of this action.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">        Args:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            dispatcher: the dispatcher which is used to</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                send messages back to the user. Use</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``dipatcher.utter_message()`` or any other</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``rasa_sdk.executor.CollectingDispatcher``</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                method.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            tracker: the state tracker for the current</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                user. You can access slot values using</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``tracker.get_slot(slot_name)``, the most recent user message</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                is ``tracker.latest_message.text`` and any other</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                ``rasa_sdk.Tracker`` property.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            domain: the bot</span><span class="s2">&#39;</span><span class="s2">s domain</span><span class="s2">
+</span><span class="s2"></span><span class="s2">        Returns:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            A dictionary of ``rasa_sdk.events.Event`` instances that is</span><span class="s2">
+</span><span class="s2"></span><span class="s2">                returned through the endpoint</span><span class="s2">
 </span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
         <span class="n">starting_time</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">starting_time</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">starting_loc</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">starting_loc</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -704,8 +704,8 @@ policies:
         <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_query_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_time</span><span class="p">,</span> <span class="n">starting_loc</span><span class="p">,</span> <span class="n">arriving_loc</span><span class="p">)</span><span class="p">:</span>
-        <span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1"></span><span class="s1">
-</span><span class="s1"></span><span class="s1">        返回调用api的url链接</span><span class="s1">
+        <span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        返回调用api的url链接</span><span class="s1">
 </span><span class="s1"></span><span class="s1">        </span><span class="s1">&#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">date</span> <span class="o">=</span> <span class="n">date_time</span>
@@ -716,7 +716,7 @@ policies:
         <span class="k">except</span><span class="p">:</span>
             <span class="n">date</span><span class="p">,</span><span class="n">from_station</span><span class="p">,</span><span class="n">to_station</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
 
-        <span class="c1"># api url 构造</span>
+        <span class="c1"># api url 构造</span>
         <span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
             <span class="sa"></span><span class="s1">&#39;</span><span class="s1">https://kyfw.12306.cn/otn/leftTicket/query?</span><span class="s1">&#39;</span>
             <span class="sa"></span><span class="s1">&#39;</span><span class="s1">leftTicketDTO.train_date={}&amp;</span><span class="s1">&#39;</span>
@@ -729,9 +729,9 @@ policies:
         <span class="k">return</span> <span class="n">url</span>
 
     <span class="k">def</span> <span class="nf">query_train_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">hour_time</span><span class="p">)</span><span class="p">:</span>
-    <span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1"></span><span class="s1">
-</span><span class="s1"></span><span class="s1">        查询火车票信息：</span><span class="s1">
-</span><span class="s1"></span><span class="s1">        返回 信息查询列表</span><span class="s1">
+    <span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        查询火车票信息：</span><span class="s1">
+</span><span class="s1"></span><span class="s1">        返回 信息查询列表</span><span class="s1">
 </span><span class="s1"></span><span class="s1">        </span><span class="s1">&#39;&#39;&#39;</span>
         <span class="n">time_list</span> <span class="o">=</span> <span class="n">hour_time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">:</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">total_minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span>
@@ -739,47 +739,47 @@ policies:
         <span class="n">info_list</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-            <span class="c1"># 获取返回的json数据里的data字段的result结果</span>
+            <span class="c1"># 获取返回的json数据里的data字段的result结果</span>
             <span class="n">raw_trains</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="p">)</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">data</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">result</span><span class="s1">&#39;</span><span class="p">]</span>
 
             <span class="k">for</span> <span class="n">raw_train</span> <span class="ow">in</span> <span class="n">raw_trains</span><span class="p">:</span>
-                <span class="c1"># 循环遍历每辆列车的信息</span>
+                <span class="c1"># 循环遍历每辆列车的信息</span>
                 <span class="n">data_list</span> <span class="o">=</span> <span class="n">raw_train</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">|</span><span class="s1">&#39;</span><span class="p">)</span>
 
-                <span class="c1"># 车次号码</span>
+                <span class="c1"># 车次号码</span>
                 <span class="n">train_no</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-                <span class="c1"># 出发站</span>
+                <span class="c1"># 出发站</span>
                 <span class="n">from_station_code</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
                 <span class="n">from_station_name</span> <span class="o">=</span> <span class="n">code_dict</span><span class="p">[</span><span class="n">from_station_code</span><span class="p">]</span>
-                <span class="c1"># 终点站</span>
+                <span class="c1"># 终点站</span>
                 <span class="n">to_station_code</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
                 <span class="n">to_station_name</span> <span class="o">=</span> <span class="n">code_dict</span><span class="p">[</span><span class="n">to_station_code</span><span class="p">]</span>
-                <span class="c1"># 出发时间</span>
+                <span class="c1"># 出发时间</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
                 <span class="n">start_time_vec</span> <span class="o">=</span> <span class="n">start_time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">:</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">start_total_minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_time_vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_time_vec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span>
-                <span class="c1"># 忽略超过120分钟的车次</span>
+                <span class="c1"># 忽略超过120分钟的车次</span>
                 <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">start_total_minutes</span> <span class="o">-</span> <span class="n">total_minutes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">120</span><span class="p">:</span>
                     <span class="k">continue</span>
 
-                <span class="c1"># 到达时间</span>
+                <span class="c1"># 到达时间</span>
                 <span class="n">arrive_time</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
-                <span class="c1"># 总耗时</span>
+                <span class="c1"># 总耗时</span>
                 <span class="n">time_fucked_up</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-                <span class="c1"># 一等座</span>
+                <span class="c1"># 一等座</span>
                 <span class="n">first_class_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span> <span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
-                <span class="c1"># 二等座</span>
+                <span class="c1"># 二等座</span>
                 <span class="n">second_class_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">30</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
-                <span class="c1"># 软卧</span>
+                <span class="c1"># 软卧</span>
                 <span class="n">soft_sleep</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
-                <span class="c1"># 硬卧</span>
+                <span class="c1"># 硬卧</span>
                 <span class="n">hard_sleep</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">28</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
-                <span class="c1"># 硬座</span>
+                <span class="c1"># 硬座</span>
                 <span class="n">hard_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">29</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
-                <span class="c1"># 无座</span>
+                <span class="c1"># 无座</span>
                 <span class="n">no_seat</span> <span class="o">=</span> <span class="n">data_list</span><span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="ow">or</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">--</span><span class="s1">&#39;</span>
 
-                <span class="c1"># 打印查询结果</span>
+                <span class="c1"># 打印查询结果</span>
                 <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">车次:{}</span><span class="se">\n</span><span class="s1">出发站:{}</span><span class="se">\n</span><span class="s1">目的地:{}</span><span class="se">\n</span><span class="s1">出发时间:{}</span><span class="se">\n</span><span class="s1">到达时间:{}</span><span class="se">\n</span><span class="s1">消耗时间:{}</span><span class="se">\n</span><span class="s1">座位情况：</span><span class="se">\n</span><span class="s1"> 一等座：「{}」 </span><span class="se">\n</span><span class="s1">二等座：「{}」</span><span class="se">\n</span><span class="s1">软卧：「{}」</span><span class="se">\n</span><span class="s1">硬卧：「{}」</span><span class="se">\n</span><span class="s1">硬座：「{}」</span><span class="se">\n</span><span class="s1">无座：「{}」</span><span class="se">\n</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">train_no</span><span class="p">,</span> <span class="n">from_station_name</span><span class="p">,</span> <span class="n">to_station_name</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">arrive_time</span><span class="p">,</span> <span class="n">time_fucked_up</span><span class="p">,</span> <span class="n">first_class_seat</span><span class="p">,</span>
                     <span class="n">second_class_seat</span><span class="p">,</span> <span class="n">soft_sleep</span><span class="p">,</span> <span class="n">hard_sleep</span><span class="p">,</span> <span class="n">hard_seat</span><span class="p">,</span> <span class="n">no_seat</span><span class="p">)</span><span class="p">)</span>

@@ -48,7 +48,7 @@
 <meta itemprop="description" content="rasa blog - 利用Rasa Forms创建上下文对话助手 （翻译） 一个超越简单的FAQ式交互的上下文对话助手contextual assistant 需要的不仅仅是一个算法">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="5161">
+<meta itemprop="wordCount" content="5155">
 
 
 
@@ -383,7 +383,7 @@ forms:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python">  <span class="k">def</span> <span class="nf">required_slots</span><span class="p">(</span><span class="n">tracker</span><span class="p">)</span><span class="p">:</span>
-      <span class="c1"># type: () -&gt; List[Text]</span>
+      <span class="c1"># type: () -&gt; List[Text]</span>
       <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A list of required slots that the form has to fill</span><span class="s2">&#34;&#34;&#34;</span>
   
       <span class="k">if</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">cuisine</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">greek</span><span class="s1">&#39;</span><span class="p">:</span>
@@ -438,7 +438,7 @@ forms:
                   <span class="sa"></span><span class="s2">&#34;</span><span class="s2">preferences</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">feedback</span><span class="s2">&#34;</span><span class="p">]</span>
   
       <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
-          <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Define what the form has to do</span><span class="s2">
+          <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Define what the form has to do</span><span class="s2">
 </span><span class="s2"></span><span class="s2">              	after all required slots are filled</span><span class="s2">&#34;&#34;&#34;</span>
   
          	<span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">utter_submit</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
@@ -478,11 +478,11 @@ forms:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">slot_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
-    <span class="c1"># type: () -&gt; Dict[Text: Union[Dict, List[Dict]]]</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A dictionary to map required slots to</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    - an extracted entity</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    - intent: value pairs</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    - a whole message or a list of them, where a first </span><span class="s2">
+    <span class="c1"># type: () -&gt; Dict[Text: Union[Dict, List[Dict]]]</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A dictionary to map required slots to</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    - an extracted entity</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    - intent: value pairs</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    - a whole message or a list of them, where a first </span><span class="s2">
 </span><span class="s2"></span><span class="s2">                                 match will be picked</span><span class="s2">&#34;&#34;&#34;</span>
 
     <span class="k">return</span> <span class="p">{</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">outdoor_seating</span><span class="s2">&#34;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">from_entity</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">seating</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
@@ -537,35 +537,35 @@ forms:
                  <span class="n">dispatcher</span><span class="p">:</span> <span class="n">CollectingDispatcher</span><span class="p">,</span>
                  <span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span><span class="p">,</span>
                  <span class="n">domain</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span><span class="p">:</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Validate extracted requested slot</span><span class="s2">
-</span><span class="s2"></span><span class="s2">            else reject the execution of the form action</span><span class="s2">
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Validate extracted requested slot</span><span class="s2">
+</span><span class="s2"></span><span class="s2">            else reject the execution of the form action</span><span class="s2">
 </span><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
-    <span class="c1"># extract other slots that were not requested</span>
-    <span class="c1"># but set by corresponding entity</span>
+    <span class="c1"># extract other slots that were not requested</span>
+    <span class="c1"># but set by corresponding entity</span>
     <span class="n">slot_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_other_slots</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
 
-    <span class="c1"># extract requested slot</span>
+    <span class="c1"># extract requested slot</span>
     <span class="n">slot_to_fill</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">REQUESTED_SLOT</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">slot_to_fill</span><span class="p">:</span>
         <span class="n">slot_values</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_requested_slot</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">slot_values</span><span class="p">:</span>
-            <span class="c1"># reject form action execution</span>
-            <span class="c1"># if some slot was requested but nothing was extracted</span>
-            <span class="c1"># it will allow other policies to predict another action</span>
+            <span class="c1"># reject form action execution</span>
+            <span class="c1"># if some slot was requested but nothing was extracted</span>
+            <span class="c1"># it will allow other policies to predict another action</span>
             <span class="k">raise</span> <span class="n">ActionExecutionRejection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
                                            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Failed to validate slot {0}</span><span class="s2">&#34;</span>
                                            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">with action {1}</span><span class="s2">&#34;</span>
                                            <span class="sa"></span><span class="s2">&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">slot_to_fill</span><span class="p">,</span>
                                                          <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
 
-    <span class="c1"># we&#39;ll check when validation failed in order</span>
-    <span class="c1"># to add appropriate utterances</span>
+    <span class="c1"># we&#39;ll check when validation failed in order</span>
+    <span class="c1"># to add appropriate utterances</span>
     <span class="k">for</span> <span class="n">slot</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">slot_values</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">slot</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">num_people</span><span class="s1">&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&lt;</span><span class="o">=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">utter_wrong_num_people</span><span class="s1">&#39;</span><span class="p">,</span>
                                               <span class="n">tracker</span><span class="p">)</span>
-                <span class="c1"># validation failed, set slot to None</span>
+                <span class="c1"># validation failed, set slot to None</span>
                 <span class="n">slot_values</span><span class="p">[</span><span class="n">slot</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
 
 </code></pre></td></tr></table>

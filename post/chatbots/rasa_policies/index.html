@@ -346,28 +346,28 @@
         <span class="n">Activation</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="c1"># Build Model</span>
+    <span class="c1"># Build Model</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span><span class="p">)</span>
 
-    <span class="c1"># the shape of the y vector of the labels,</span>
-    <span class="c1"># determines which output from rnn will be used</span>
-    <span class="c1"># to calculate the loss</span>
+    <span class="c1"># the shape of the y vector of the labels,</span>
+    <span class="c1"># determines which output from rnn will be used</span>
+    <span class="c1"># to calculate the loss</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="c1"># y is (num examples, num features) so</span>
-        <span class="c1"># only the last output from the rnn is used to</span>
-        <span class="c1"># calculate the loss</span>
+        <span class="c1"># y is (num examples, num features) so</span>
+        <span class="c1"># only the last output from the rnn is used to</span>
+        <span class="c1"># calculate the loss</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Masking</span><span class="p">(</span><span class="n">mask_value</span><span class="o">=</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">)</span><span class="p">)</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rnn_size</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="p">)</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rnn_size</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">output_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="c1"># y is (num examples, max_dialogue_len, num features) so</span>
-        <span class="c1"># all the outputs from the rnn are used to</span>
-        <span class="c1"># calculate the loss, therefore a sequence is returned and</span>
-        <span class="c1"># time distributed layer is used</span>
+        <span class="c1"># y is (num examples, max_dialogue_len, num features) so</span>
+        <span class="c1"># all the outputs from the rnn are used to</span>
+        <span class="c1"># calculate the loss, therefore a sequence is returned and</span>
+        <span class="c1"># time distributed layer is used</span>
 
-        <span class="c1"># the first value in input_shape is max dialogue_len,</span>
-        <span class="c1"># it is set to None, to allow dynamic_rnn creation</span>
-        <span class="c1"># during prediction</span>
+        <span class="c1"># the first value in input_shape is max dialogue_len,</span>
+        <span class="c1"># it is set to None, to allow dynamic_rnn creation</span>
+        <span class="c1"># during prediction</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Masking</span><span class="p">(</span><span class="n">mask_value</span><span class="o">=</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rnn_size</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="p">)</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">TimeDistributed</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="n">output_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
@@ -452,16 +452,16 @@
     <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
 
-    <span class="c1"># set numpy random seed</span>
+    <span class="c1"># set numpy random seed</span>
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_seed</span><span class="p">)</span>
 
     <span class="n">training_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">featurize_for_training</span><span class="p">(</span><span class="n">training_trackers</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="c1"># noinspection PyPep8Naming</span>
+    <span class="c1"># noinspection PyPep8Naming</span>
     <span class="n">shuffled_X</span><span class="p">,</span> <span class="n">shuffled_y</span> <span class="o">=</span> <span class="n">training_data</span><span class="o">.</span><span class="n">shuffled_X_y</span><span class="p">(</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="p">)</span>
     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_default</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
-        <span class="c1"># set random seed in tf</span>
+        <span class="c1"># set random seed in tf</span>
         <span class="n">tf</span><span class="o">.</span><span class="n">set_random_seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_seed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_tf_config</span><span class="p">)</span>
 
@@ -477,7 +477,7 @@
                 <span class="sa"></span><span class="s2">&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">training_data</span><span class="o">.</span><span class="n">num_examples</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">validation_split</span><span class="p">)</span>
             <span class="p">)</span>
 
-            <span class="c1"># filter out kwargs that cannot be passed to fit</span>
+            <span class="c1"># filter out kwargs that cannot be passed to fit</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_train_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_valid_params</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_train_params</span>
             <span class="p">)</span>
@@ -491,7 +491,7 @@
                 <span class="n">verbose</span><span class="o">=</span><span class="n">obtain_verbosity</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
                 <span class="o">*</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_train_params</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="c1"># the default parameter for epochs in keras fit is 1</span>
+            <span class="c1"># the default parameter for epochs in keras fit is 1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">epochs</span><span class="s2">&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Done fitting keras policy model</span><span class="s2">&#34;</span><span class="p">)</span>
 </code></pre></td></tr></table>
@@ -634,67 +634,67 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1"># nn architecture</span>
-    <span class="c1"># a list of hidden layers sizes before user embed layer</span>
-    <span class="c1"># number of hidden layers is equal to the length of this list</span>
+    <span class="c1"># nn architecture</span>
+    <span class="c1"># a list of hidden layers sizes before user embed layer</span>
+    <span class="c1"># number of hidden layers is equal to the length of this list</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">hidden_layers_sizes_pre_dial</span><span class="s2">&#34;</span><span class="p">:</span> <span class="p">[</span><span class="p">]</span><span class="p">,</span>
-    <span class="c1"># a list of hidden layers sizes before bot embed layer</span>
-    <span class="c1"># number of hidden layers is equal to the length of this list</span>
+    <span class="c1"># a list of hidden layers sizes before bot embed layer</span>
+    <span class="c1"># number of hidden layers is equal to the length of this list</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">hidden_layers_sizes_bot</span><span class="s2">&#34;</span><span class="p">:</span> <span class="p">[</span><span class="p">]</span><span class="p">,</span>
-    <span class="c1"># number of units in transformer</span>
+    <span class="c1"># number of units in transformer</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">transformer_size</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
-    <span class="c1"># number of transformer layers</span>
+    <span class="c1"># number of transformer layers</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">num_transformer_layers</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="c1"># type of positional encoding in transformer</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pos_encoding</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">timing</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;timing&#39; or &#39;emb&#39;</span>
-    <span class="c1"># max sequence length if pos_encoding=&#39;emb&#39;</span>
+    <span class="c1"># type of positional encoding in transformer</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pos_encoding</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">timing</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;timing&#39; or &#39;emb&#39;</span>
+    <span class="c1"># max sequence length if pos_encoding=&#39;emb&#39;</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">max_seq_length</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span>
-    <span class="c1"># number of attention heads in transformer</span>
+    <span class="c1"># number of attention heads in transformer</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">num_heads</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="c1"># training parameters</span>
-    <span class="c1"># initial and final batch sizes:</span>
-    <span class="c1"># batch size will be linearly increased for each epoch</span>
+    <span class="c1"># training parameters</span>
+    <span class="c1"># initial and final batch sizes:</span>
+    <span class="c1"># batch size will be linearly increased for each epoch</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">batch_size</span><span class="s2">&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span><span class="p">,</span>
-    <span class="c1"># how to create batches</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">batch_strategy</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">balanced</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;sequence&#39; or &#39;balanced&#39;</span>
-    <span class="c1"># number of epochs</span>
+    <span class="c1"># how to create batches</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">batch_strategy</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">balanced</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;sequence&#39; or &#39;balanced&#39;</span>
+    <span class="c1"># number of epochs</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">epochs</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="c1"># set random seed to any int to get reproducible results</span>
+    <span class="c1"># set random seed to any int to get reproducible results</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">random_seed</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-    <span class="c1"># embedding parameters</span>
-    <span class="c1"># dimension size of embedding vectors</span>
+    <span class="c1"># embedding parameters</span>
+    <span class="c1"># dimension size of embedding vectors</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">embed_dim</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="c1"># the type of the similarity</span>
+    <span class="c1"># the type of the similarity</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">num_neg</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="c1"># flag if minimize only maximum similarity over incorrect labels</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">similarity_type</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">auto</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;auto&#39; or &#39;cosine&#39; or &#39;inner&#39;</span>
-    <span class="c1"># the type of the loss function</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">loss_type</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">softmax</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;softmax&#39; or &#39;margin&#39;</span>
-    <span class="c1"># how similar the algorithm should try</span>
-    <span class="c1"># to make embedding vectors for correct labels</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">mu_pos</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>  <span class="c1"># should be 0.0 &lt; ... &lt; 1.0 for &#39;cosine&#39;</span>
-    <span class="c1"># maximum negative similarity for incorrect labels</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">mu_neg</span><span class="s2">&#34;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span>  <span class="c1"># should be -1.0 &lt; ... &lt; 1.0 for &#39;cosine&#39;</span>
-    <span class="c1"># the number of incorrect labels, the algorithm will minimize</span>
-    <span class="c1"># their similarity to the user input during training</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">use_max_sim_neg</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>  <span class="c1"># flag which loss function to use</span>
-    <span class="c1"># scale loss inverse proportionally to confidence of correct prediction</span>
+    <span class="c1"># flag if minimize only maximum similarity over incorrect labels</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">similarity_type</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">auto</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;auto&#39; or &#39;cosine&#39; or &#39;inner&#39;</span>
+    <span class="c1"># the type of the loss function</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">loss_type</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">softmax</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># string &#39;softmax&#39; or &#39;margin&#39;</span>
+    <span class="c1"># how similar the algorithm should try</span>
+    <span class="c1"># to make embedding vectors for correct labels</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">mu_pos</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>  <span class="c1"># should be 0.0 &lt; ... &lt; 1.0 for &#39;cosine&#39;</span>
+    <span class="c1"># maximum negative similarity for incorrect labels</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">mu_neg</span><span class="s2">&#34;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span>  <span class="c1"># should be -1.0 &lt; ... &lt; 1.0 for &#39;cosine&#39;</span>
+    <span class="c1"># the number of incorrect labels, the algorithm will minimize</span>
+    <span class="c1"># their similarity to the user input during training</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">use_max_sim_neg</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>  <span class="c1"># flag which loss function to use</span>
+    <span class="c1"># scale loss inverse proportionally to confidence of correct prediction</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">scale_loss</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
-    <span class="c1"># regularization</span>
-    <span class="c1"># the scale of L2 regularization</span>
+    <span class="c1"># regularization</span>
+    <span class="c1"># the scale of L2 regularization</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">C2</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
-    <span class="c1"># the scale of how important is to minimize the maximum similarity</span>
-    <span class="c1"># between embeddings of different labels</span>
+    <span class="c1"># the scale of how important is to minimize the maximum similarity</span>
+    <span class="c1"># between embeddings of different labels</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">C_emb</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
-    <span class="c1"># dropout rate for dial nn</span>
+    <span class="c1"># dropout rate for dial nn</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">droprate_a</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
-    <span class="c1"># dropout rate for bot nn</span>
+    <span class="c1"># dropout rate for bot nn</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">droprate_b</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="c1"># visualization of accuracy</span>
-    <span class="c1"># how often calculate validation accuracy</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">evaluate_every_num_epochs</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>  <span class="c1"># small values may hurt performance</span>
-    <span class="c1"># how many examples to use for hold out validation set</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">evaluate_on_num_examples</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># large values may hurt performance</span>
+    <span class="c1"># visualization of accuracy</span>
+    <span class="c1"># how often calculate validation accuracy</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">evaluate_every_num_epochs</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>  <span class="c1"># small values may hurt performance</span>
+    <span class="c1"># how many examples to use for hold out validation set</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">evaluate_on_num_examples</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># large values may hurt performance</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>

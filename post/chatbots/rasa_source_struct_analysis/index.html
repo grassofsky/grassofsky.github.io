@@ -253,99 +253,99 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="n">tests_requires</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="c1"># pytest： test framework</span>
-    <span class="c1"># http://pytest.org/en/latest/contents.html</span>
+    <span class="c1"># pytest： test framework</span>
+    <span class="c1"># http://pytest.org/en/latest/contents.html</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pytest~=4.5</span><span class="s2">&#34;</span><span class="p">,</span> 
-    <span class="c1"># pytest-cov: 测试覆盖率检测工具</span>
-    <span class="c1"># https://pytest-cov.readthedocs.io/en/latest/</span>
+    <span class="c1"># pytest-cov: 测试覆盖率检测工具</span>
+    <span class="c1"># https://pytest-cov.readthedocs.io/en/latest/</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pytest-cov~=2.7</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># pytest-localserver: 用于本地测试服务连接</span>
-    <span class="c1"># https://pypi.org/project/pytest-localserver/</span>
+    <span class="c1"># pytest-localserver: 用于本地测试服务连接</span>
+    <span class="c1"># https://pypi.org/project/pytest-localserver/</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pytest-localserver~=0.5.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># pytest-sanic: 针对sanic的pytest插件</span>
-    <span class="c1"># https://github.com/yunstanford/pytest-sanic</span>
+    <span class="c1"># pytest-sanic: 针对sanic的pytest插件</span>
+    <span class="c1"># https://github.com/yunstanford/pytest-sanic</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pytest-sanic~=1.0.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># responses： 用来模拟requests库</span>
-    <span class="c1"># https://pypi.org/project/responses/</span>
+    <span class="c1"># responses： 用来模拟requests库</span>
+    <span class="c1"># https://pypi.org/project/responses/</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">responses~=0.9.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># freezegun: 通过伪造日期模块来生成不同的时间</span>
-    <span class="c1"># https://github.com/spulec/freezegun</span>
+    <span class="c1"># freezegun: 通过伪造日期模块来生成不同的时间</span>
+    <span class="c1"># https://github.com/spulec/freezegun</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">freezegun~=0.3.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># nbsphinx: sphinx的扩展，用于*.ipynb文件的解析</span>
-    <span class="c1"># https://pypi.org/project/nbsphinx/</span>
+    <span class="c1"># nbsphinx: sphinx的扩展，用于*.ipynb文件的解析</span>
+    <span class="c1"># https://pypi.org/project/nbsphinx/</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">nbsphinx&gt;=0.3</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># aioresponses：用来模拟python aiohttp包的页面请求</span>
-    <span class="c1"># https://github.com/pnuckowski/aioresponses</span>
+    <span class="c1"># aioresponses：用来模拟python aiohttp包的页面请求</span>
+    <span class="c1"># https://github.com/pnuckowski/aioresponses</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">aioresponses~=0.6.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># moto：模拟基于AWS架构的测试</span>
-    <span class="c1"># https://github.com/spulec/moto</span>
+    <span class="c1"># moto：模拟基于AWS架构的测试</span>
+    <span class="c1"># https://github.com/spulec/moto</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">moto~=1.3.8</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># fakeredis: 这是针对没有redis或测试环境的机器的redis rb的伪实现</span>
-    <span class="c1"># https://github.com/guilleiguaran/fakeredis</span>
+    <span class="c1"># fakeredis: 这是针对没有redis或测试环境的机器的redis rb的伪实现</span>
+    <span class="c1"># https://github.com/guilleiguaran/fakeredis</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">fakeredis~=1.0</span><span class="s2">&#34;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">install_requires</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">requests&gt;=2.20</span><span class="s2">&#34;</span><span class="p">,</span>       <span class="c1"># http 请求库</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">boto3~=1.9</span><span class="s2">&#34;</span><span class="p">,</span>           <span class="c1"># 适用于 Python 的 AWS 开发工具包</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">matplotlib~=3.0</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># 绘图</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">attrs&gt;=18</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 详细介绍见：https://www.jb51.net/article/162909.htm</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">jsonpickle~=1.1</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># 用来序列化复杂的 Python 对象到 JSON 文档，https://jsonpickle.github.io/</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">redis~=3.3.5</span><span class="s2">&#34;</span><span class="p">,</span>         <span class="c1"># 与redis交互</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pymongo[tls,srv]~=3.8</span><span class="s2">&#34;</span><span class="p">,</span><span class="c1"># mongod交互</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">numpy~=1.16</span><span class="s2">&#34;</span><span class="p">,</span>          <span class="c1"># numpy</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">scipy~=1.2</span><span class="s2">&#34;</span><span class="p">,</span>           <span class="c1"># scipy，科学计算库</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tensorflow~=1.14.0</span><span class="s2">&#34;</span><span class="p">,</span>   <span class="c1"># tensorlfow，深度学习框架</span>
-    <span class="c1"># absl is a tensorflow dependency, but produces double logging before 0.8</span>
-    <span class="c1"># should be removed once tensorflow requires absl &gt; 0.8 on its own</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">requests&gt;=2.20</span><span class="s2">&#34;</span><span class="p">,</span>       <span class="c1"># http 请求库</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">boto3~=1.9</span><span class="s2">&#34;</span><span class="p">,</span>           <span class="c1"># 适用于 Python 的 AWS 开发工具包</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">matplotlib~=3.0</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># 绘图</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">attrs&gt;=18</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 详细介绍见：https://www.jb51.net/article/162909.htm</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">jsonpickle~=1.1</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># 用来序列化复杂的 Python 对象到 JSON 文档，https://jsonpickle.github.io/</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">redis~=3.3.5</span><span class="s2">&#34;</span><span class="p">,</span>         <span class="c1"># 与redis交互</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pymongo[tls,srv]~=3.8</span><span class="s2">&#34;</span><span class="p">,</span><span class="c1"># mongod交互</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">numpy~=1.16</span><span class="s2">&#34;</span><span class="p">,</span>          <span class="c1"># numpy</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">scipy~=1.2</span><span class="s2">&#34;</span><span class="p">,</span>           <span class="c1"># scipy，科学计算库</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tensorflow~=1.14.0</span><span class="s2">&#34;</span><span class="p">,</span>   <span class="c1"># tensorlfow，深度学习框架</span>
+    <span class="c1"># absl is a tensorflow dependency, but produces double logging before 0.8</span>
+    <span class="c1"># should be removed once tensorflow requires absl &gt; 0.8 on its own</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">absl-py&gt;=0.8.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="c1"># setuptools comes from tensorboard requirement:</span>
-    <span class="c1"># https://github.com/tensorflow/tensorboard/blob/1.14/tensorboard/pip_package/setup.py#L33</span>
+    <span class="c1"># setuptools comes from tensorboard requirement:</span>
+    <span class="c1"># https://github.com/tensorflow/tensorboard/blob/1.14/tensorboard/pip_package/setup.py#L33</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">setuptools &gt;= 41.0.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tensorflow-probability~=0.7.0</span><span class="s2">&#34;</span><span class="p">,</span> <span class="c1"># 概率编程，参见：https://blog.csdn.net/yH0VLDe8VG8ep9VGe/article/details/84985912</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tensor2tensor~=1.14.0</span><span class="s2">&#34;</span><span class="p">,</span>   <span class="c1"># https://github.com/tensorflow/tensor2tensor</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">apscheduler~=3.0</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 安排定期执行的任务，https://www.cnblogs.com/zhaoyingjie/p/9664081.html</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tqdm~=4.0</span><span class="s2">&#34;</span><span class="p">,</span>               <span class="c1"># 一个快速，可扩展的Python进度条，https://blog.csdn.net/langb2014/article/details/54798823</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">networkx~=2.3</span><span class="s2">&#34;</span><span class="p">,</span>           <span class="c1"># 网络分析库，https://www.cnblogs.com/kaituorensheng/p/5423131.html</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">fbmessenger~=6.0</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 与facebook messenger api通信</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pykwalify~=1.7.0</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># YAML JSON校验库</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">coloredlogs~=10.0</span><span class="s2">&#34;</span><span class="p">,</span>       <span class="c1"># 用于带颜色的终端输出，https://coloredlogs.readthedocs.io/en/latest/</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">scikit-learn~=0.20.2</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># 机器学习库</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ruamel.yaml~=0.15.0</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># YAML parser/emitter</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">scikit-learn~=0.20.0</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># duplicate</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">slackclient~=1.3</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 用于和slack web api交互，https://pypi.org/project/slackclient/</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-telegram-bot~=11.0</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1">#  Telegram Bot API.的python接口，https://github.com/python-telegram-bot/python-telegram-bot</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">twilio~=6.0</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># Twilio API Python实现</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">webexteamssdk~=1.1</span><span class="s2">&#34;</span><span class="p">,</span>         <span class="c1"># Webex Teams APIs</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">mattermostwrapper~=2.0</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># Mattermost 是一个 Slack 的开源替代品</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">rocketchat_API~=0.6.0</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># rocketchat_API</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">colorhash~=1.0</span><span class="s2">&#34;</span><span class="p">,</span>             <span class="c1"># 针对对象的hash值生成颜色，https://pypi.org/project/colorhash/</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pika~=1.0.0</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># RabbitMQ 客户端库</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">jsonschema~=2.6</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 对json数据进行校验</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">packaging~=19.0</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 打包</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">gevent~=1.4</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># https://www.liaoxuefeng.com/wiki/897692888725344/966405998508320，https://blog.csdn.net/freeking101/article/details/53097420</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pytz~=2019.1</span><span class="s2">&#34;</span><span class="p">,</span>               <span class="c1"># python时区设置</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-dateutil~=2.8</span><span class="s2">&#34;</span><span class="p">,</span>       <span class="c1"># https://blog.csdn.net/handsomekang/article/details/10128671</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tensorflow-probability~=0.7.0</span><span class="s2">&#34;</span><span class="p">,</span> <span class="c1"># 概率编程，参见：https://blog.csdn.net/yH0VLDe8VG8ep9VGe/article/details/84985912</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tensor2tensor~=1.14.0</span><span class="s2">&#34;</span><span class="p">,</span>   <span class="c1"># https://github.com/tensorflow/tensor2tensor</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">apscheduler~=3.0</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 安排定期执行的任务，https://www.cnblogs.com/zhaoyingjie/p/9664081.html</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">tqdm~=4.0</span><span class="s2">&#34;</span><span class="p">,</span>               <span class="c1"># 一个快速，可扩展的Python进度条，https://blog.csdn.net/langb2014/article/details/54798823</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">networkx~=2.3</span><span class="s2">&#34;</span><span class="p">,</span>           <span class="c1"># 网络分析库，https://www.cnblogs.com/kaituorensheng/p/5423131.html</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">fbmessenger~=6.0</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 与facebook messenger api通信</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pykwalify~=1.7.0</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># YAML JSON校验库</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">coloredlogs~=10.0</span><span class="s2">&#34;</span><span class="p">,</span>       <span class="c1"># 用于带颜色的终端输出，https://coloredlogs.readthedocs.io/en/latest/</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">scikit-learn~=0.20.2</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># 机器学习库</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ruamel.yaml~=0.15.0</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># YAML parser/emitter</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">scikit-learn~=0.20.0</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># duplicate</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">slackclient~=1.3</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 用于和slack web api交互，https://pypi.org/project/slackclient/</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-telegram-bot~=11.0</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1">#  Telegram Bot API.的python接口，https://github.com/python-telegram-bot/python-telegram-bot</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">twilio~=6.0</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># Twilio API Python实现</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">webexteamssdk~=1.1</span><span class="s2">&#34;</span><span class="p">,</span>         <span class="c1"># Webex Teams APIs</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">mattermostwrapper~=2.0</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># Mattermost 是一个 Slack 的开源替代品</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">rocketchat_API~=0.6.0</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># rocketchat_API</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">colorhash~=1.0</span><span class="s2">&#34;</span><span class="p">,</span>             <span class="c1"># 针对对象的hash值生成颜色，https://pypi.org/project/colorhash/</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pika~=1.0.0</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># RabbitMQ 客户端库</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">jsonschema~=2.6</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 对json数据进行校验</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">packaging~=19.0</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 打包</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">gevent~=1.4</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># https://www.liaoxuefeng.com/wiki/897692888725344/966405998508320，https://blog.csdn.net/freeking101/article/details/53097420</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pytz~=2019.1</span><span class="s2">&#34;</span><span class="p">,</span>               <span class="c1"># python时区设置</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-dateutil~=2.8</span><span class="s2">&#34;</span><span class="p">,</span>       <span class="c1"># https://blog.csdn.net/handsomekang/article/details/10128671</span>
     <span class="sa"></span><span class="s2">&#34;</span><span class="s2">rasa-sdk~=1.3.0</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">colorclass~=2.2</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 为控制台添加颜色</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">terminaltables~=3.1</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 控制台输出表格</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sanic~=19.6</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># sanic web框架</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sanic-cors==0.9.9.post1</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># 实现跨域访问很方便的扩展</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sanic-jwt~=1.3</span><span class="s2">&#34;</span><span class="p">,</span>             <span class="c1"># 认证插件</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">aiohttp~=3.5</span><span class="s2">&#34;</span><span class="p">,</span>               <span class="c1"># https://www.liaoxuefeng.com/wiki/1016959663602400/1017985577429536</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">questionary&gt;=1.1.0</span><span class="s2">&#34;</span><span class="p">,</span>         <span class="c1"># 用于构建漂亮的命令行输入提示</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-socketio&gt;=4.3.1</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># python socket.io</span>
-    <span class="c1"># the below can be unpinned when python-socketio pins &gt;=3.9.3</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-engineio&gt;=3.9.3</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># Engine.IO server and client</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pydot~=1.4</span><span class="s2">&#34;</span><span class="p">,</span>                 <span class="c1"># 数据可视化</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">async_generator~=1.10</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># </span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">SQLAlchemy~=1.3.0</span><span class="s2">&#34;</span><span class="p">,</span>          <span class="c1"># 提供了SQL工具包及对象关系映射工具</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">kafka-python~=1.4</span><span class="s2">&#34;</span><span class="p">,</span>          <span class="c1"># kafka python客户端</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sklearn-crfsuite~=0.3.6</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># CRF suit</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">PyJWT~=1.7</span><span class="s2">&#34;</span><span class="p">,</span>                 <span class="c1"># json网络令牌</span>
-    <span class="c1"># remove when tensorflow@1.15.x or a pre-release patch is released</span>
-    <span class="c1"># https://github.com/tensorflow/tensorflow/issues/32319</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">gast==0.2.2</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># 通用的抽象语法树</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">colorclass~=2.2</span><span class="s2">&#34;</span><span class="p">,</span>            <span class="c1"># 为控制台添加颜色</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">terminaltables~=3.1</span><span class="s2">&#34;</span><span class="p">,</span>        <span class="c1"># 控制台输出表格</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sanic~=19.6</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># sanic web框架</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sanic-cors==0.9.9.post1</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># 实现跨域访问很方便的扩展</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sanic-jwt~=1.3</span><span class="s2">&#34;</span><span class="p">,</span>             <span class="c1"># 认证插件</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">aiohttp~=3.5</span><span class="s2">&#34;</span><span class="p">,</span>               <span class="c1"># https://www.liaoxuefeng.com/wiki/1016959663602400/1017985577429536</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">questionary&gt;=1.1.0</span><span class="s2">&#34;</span><span class="p">,</span>         <span class="c1"># 用于构建漂亮的命令行输入提示</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-socketio&gt;=4.3.1</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># python socket.io</span>
+    <span class="c1"># the below can be unpinned when python-socketio pins &gt;=3.9.3</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">python-engineio&gt;=3.9.3</span><span class="s2">&#34;</span><span class="p">,</span>     <span class="c1"># Engine.IO server and client</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">pydot~=1.4</span><span class="s2">&#34;</span><span class="p">,</span>                 <span class="c1"># 数据可视化</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">async_generator~=1.10</span><span class="s2">&#34;</span><span class="p">,</span>      <span class="c1"># </span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">SQLAlchemy~=1.3.0</span><span class="s2">&#34;</span><span class="p">,</span>          <span class="c1"># 提供了SQL工具包及对象关系映射工具</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">kafka-python~=1.4</span><span class="s2">&#34;</span><span class="p">,</span>          <span class="c1"># kafka python客户端</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">sklearn-crfsuite~=0.3.6</span><span class="s2">&#34;</span><span class="p">,</span>    <span class="c1"># CRF suit</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">PyJWT~=1.7</span><span class="s2">&#34;</span><span class="p">,</span>                 <span class="c1"># json网络令牌</span>
+    <span class="c1"># remove when tensorflow@1.15.x or a pre-release patch is released</span>
+    <span class="c1"># https://github.com/tensorflow/tensorflow/issues/32319</span>
+    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">gast==0.2.2</span><span class="s2">&#34;</span><span class="p">,</span>                <span class="c1"># 通用的抽象语法树</span>
 <span class="p">]</span>
 
 <span class="n">extras_requires</span> <span class="o">=</span> <span class="p">{</span>

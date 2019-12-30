@@ -48,7 +48,7 @@
 <meta itemprop="description" content="原文链接 http://soft.vub.ac.be/~cderoove/structuur2/C&#43;&#43;11.pdf 空指针常量 - nullptr 1 2 3 4 5 void foo(char*); // 1 void foo(int); // 2 fool(NULL); //&lt;c&#43;&#43;03&gt; 这个函数会调用函数2 fool(nullptr); //&lt;c&#43;&#43;11&gt; 这个函数会调用函数1 标准类型 在c&#43;&#43;03中，不同的类型在不同的">
 <meta itemprop="datePublished" content="2018-09-08T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-09-08T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3677">
+<meta itemprop="wordCount" content="3675">
 
 
 
@@ -236,9 +236,9 @@
 </span><span class="c1"></span><span class="n">cout</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="n">test11</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// output is: C:\A\B\file.txt
 </span><span class="c1"></span>
 <span class="n">string</span> <span class="n">testBlock</span> <span class="o">=</span>
-<span class="n">R</span><span class="sa"></span><span class="s">&#34;</span><span class="s">(First lint.</span>
+<span class="n">R</span><span class="sa"></span><span class="s">&#34;</span><span class="s">(First lint.</span>
 <span class="n">Second</span> <span class="n">line</span><span class="p">.</span>
-<span class="n">Third</span> <span class="n">Line</span><span class="p">.</span><span class="p">)</span><span class="sa"></span><span class="s">&#34;</span><span class="s">;</span>
+<span class="n">Third</span> <span class="n">Line</span><span class="p">.</span><span class="p">)</span><span class="sa"></span><span class="s">&#34;</span><span class="s">;</span>
 <span class="n">cout</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="n">testBlock</span> <span class="o">&lt;</span><span class="o">&lt;</span><span class="n">endl</span><span class="p">;</span>
 <span class="cm">/* The output is:
 </span><span class="cm">First line.
@@ -500,8 +500,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// c++11
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="nc">A</span><span class="p">{</span><span class="p">}</span><span class="p">;</span>

@@ -48,7 +48,7 @@
 <meta itemprop="description" content="rasa source - nlu中的tokenizer实现走读 所有的tokenizer相关的代码见目录：https://github.com/RasaHQ/ra">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2229">
+<meta itemprop="wordCount" content="2225">
 
 
 
@@ -299,53 +299,53 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">JiebaTokenizer</span><span class="p">(</span><span class="n">Tokenizer</span><span class="p">,</span> <span class="n">Component</span><span class="p">)</span><span class="p">:</span>
-    <span class="c1"># MESSAGE_ATTRIBUTES = [&#34;text&#34;, &#34;intent&#34;, &#34;response&#34;]</span>
-	<span class="c1"># provides = [&#34;tokens&#34;, &#34;intent_tokens&#34;, &#34;response_tokens&#34;]</span>
+    <span class="c1"># MESSAGE_ATTRIBUTES = [&#34;text&#34;, &#34;intent&#34;, &#34;response&#34;]</span>
+	<span class="c1"># provides = [&#34;tokens&#34;, &#34;intent_tokens&#34;, &#34;response_tokens&#34;]</span>
     <span class="n">provides</span> <span class="o">=</span> <span class="p">[</span><span class="n">MESSAGE_TOKENS_NAMES</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">MESSAGE_ATTRIBUTES</span><span class="p">]</span>
 
     <span class="n">language_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">zh</span><span class="s2">&#34;</span><span class="p">]</span>
 
     <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
         <span class="sa"></span><span class="s2">&#34;</span><span class="s2">dictionary_path</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-        <span class="c1"># Flag to check whether to split intents</span>
+        <span class="c1"># Flag to check whether to split intents</span>
         <span class="sa"></span><span class="s2">&#34;</span><span class="s2">intent_tokenization_flag</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
-        <span class="c1"># Symbol on which intent should be split</span>
+        <span class="c1"># Symbol on which intent should be split</span>
         <span class="sa"></span><span class="s2">&#34;</span><span class="s2">intent_split_symbol</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">_</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="p">}</span>  <span class="c1"># default don&#39;t load custom dictionary</span>
+    <span class="p">}</span>  <span class="c1"># default don&#39;t load custom dictionary</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
         <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Construct a new intent classifier using the MITIE framework.</span><span class="s2">&#34;&#34;&#34;</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">JiebaTokenizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">component_config</span><span class="p">)</span>
 
-        <span class="c1"># path to dictionary file or None</span>
+        <span class="c1"># path to dictionary file or None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dictionary_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">dictionary_path</span><span class="s2">&#34;</span><span class="p">)</span>
 
-        <span class="c1"># flag to check whether to split intents</span>
+        <span class="c1"># flag to check whether to split intents</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">intent_tokenization_flag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="sa"></span><span class="s2">&#34;</span><span class="s2">intent_tokenization_flag</span><span class="s2">&#34;</span>
         <span class="p">)</span>
 
-        <span class="c1"># symbol to split intents on</span>
+        <span class="c1"># symbol to split intents on</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">intent_split_symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">intent_split_symbol</span><span class="s2">&#34;</span><span class="p">)</span>
 
-        <span class="c1"># load dictionary</span>
+        <span class="c1"># load dictionary</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dictionary_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">load_custom_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dictionary_path</span><span class="p">)</span>
 
-    <span class="c1"># 关于classmethod，staticmethod的详细介绍，参见补充知识</span>
+    <span class="c1"># 关于classmethod，staticmethod的详细介绍，参见补充知识</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">required_packages</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">jieba</span><span class="s2">&#34;</span><span class="p">]</span>
 
-    <span class="c1"># 加载自定义词典</span>
+    <span class="c1"># 加载自定义词典</span>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">load_custom_dictionary</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Text</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Load all the custom dictionaries stored in the path.</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">        More information about the dictionaries file format can</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        be found in the documentation of jieba.</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        https://github.com/fxsjy/jieba#load-dictionary</span><span class="s2">
+        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Load all the custom dictionaries stored in the path.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">        More information about the dictionaries file format can</span><span class="s2">
+</span><span class="s2"></span><span class="s2">        be found in the documentation of jieba.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">        https://github.com/fxsjy/jieba#load-dictionary</span><span class="s2">
 </span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
         <span class="kn">import</span> <span class="nn">jieba</span>
 
@@ -357,11 +357,11 @@
     <span class="k">def</span> <span class="nf">train</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">training_data</span><span class="p">:</span> <span class="n">TrainingData</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RasaNLUModelConfig</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="c1"># example的类型是Dict</span>
-        <span class="c1"># 针对nlu中的每句话进行分词，将分词得到的列表值设入字典中</span>
+        <span class="c1"># example的类型是Dict</span>
+        <span class="c1"># 针对nlu中的每句话进行分词，将分词得到的列表值设入字典中</span>
         <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">training_data</span><span class="o">.</span><span class="n">training_examples</span><span class="p">:</span>
 
-            <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">MESSAGE_ATTRIBUTES</span><span class="p">:</span>  <span class="c1"># MESSAGE_ATTRIBUTES = [&#34;text&#34;, &#34;intent&#34;, &#34;response&#34;]</span>
+            <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">MESSAGE_ATTRIBUTES</span><span class="p">:</span>  <span class="c1"># MESSAGE_ATTRIBUTES = [&#34;text&#34;, &#34;intent&#34;, &#34;response&#34;]</span>
 
                 <span class="k">if</span> <span class="n">example</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="n">example</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
@@ -377,7 +377,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">preprocess_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span><span class="p">:</span>
-	    <span class="c1"># 确定对意图是不是需要进行split</span>
+	    <span class="c1"># 确定对意图是不是需要进行split</span>
         <span class="k">if</span> <span class="n">attribute</span> <span class="o">==</span> <span class="n">MESSAGE_INTENT_ATTRIBUTE</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">intent_tokenization_flag</span><span class="p">:</span>
             <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2"> </span><span class="s2">&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intent_split_symbol</span><span class="p">)</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -388,8 +388,8 @@
 
         <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
         <span class="n">tokenized</span> <span class="o">=</span> <span class="n">jieba</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-        <span class="c1"># 创建token列表</span>
-        <span class="c1"># Token的定义很简单，用来存储单词，单词出现的偏置等基本信息</span>
+        <span class="c1"># 创建token列表</span>
+        <span class="c1"># Token的定义很简单，用来存储单词，单词出现的偏置等基本信息</span>
         <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">Token</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span> <span class="ow">in</span> <span class="n">tokenized</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">tokens</span>
 
@@ -405,7 +405,7 @@
 
         <span class="n">relative_dictionary_path</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">dictionary_path</span><span class="s2">&#34;</span><span class="p">)</span>
 
-        <span class="c1"># get real path of dictionary path, if any</span>
+        <span class="c1"># get real path of dictionary path, if any</span>
         <span class="k">if</span> <span class="n">relative_dictionary_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">dictionary_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">relative_dictionary_path</span><span class="p">)</span>
 
@@ -415,7 +415,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">copy_files_dir_to_dir</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span><span class="p">:</span>
-        <span class="c1"># make sure target path exists</span>
+        <span class="c1"># make sure target path exists</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
 
@@ -426,7 +426,7 @@
     <span class="k">def</span> <span class="nf">persist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span> <span class="n">model_dir</span><span class="p">:</span> <span class="n">Text</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
         <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Persist this model into the passed directory.</span><span class="s2">&#34;&#34;&#34;</span>
 
-        <span class="c1"># copy custom dictionaries to model dir, if any</span>
+        <span class="c1"># copy custom dictionaries to model dir, if any</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dictionary_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">target_dictionary_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">copy_files_dir_to_dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dictionary_path</span><span class="p">,</span> <span class="n">target_dictionary_path</span><span class="p">)</span>
@@ -585,8 +585,8 @@
         <span class="n">MESSAGE_TOKENS_NAMES</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">SPACY_FEATURIZABLE_ATTRIBUTES</span>
     <span class="p">]</span>
 
-    <span class="c1"># SPACY_FEATURIZABLE_ATTRIBUTES: [&#34;text&#34;, &#34;response&#34;]</span>
-    <span class="c1"># requires: [&#34;spacy_doc&#34;, &#34;response_spacy_doc&#34;]</span>
+    <span class="c1"># SPACY_FEATURIZABLE_ATTRIBUTES: [&#34;text&#34;, &#34;response&#34;]</span>
+    <span class="c1"># requires: [&#34;spacy_doc&#34;, &#34;response_spacy_doc&#34;]</span>
     <span class="n">requires</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">MESSAGE_SPACY_FEATURES_NAMES</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">SPACY_FEATURIZABLE_ATTRIBUTES</span>
@@ -647,7 +647,7 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 自定义模板如下</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 自定义模板如下</span>
 <span class="k">class</span> <span class="nc">CustomTokenizer</span><span class="p">(</span><span class="n">Tokenizer</span><span class="p">,</span> <span class="n">Component</span><span class="p">)</span><span class="p">:</span>
     <span class="n">provides</span> <span class="o">=</span> <span class="p">[</span><span class="n">MESSAGE_TOKENS_NAMES</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">MESSAGE_ATTRIBUTES</span><span class="p">]</span>
     
@@ -662,7 +662,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span><span class="p">,</span>
                     <span class="p">)</span>
     
-    <span class="c1"># 主要是要实现对应的</span>
+    <span class="c1"># 主要是要实现对应的</span>
     <span class="n">tokenize</span>
     <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Text</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Token</span><span class="p">]</span><span class="p">:</span>
         <span class="k">pass</span>

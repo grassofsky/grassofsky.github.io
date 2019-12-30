@@ -390,9 +390,9 @@ actions:                        &lt;!-- 动作名称 --&gt;
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">rasa_sdk</span> <span class="kn">import</span> <span class="n">Action</span>
 <span class="kn">from</span> <span class="nn">rasa_sdk.events</span> <span class="kn">import</span> <span class="n">SlotSet</span>
 
-<span class="c1"># 继承Action实现自定义action，通常需要实现两个函数，</span>
-<span class="c1"># name，返回的是该action的名字，需要和stories.md和domain.yml中保持一致，</span>
-<span class="c1"># run，具体实现的代码</span>
+<span class="c1"># 继承Action实现自定义action，通常需要实现两个函数，</span>
+<span class="c1"># name，返回的是该action的名字，需要和stories.md和domain.yml中保持一致，</span>
+<span class="c1"># run，具体实现的代码</span>
 <span class="k">class</span> <span class="nc">ActionSearchConcerts</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">action_search_concerts</span><span class="s2">&#34;</span>
@@ -403,8 +403,8 @@ actions:                        &lt;!-- 动作名称 --&gt;
             <span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">artist</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Katy Perry</span><span class="s2">&#34;</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">reviews</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">}</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="n">description</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">, </span><span class="s2">&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">artist</span><span class="s2">&#34;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">concerts</span><span class="p">]</span><span class="p">)</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_message</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">description</span><span class="p">)</span><span class="p">)</span> <span class="c1"># 返回对话内容</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">SlotSet</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">concerts</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">concerts</span><span class="p">)</span><span class="p">]</span> <span class="c1"># 将值设定到slot中</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_message</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">description</span><span class="p">)</span><span class="p">)</span> <span class="c1"># 返回对话内容</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">SlotSet</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">concerts</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">concerts</span><span class="p">)</span><span class="p">]</span> <span class="c1"># 将值设定到slot中</span>
 
 
 <span class="k">class</span> <span class="nc">ActionSearchVenues</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span><span class="p">:</span>
@@ -427,7 +427,7 @@ actions:                        &lt;!-- 动作名称 --&gt;
         <span class="k">return</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">action_show_concert_reviews</span><span class="s2">&#34;</span>
 
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">:</span>
-        <span class="n">concerts</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">concerts</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># 从tracker中，根据slot名字，获取slot的值</span>
+        <span class="n">concerts</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">concerts</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># 从tracker中，根据slot名字，获取slot的值</span>
         <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_message</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">concerts from slots: {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">concerts</span><span class="p">)</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
 

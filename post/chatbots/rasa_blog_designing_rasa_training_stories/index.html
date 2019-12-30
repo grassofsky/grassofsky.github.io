@@ -48,7 +48,7 @@
 <meta itemprop="description" content="rasa blog - 设计Rasa训练故事 训练数据都是每个机器学习模型的关键部分。对于对话AI来说也是一回事。我们设计了Rasa为了避免手写规则，你的助手应">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="6156">
+<meta itemprop="wordCount" content="6155">
 
 
 
@@ -321,7 +321,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">ActionSubscribeNewsletter</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span><span class="p">:</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2"> This action calls our newsletter API and subscribes the user with</span><span class="s2">
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2"> This action calls our newsletter API and subscribes the user with</span><span class="s2">
 </span><span class="s2"></span><span class="s2">    their email address</span><span class="s2">&#34;&#34;&#34;</span>
 
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
@@ -330,7 +330,7 @@
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dispatcher</span><span class="p">,</span> <span class="n">tracker</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span><span class="p">:</span>
         <span class="n">email</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">email</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">email</span><span class="p">:</span>
-            <span class="c1"># if the email is already subscribed, this returns False</span>
+            <span class="c1"># if the email is already subscribed, this returns False</span>
             <span class="n">subscribed</span> <span class="o">=</span> <span class="n">check_if_subscribed</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="p">[</span><span class="n">SlotSet</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">subscribed</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">subscribed</span><span class="p">)</span><span class="p">]</span>

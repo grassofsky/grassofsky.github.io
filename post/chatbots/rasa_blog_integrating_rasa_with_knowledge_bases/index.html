@@ -319,7 +319,7 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="n">entity_type</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">entity_type</span><span class="s2">&#34;</span><span class="p">)</span>
 <span class="n">attribute</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">attribute</span><span class="s2">&#34;</span><span class="p">)</span>
-<span class="n">entity_name</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">entity_type</span><span class="p">)</span> <span class="c1"># entity_type = &#39;bank&#39;</span>
+<span class="n">entity_name</span> <span class="o">=</span> <span class="n">tracker</span><span class="o">.</span><span class="n">get_slot</span><span class="p">(</span><span class="n">entity_type</span><span class="p">)</span> <span class="c1"># entity_type = &#39;bank&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>我们假设所有的slot都被设置了。检索知识库还差一个东西：对应entity类型的关键属性，如（name）。为了获取这个关键属性，你需要在代码中以字典的形式定义数据库结构。所有的实体以及对应的属性都会被列出。此外，每个实体应该有个关键属性，和属性列表，可以用来输出这个实体。比如，bank的结构看上去是这样的：</p>

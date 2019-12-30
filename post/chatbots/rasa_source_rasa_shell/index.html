@@ -48,7 +48,7 @@
 <meta itemprop="description" content="rasa source - rasa shell 代码走读 在rasa/run.py: run函数中添加断点pudb.set_trace()。运行示例，examples/knowled">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2992">
+<meta itemprop="wordCount" content="2987">
 
 
 
@@ -243,7 +243,7 @@
 
     <span class="n">rasa</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">configure_file_logging</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">enable_api</span><span class="p">:</span>  <span class="c1"># False</span>
+    <span class="k">if</span> <span class="n">enable_api</span><span class="p">:</span>  <span class="c1"># False</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">create_app</span><span class="p">(</span>
             <span class="n">cors_origins</span><span class="o">=</span><span class="n">cors</span><span class="p">,</span>
             <span class="n">auth_token</span><span class="o">=</span><span class="n">auth_token</span><span class="p">,</span>
@@ -252,11 +252,11 @@
             <span class="n">endpoints</span><span class="o">=</span><span class="n">endpoints</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># 创建Sanic对象</span>
+        <span class="c1"># 创建Sanic对象</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">_create_app_without_api</span><span class="p">(</span><span class="n">cors</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">input_channels</span><span class="p">:</span>
-        <span class="c1"># 将input_channels注册到app</span>
+        <span class="c1"># 将input_channels注册到app</span>
         <span class="n">channels</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">route</span><span class="o">=</span><span class="n">route</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">input_channels</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
@@ -264,26 +264,26 @@
     <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span><span class="p">:</span>
         <span class="n">rasa</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">list_routes</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
-    <span class="c1"># configure async loop logging</span>
+    <span class="c1"># configure async loop logging</span>
     <span class="n">async</span> <span class="k">def</span> <span class="nf">configure_async_logging</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span><span class="p">:</span>
             <span class="n">rasa</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">enable_async_loop_debugging</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
 
-    <span class="c1"># 添加task，在app起来之后会被调用</span>
+    <span class="c1"># 添加task，在app起来之后会被调用</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">configure_async_logging</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">cmdline</span><span class="s2">&#34;</span> <span class="ow">in</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">input_channels</span><span class="p">}</span><span class="p">:</span>
 
         <span class="n">async</span> <span class="k">def</span> <span class="nf">run_cmdline_io</span><span class="p">(</span><span class="n">running_app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">)</span><span class="p">:</span>
             <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Small wrapper to shut down the server once cmd io is done.</span><span class="s2">&#34;&#34;&#34;</span>
-            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># allow server to start</span>
+            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># allow server to start</span>
             <span class="n">await</span> <span class="n">console</span><span class="o">.</span><span class="n">record_messages</span><span class="p">(</span>
                 <span class="n">server_url</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">http</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
             <span class="p">)</span>
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Killing Sanic server now.</span><span class="s2">&#34;</span><span class="p">)</span>
-            <span class="n">running_app</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="p">)</span>  <span class="c1"># kill the sanic serverx</span>
-	    <span class="c1"># 添加shell运行的关键函数，run_cmdline_io</span>
+            <span class="n">running_app</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="p">)</span>  <span class="c1"># kill the sanic serverx</span>
+	    <span class="c1"># 添加shell运行的关键函数，run_cmdline_io</span>
         <span class="n">app</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">run_cmdline_io</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">app</span>
@@ -392,10 +392,10 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">channel</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">credentials</span><span class="p">:</span>
         <span class="n">channel</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">cmdline</span><span class="s2">&#34;</span>
 
-    <span class="c1"># 创建的是CmdlineInput，该类的主要实现位于RestInput类中</span>
+    <span class="c1"># 创建的是CmdlineInput，该类的主要实现位于RestInput类中</span>
     <span class="n">input_channels</span> <span class="o">=</span> <span class="n">create_http_input_channels</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">credentials</span><span class="p">)</span>
 
-    <span class="c1"># 创建sanic app</span>
+    <span class="c1"># 创建sanic app</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">configure_app</span><span class="p">(</span>
         <span class="n">input_channels</span><span class="p">,</span>
         <span class="n">cors</span><span class="p">,</span>
@@ -418,13 +418,13 @@
         <span class="sa"></span><span class="s2">&#34;</span><span class="s2">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span><span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="c1"># 注册事件，当服务启动之前会被调用</span>
+    <span class="c1"># 注册事件，当服务启动之前会被调用</span>
     <span class="n">app</span><span class="o">.</span><span class="n">register_listener</span><span class="p">(</span>
         <span class="n">partial</span><span class="p">(</span><span class="n">load_agent_on_start</span><span class="p">,</span> <span class="n">model_path</span><span class="p">,</span> <span class="n">endpoints</span><span class="p">,</span> <span class="n">remote_storage</span><span class="p">)</span><span class="p">,</span>
         <span class="sa"></span><span class="s2">&#34;</span><span class="s2">before_server_start</span><span class="s2">&#34;</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
     <span class="n">async</span> <span class="k">def</span> <span class="nf">clear_model_files</span><span class="p">(</span><span class="n">_app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">,</span> <span class="n">_loop</span><span class="p">:</span> <span class="n">Text</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">model_directory</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">_app</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">model_directory</span><span class="p">)</span>
@@ -433,7 +433,7 @@
 
     <span class="n">rasa</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">update_sanic_log_level</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
 
-    <span class="c1"># 启动服务</span>
+    <span class="c1"># 启动服务</span>
     <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
         <span class="n">host</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">0.0.0.0</span><span class="s2">&#34;</span><span class="p">,</span>
         <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
@@ -515,7 +515,7 @@
 </span><span class="lnt">65
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># noinspection PyUnusedLocal</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># noinspection PyUnusedLocal</span>
 <span class="n">async</span> <span class="k">def</span> <span class="nf">load_agent_on_start</span><span class="p">(</span>
     <span class="n">model_path</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
     <span class="n">endpoints</span><span class="p">:</span> <span class="n">AvailableEndpoints</span><span class="p">,</span>
@@ -523,37 +523,37 @@
     <span class="n">app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">,</span>
     <span class="n">loop</span><span class="p">:</span> <span class="n">Text</span><span class="p">,</span>
 <span class="p">)</span><span class="p">:</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Load an agent.</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">    Used to be scheduled on server start</span><span class="s2">
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Load an agent.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Used to be scheduled on server start</span><span class="s2">
 </span><span class="s2"></span><span class="s2">    (hence the `app` and `loop` arguments).</span><span class="s2">&#34;&#34;&#34;</span>
     <span class="kn">import</span> <span class="nn">rasa.core.brokers.utils</span> <span class="kn">as</span> <span class="nn">broker_utils</span>
 
-    <span class="c1"># noinspection PyBroadException</span>
+    <span class="c1"># noinspection PyBroadException</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># 从model目录中加载模型</span>
+        <span class="c1"># 从model目录中加载模型</span>
         <span class="k">with</span> <span class="n">model</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">unpacked_model</span><span class="p">:</span>
-            <span class="c1"># 获取nlu模型</span>
+            <span class="c1"># 获取nlu模型</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">nlu_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_model_subdirectories</span><span class="p">(</span><span class="n">unpacked_model</span><span class="p">)</span>
-            <span class="c1"># 根据nlu模型创建NaturalLanguageInterpreter</span>
-            <span class="c1"># 此处创建的为RasaNLUInterpreter</span>
+            <span class="c1"># 根据nlu模型创建NaturalLanguageInterpreter</span>
+            <span class="c1"># 此处创建的为RasaNLUInterpreter</span>
             <span class="n">_interpreter</span> <span class="o">=</span> <span class="n">NaturalLanguageInterpreter</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">nlu_model</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">nlu</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Could not load interpreter from </span><span class="s2">&#39;</span><span class="s2">{}</span><span class="s2">&#39;</span><span class="s2">.</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span><span class="p">)</span>
         <span class="n">_interpreter</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="c1"># 事件代理相关，此处无</span>
+    <span class="c1"># 事件代理相关，此处无</span>
     <span class="n">_broker</span> <span class="o">=</span> <span class="n">broker_utils</span><span class="o">.</span><span class="n">from_endpoint_config</span><span class="p">(</span><span class="n">endpoints</span><span class="o">.</span><span class="n">event_broker</span><span class="p">)</span>
-    <span class="c1"># 创建TrackerStore，此处为默认的InMemoryTrackerStore</span>
+    <span class="c1"># 创建TrackerStore，此处为默认的InMemoryTrackerStore</span>
     <span class="n">_tracker_store</span> <span class="o">=</span> <span class="n">TrackerStore</span><span class="o">.</span><span class="n">find_tracker_store</span><span class="p">(</span>
         <span class="bp">None</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">tracker_store</span><span class="p">,</span> <span class="n">_broker</span>
     <span class="p">)</span>
-    <span class="c1"># 对于的lock为InMemoryLockStore</span>
+    <span class="c1"># 对于的lock为InMemoryLockStore</span>
     <span class="n">_lock_store</span> <span class="o">=</span> <span class="n">LockStore</span><span class="o">.</span><span class="n">find_lock_store</span><span class="p">(</span><span class="n">endpoints</span><span class="o">.</span><span class="n">lock_store</span><span class="p">)</span>
 
     <span class="n">model_server</span> <span class="o">=</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">model</span> <span class="k">if</span> <span class="n">endpoints</span> <span class="ow">and</span> <span class="n">endpoints</span><span class="o">.</span><span class="n">model</span> <span class="k">else</span> <span class="bp">None</span>
 
-    <span class="c1"># 从模型中创建agent对象</span>
+    <span class="c1"># 从模型中创建agent对象</span>
     <span class="n">app</span><span class="o">.</span><span class="n">agent</span> <span class="o">=</span> <span class="n">await</span> <span class="n">agent</span><span class="o">.</span><span class="n">load_agent</span><span class="p">(</span>
         <span class="n">model_path</span><span class="p">,</span>
         <span class="n">model_server</span><span class="o">=</span><span class="n">model_server</span><span class="p">,</span>
@@ -598,13 +598,13 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python">		<span class="n">async</span> <span class="k">def</span> <span class="nf">run_cmdline_io</span><span class="p">(</span><span class="n">running_app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">)</span><span class="p">:</span>
             <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Small wrapper to shut down the server once cmd io is done.</span><span class="s2">&#34;&#34;&#34;</span>
-            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># allow server to start</span>
+            <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># allow server to start</span>
             <span class="n">await</span> <span class="n">console</span><span class="o">.</span><span class="n">record_messages</span><span class="p">(</span>
                 <span class="n">server_url</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_SERVER_FORMAT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">http</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
             <span class="p">)</span>
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Killing Sanic server now.</span><span class="s2">&#34;</span><span class="p">)</span>
-            <span class="n">running_app</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="p">)</span>  <span class="c1"># kill the sanic serverx</span>
+            <span class="n">running_app</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="p">)</span>  <span class="c1"># kill the sanic serverx</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>该函数调用的是<code>console.record_messages</code>，如下：</p>
@@ -656,7 +656,7 @@
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/channels/console.py</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/channels/console.py</span>
 <span class="n">async</span> <span class="k">def</span> <span class="nf">record_messages</span><span class="p">(</span>
     <span class="n">server_url</span><span class="o">=</span><span class="n">DEFAULT_SERVER_URL</span><span class="p">,</span>
     <span class="n">auth_token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -678,14 +678,14 @@
     <span class="n">num_messages</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">button_question</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">while</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_limit_reached</span><span class="p">(</span><span class="n">num_messages</span><span class="p">,</span> <span class="n">max_message_limit</span><span class="p">)</span><span class="p">:</span>
-        <span class="c1"># 获取用户输入文本</span>
+        <span class="c1"># 获取用户输入文本</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">get_user_input</span><span class="p">(</span><span class="n">button_question</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="n">exit_text</span> <span class="ow">or</span> <span class="n">text</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">break</span>
 
-        <span class="k">if</span> <span class="n">use_response_stream</span><span class="p">:</span> <span class="c1"># True</span>
-            <span class="c1"># 发送信息到服务器获取回复</span>
+        <span class="k">if</span> <span class="n">use_response_stream</span><span class="p">:</span> <span class="c1"># True</span>
+            <span class="c1"># 发送信息到服务器获取回复</span>
             <span class="n">bot_responses</span> <span class="o">=</span> <span class="n">send_message_receive_stream</span><span class="p">(</span>
                 <span class="n">server_url</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">text</span>
             <span class="p">)</span>
@@ -727,10 +727,10 @@
 
     <span class="n">url</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">{}/webhooks/rest/webhook?stream=true&amp;token={}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server_url</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">)</span>
 
-    <span class="c1"># Define timeout to not keep reading in case the server crashed in between</span>
+    <span class="c1"># Define timeout to not keep reading in case the server crashed in between</span>
     <span class="n">timeout</span> <span class="o">=</span> <span class="n">ClientTimeout</span><span class="p">(</span><span class="n">DEFAULT_STREAM_READING_TIMEOUT_IN_SECONDS</span><span class="p">)</span>
-    <span class="c1"># TODO: check if this properly receives UTF-8 data</span>
-    <span class="c1"># 通过调用webhooks http api接口，获取响应信息</span>
+    <span class="c1"># TODO: check if this properly receives UTF-8 data</span>
+    <span class="c1"># 通过调用webhooks http api接口，获取响应信息</span>
     <span class="n">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
         <span class="n">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">raise_for_status</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
 
@@ -762,21 +762,21 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/channels/channel.py</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/channels/channel.py</span>
 <span class="k">def</span> <span class="nf">register</span><span class="p">(</span>
     <span class="n">input_channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">InputChannel</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Sanic</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
     <span class="n">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
-        <span class="c1"># 用来处理消息</span>
+        <span class="c1"># 用来处理消息</span>
         <span class="n">await</span> <span class="n">app</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">input_channels</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">route</span><span class="p">:</span>
-            <span class="c1"># p： &#39;/webhooks/rest&#39;</span>
+            <span class="c1"># p： &#39;/webhooks/rest&#39;</span>
             <span class="n">p</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">url_prefix</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">p</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="c1"># 添加到app的路由上</span>
+        <span class="c1"># 添加到app的路由上</span>
         <span class="n">app</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">blueprint</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span><span class="p">,</span> <span class="n">url_prefix</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
 
     <span class="n">app</span><span class="o">.</span><span class="n">input_channels</span> <span class="o">=</span> <span class="n">input_channels</span>
@@ -917,10 +917,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">RestInput</span><span class="p">(</span><span class="n">InputChannel</span><span class="p">)</span><span class="p">:</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A custom http input channel.</span><span class="s2">
-</span><span class="s2"></span><span class="s2"></span><span class="s2">
-</span><span class="s2"></span><span class="s2">    This implementation is the basis for a custom implementation of a chat</span><span class="s2">
-</span><span class="s2"></span><span class="s2">    frontend. You can customize this to send messages to Rasa Core and</span><span class="s2">
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A custom http input channel.</span><span class="s2">
+</span><span class="s2"></span><span class="s2">
+</span><span class="s2"></span><span class="s2">    This implementation is the basis for a custom implementation of a chat</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    frontend. You can customize this to send messages to Rasa Core and</span><span class="s2">
 </span><span class="s2"></span><span class="s2">    retrieve responses from the agent.</span><span class="s2">&#34;&#34;&#34;</span>
 
     <span class="nd">@classmethod</span>
@@ -943,12 +943,12 @@
         <span class="p">)</span>
         <span class="n">await</span> <span class="n">on_new_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-        <span class="n">await</span> <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># pytype: disable=bad-return-type</span>
+        <span class="n">await</span> <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># pytype: disable=bad-return-type</span>
 
     <span class="n">async</span> <span class="k">def</span> <span class="nf">_extract_sender</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">sender</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-    <span class="c1"># noinspection PyMethodMayBeStatic</span>
+    <span class="c1"># noinspection PyMethodMayBeStatic</span>
     <span class="k">def</span> <span class="nf">_extract_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Text</span><span class="p">]</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">message</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
@@ -964,14 +964,14 @@
         <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
         <span class="n">async</span> <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">resp</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="c1"># 这里的Queue作用于生产者消费者模式</span>
+            <span class="c1"># 这里的Queue作用于生产者消费者模式</span>
             <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="p">)</span>
             <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">on_message_wrapper</span><span class="p">(</span>
                     <span class="n">on_new_message</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">input_channel</span><span class="p">,</span> <span class="n">metadata</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># declare variable up front to avoid pytype error</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># declare variable up front to avoid pytype error</span>
             <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">await</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">DONE</span><span class="s2">&#34;</span><span class="p">:</span>
@@ -980,12 +980,12 @@
                     <span class="n">await</span> <span class="n">resp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
             <span class="n">await</span> <span class="n">task</span>
 
-        <span class="k">return</span> <span class="n">stream</span>  <span class="c1"># pytype: disable=bad-return-type</span>
+        <span class="k">return</span> <span class="n">stream</span>  <span class="c1"># pytype: disable=bad-return-type</span>
 
-    <span class="c1"># 这里的on_new_message就是上一个片段的代码中出现的：</span>
-    <span class="c1"># async def handler(*args, **kwargs):</span>
-    <span class="c1">#     # 用来处理消息</span>
-    <span class="c1">#     await app.agent.handle_message(*args, **kwargs)</span>
+    <span class="c1"># 这里的on_new_message就是上一个片段的代码中出现的：</span>
+    <span class="c1"># async def handler(*args, **kwargs):</span>
+    <span class="c1">#     # 用来处理消息</span>
+    <span class="c1">#     await app.agent.handle_message(*args, **kwargs)</span>
     <span class="k">def</span> <span class="nf">blueprint</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">on_new_message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="p">[</span><span class="n">UserMessage</span><span class="p">]</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Blueprint</span><span class="p">:</span>
@@ -994,17 +994,17 @@
             <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># noinspection PyUnusedLocal</span>
-        <span class="c1"># 最后组合后的url为 ip:port/webhooks/rest/</span>
+        <span class="c1"># noinspection PyUnusedLocal</span>
+        <span class="c1"># 最后组合后的url为 ip:port/webhooks/rest/</span>
         <span class="nd">@custom_webhook.route</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">GET</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">)</span>
         <span class="n">async</span> <span class="k">def</span> <span class="nf">health</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">HTTPResponse</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">status</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ok</span><span class="s2">&#34;</span><span class="p">}</span><span class="p">)</span>
 
-        <span class="c1"># 最后组合后的url为 ip:port/webhooks/rest/webhook</span>
+        <span class="c1"># 最后组合后的url为 ip:port/webhooks/rest/webhook</span>
         <span class="nd">@custom_webhook.route</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">/webhook</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">POST</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">)</span>
         <span class="n">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">HTTPResponse</span><span class="p">:</span>
             <span class="n">sender_id</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_sender</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-            <span class="c1"># 用户输入的消息</span>
+            <span class="c1"># 用户输入的消息</span>
             <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_message</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
             <span class="n">should_use_stream</span> <span class="o">=</span> <span class="n">rasa</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">bool_arg</span><span class="p">(</span>
                 <span class="n">request</span><span class="p">,</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">stream</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span>
@@ -1021,7 +1021,7 @@
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">collector</span> <span class="o">=</span> <span class="n">CollectingOutputChannel</span><span class="p">(</span><span class="p">)</span>
-                <span class="c1"># noinspection PyBroadException</span>
+                <span class="c1"># noinspection PyBroadException</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">await</span> <span class="n">on_new_message</span><span class="p">(</span>
                         <span class="n">UserMessage</span><span class="p">(</span>
@@ -1095,7 +1095,7 @@
                 <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Passing a text to `agent.handle_message(...)` is </span><span class="s2">&#34;</span>
                 <span class="sa"></span><span class="s2">&#34;</span><span class="s2">deprecated. Rather use `agent.handle_text(...)`.</span><span class="s2">&#34;</span>
             <span class="p">)</span>
-            <span class="c1"># noinspection PyTypeChecker</span>
+            <span class="c1"># noinspection PyTypeChecker</span>
             <span class="k">return</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_text</span><span class="p">(</span>
                 <span class="n">message</span><span class="p">,</span> <span class="n">message_preprocessor</span><span class="o">=</span><span class="n">message_preprocessor</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span>
             <span class="p">)</span>
@@ -1106,11 +1106,11 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ready</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">noop</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-	    <span class="c1"># 创建MessageProcessor</span>
+	    <span class="c1"># 创建MessageProcessor</span>
         <span class="n">processor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_processor</span><span class="p">(</span><span class="n">message_preprocessor</span><span class="p">)</span>
 
         <span class="n">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock_store</span><span class="o">.</span><span class="n">lock</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">sender_id</span><span class="p">)</span><span class="p">:</span>
-            <span class="c1"># 利用MessageProcessor处理消息</span>
+            <span class="c1"># 利用MessageProcessor处理消息</span>
             <span class="k">return</span> <span class="n">await</span> <span class="n">processor</span><span class="o">.</span><span class="n">handle_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
@@ -1151,20 +1151,20 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/processor.py</span>
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># rasa/core/processor.py</span>
     <span class="n">async</span> <span class="k">def</span> <span class="nf">handle_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">UserMessage</span>
     <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
         <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Handle a single message with this processor.</span><span class="s2">&#34;&#34;&#34;</span>
 
-        <span class="c1"># preprocess message if necessary</span>
-        <span class="c1"># 将消息记录到tracker中</span>
+        <span class="c1"># preprocess message if necessary</span>
+        <span class="c1"># 将消息记录到tracker中</span>
         <span class="n">tracker</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">should_save_tracker</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tracker</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy_ensemble</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="p">:</span>
-            <span class="c1"># save tracker state to continue conversation from this state</span>
+            <span class="c1"># save tracker state to continue conversation from this state</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_save_tracker</span><span class="p">(</span><span class="n">tracker</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                 <span class="sa"></span><span class="s2">&#34;</span><span class="s2">No policy ensemble or domain set. Skipping action prediction </span><span class="s2">&#34;</span>
@@ -1172,12 +1172,12 @@
             <span class="p">)</span>
             <span class="k">return</span> <span class="bp">None</span>
 
-        <span class="c1"># 对下一个action进行预测以及执行</span>
+        <span class="c1"># 对下一个action进行预测以及执行</span>
         <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_and_execute_next_action</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
-        <span class="c1"># save tracker state to continue conversation from this state</span>
+        <span class="c1"># save tracker state to continue conversation from this state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_tracker</span><span class="p">(</span><span class="n">tracker</span><span class="p">)</span>
 
-        <span class="c1"># 如果有返回消息，则返回</span>
+        <span class="c1"># 如果有返回消息，则返回</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">output_channel</span><span class="p">,</span> <span class="n">CollectingOutputChannel</span><span class="p">)</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="n">output_channel</span><span class="o">.</span><span class="n">messages</span>
         <span class="k">else</span><span class="p">:</span>

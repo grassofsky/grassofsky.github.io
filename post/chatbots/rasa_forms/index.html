@@ -48,7 +48,7 @@
 <meta itemprop="description" content="对话系统rasa - forms (翻译) 注意：这里有个关于Rasa Forms用于slot filling更深入的介绍，见：here 一种最常用的对话模式是从">
 <meta itemprop="datePublished" content="2019-12-21T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-12-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4509">
+<meta itemprop="wordCount" content="4504">
 
 
 
@@ -249,9 +249,9 @@ actions:
 	<span class="n">tracker</span><span class="p">:</span> <span class="n">Tracker</span><span class="p">,</span>
 	<span class="n">domain</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span><span class="p">:</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Define what the form has to do</span><span class="s2">
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Define what the form has to do</span><span class="s2">
 </span><span class="s2"></span><span class="s2">       after all required slots are filled</span><span class="s2">&#34;&#34;&#34;</span>
-    <span class="c1"># utter submit template</span>
+    <span class="c1"># utter submit template</span>
     <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_submit</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="p">]</span>
 </code></pre></td></tr></table>
@@ -292,10 +292,10 @@ actions:
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">slot_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span><span class="o">&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Text</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">:</span>
-    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A dictionary to map required slots to</span><span class="s2">
-</span><span class="s2"></span><span class="s2">       - an extracted entity</span><span class="s2">
-</span><span class="s2"></span><span class="s2">       - intent: value pairs</span><span class="s2">
-</span><span class="s2"></span><span class="s2">       - a whole message</span><span class="s2">
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">A dictionary to map required slots to</span><span class="s2">
+</span><span class="s2"></span><span class="s2">       - an extracted entity</span><span class="s2">
+</span><span class="s2"></span><span class="s2">       - intent: value pairs</span><span class="s2">
+</span><span class="s2"></span><span class="s2">       - a whole message</span><span class="s2">
 </span><span class="s2"></span><span class="s2">       or a list of them, where a first match will be picked</span><span class="s2">&#34;&#34;&#34;</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="sa"></span><span class="s2">&#34;</span><span class="s2">cuisine</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_entity</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">cuisine</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">not_intent</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">chitchat</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
@@ -389,12 +389,12 @@ actions:
         <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">Validate cuisine value.</span><span class="s2">&#34;&#34;&#34;</span>
 
         <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">(</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuisine_db</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
-            <span class="c1"># validation succeeded, set the value of the &#34;cuisine&#34; slot to value</span>
+            <span class="c1"># validation succeeded, set the value of the &#34;cuisine&#34; slot to value</span>
             <span class="k">return</span> <span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">cuisine</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">dispatcher</span><span class="o">.</span><span class="n">utter_template</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">utter_wrong_cuisine</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">tracker</span><span class="p">)</span>
-            <span class="c1"># validation failed, set this slot to None, meaning the</span>
-            <span class="c1"># user will be asked for the slot again</span>
+            <span class="c1"># validation failed, set this slot to None, meaning the</span>
+            <span class="c1"># user will be asked for the slot again</span>
             <span class="k">return</span> <span class="p">{</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">cuisine</span><span class="s2">&#34;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>

@@ -48,7 +48,7 @@
 <meta itemprop="description" content="简介 fastbuild整个memory模块包括： mem。重载了operator new delete，用于内存泄漏的跟踪 MemTracker。内存泄">
 <meta itemprop="datePublished" content="2018-04-05T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-05T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1683">
+<meta itemprop="wordCount" content="1672">
 
 
 
@@ -248,12 +248,12 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// Mem.h
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">pragma once</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Includes
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemTracker.h&#34;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemTracker.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Placement new/delete
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
@@ -278,7 +278,7 @@
 </span><span class="cm"> * MyClass* p = (MyClass*)::operator new(sizeof(MyClass));
 </span><span class="cm"> * new(p) MyClass();
 </span><span class="cm"> */</span>
-<span class="cp">#</span><span class="cp">define INPLACE_NEW new</span><span class="cp">
+<span class="cp">#</span><span class="cp">define INPLACE_NEW new</span><span class="cp">
 </span><span class="cp"></span><span class="kr">inline</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span> <span class="n">size_t</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ptr</span><span class="p">;</span> <span class="p">}</span>
 <span class="kr">inline</span> <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">[</span><span class="p">]</span><span class="p">(</span> <span class="n">size_t</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ptr</span><span class="p">;</span> <span class="p">}</span>
 <span class="kr">inline</span> <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="p">)</span> <span class="p">{</span><span class="p">}</span>
@@ -288,23 +288,23 @@
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
 </span><span class="c1"></span><span class="c1">// 如果MEMTRACKER_ENABLE，使用自定义的operator new(size_t, const char*, int); 否则使用默认函数
 </span><span class="c1"></span><span class="c1">// 同时也对alloc进行重定义
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEMTRACKER_ENABLED )</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW( code )        new ( __FILE__, __LINE__ ) code</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW_ARRAY( code )  new ( __FILE__, __LINE__ ) code</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE             delete</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE_ARRAY       delete[]</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEMTRACKER_ENABLED )</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW( code )        new ( __FILE__, __LINE__ ) code</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW_ARRAY( code )  new ( __FILE__, __LINE__ ) code</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE             delete</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE_ARRAY       delete[]</span><span class="cp">
 </span><span class="cp"></span>
-    <span class="cp">#</span><span class="cp">define ALLOC( ... )        ::AllocFileLine( __VA_ARGS__, __FILE__, __LINE__ )</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FREE( ptr )         ::Free( ptr )</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">else</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW( code )        new code</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW_ARRAY( code )  new code</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE             delete</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE_ARRAY       delete[]</span><span class="cp">
+    <span class="cp">#</span><span class="cp">define ALLOC( ... )        ::AllocFileLine( __VA_ARGS__, __FILE__, __LINE__ )</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FREE( ptr )         ::Free( ptr )</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">else</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW( code )        new code</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FNEW_ARRAY( code )  new code</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE             delete</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FDELETE_ARRAY       delete[]</span><span class="cp">
 </span><span class="cp"></span>
-    <span class="cp">#</span><span class="cp">define ALLOC( ... )        ::Alloc( __VA_ARGS__ )</span><span class="cp">
-</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FREE( ptr )         ::Free( ptr )</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
+    <span class="cp">#</span><span class="cp">define ALLOC( ... )        ::Alloc( __VA_ARGS__ )</span><span class="cp">
+</span><span class="cp"></span>    <span class="cp">#</span><span class="cp">define FREE( ptr )         ::Free( ptr )</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">endif</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Alloc/Free
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
@@ -317,12 +317,12 @@
 <span class="c1">// global new/delete
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
 </span><span class="c1"></span><span class="c1">// delete与new必须相互对应
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEMTRACKER_ENABLED )</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEMTRACKER_ENABLED )</span><span class="cp">
 </span><span class="cp"></span>    <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">line</span> <span class="p">)</span><span class="p">;</span>
     <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">[</span><span class="p">]</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">line</span> <span class="p">)</span><span class="p">;</span>
     <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span> <span class="p">)</span><span class="p">;</span>
     <span class="kt">void</span> <span class="k">operator</span> <span class="k">delete</span><span class="p">[</span><span class="p">]</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span> <span class="p">)</span><span class="p">;</span>
-<span class="cp">#</span><span class="cp">endif</span><span class="cp">
+<span class="cp">#</span><span class="cp">endif</span><span class="cp">
 </span><span class="cp"></span><span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span> <span class="p">)</span><span class="p">;</span>
 <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">[</span><span class="p">]</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span> <span class="p">)</span><span class="p">;</span>
 <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span>
@@ -457,16 +457,16 @@
 </span><span class="c1"></span>
 <span class="c1">// Includes
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/PrecompiledHeader.h&#34;</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/PrecompiledHeader.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Mem.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemDebug.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemTracker.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/SmallBlockAllocator.h&#34;</span><span class="cp">
+<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Mem.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Assert.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Env/Types.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemDebug.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/MemTracker.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&#34;Core/Mem/SmallBlockAllocator.h&#34;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+<span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// Defines
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
@@ -500,26 +500,26 @@
 <span class="p">{</span>
     <span class="kt">void</span> <span class="o">*</span> <span class="n">mem</span><span class="p">(</span> <span class="k">nullptr</span> <span class="p">)</span><span class="p">;</span>
 
-    <span class="err">#</span><span class="k">if</span> <span class="n">defined</span><span class="p">(</span> <span class="n">SMALL_BLOCK_ALLOCATOR_ENABLED</span> <span class="p">)</span>
-        <span class="c1">// 关于SmallBlockAllocator的实现在其对应的源码中进行介绍
+    <span class="cp">#</span><span class="cp">if defined( SMALL_BLOCK_ALLOCATOR_ENABLED )</span><span class="cp">
+</span><span class="cp"></span>        <span class="c1">// 关于SmallBlockAllocator的实现在其对应的源码中进行介绍
 </span><span class="c1"></span>        <span class="c1">// 用于分配小的对齐的内存空间
 </span><span class="c1"></span>        <span class="n">mem</span> <span class="o">=</span> <span class="n">SmallBlockAllocator</span><span class="o">:</span><span class="o">:</span><span class="n">Alloc</span><span class="p">(</span> <span class="n">size</span><span class="p">,</span> <span class="n">alignment</span> <span class="p">)</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span> <span class="n">mem</span> <span class="o">=</span><span class="o">=</span> <span class="k">nullptr</span> <span class="p">)</span>
-    <span class="err">#</span><span class="n">endif</span>
-    <span class="p">{</span>
-        <span class="err">#</span><span class="k">if</span> <span class="n">defined</span><span class="p">(</span> <span class="n">__LINUX__</span> <span class="p">)</span> <span class="o">|</span><span class="o">|</span> <span class="n">defined</span><span class="p">(</span> <span class="n">__APPLE__</span> <span class="p">)</span>
-            <span class="n">VERIFY</span><span class="p">(</span> <span class="n">posix_memalign</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">mem</span><span class="p">,</span> <span class="n">alignment</span><span class="p">,</span> <span class="n">size</span> <span class="p">)</span> <span class="o">=</span><span class="o">=</span> <span class="mi">0</span> <span class="p">)</span><span class="p">;</span>
-        <span class="err">#</span><span class="k">else</span>
-            <span class="c1">// 返回的地址空间能够被alignment整除，即按照alignment进行对齐的
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>    <span class="p">{</span>
+        <span class="cp">#</span><span class="cp">if defined( __LINUX__ ) || defined( __APPLE__ )</span><span class="cp">
+</span><span class="cp"></span>            <span class="n">VERIFY</span><span class="p">(</span> <span class="n">posix_memalign</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">mem</span><span class="p">,</span> <span class="n">alignment</span><span class="p">,</span> <span class="n">size</span> <span class="p">)</span> <span class="o">=</span><span class="o">=</span> <span class="mi">0</span> <span class="p">)</span><span class="p">;</span>
+        <span class="cp">#</span><span class="cp">else</span><span class="cp">
+</span><span class="cp"></span>            <span class="c1">// 返回的地址空间能够被alignment整除，即按照alignment进行对齐的
 </span><span class="c1"></span>            <span class="n">mem</span> <span class="o">=</span> <span class="n">_aligned_malloc</span><span class="p">(</span> <span class="n">size</span><span class="p">,</span> <span class="n">alignment</span> <span class="p">)</span><span class="p">;</span>
             <span class="kr">__assume</span><span class="p">(</span> <span class="n">mem</span> <span class="p">)</span><span class="p">;</span>
-        <span class="err">#</span><span class="n">endif</span>
-
+        <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>
         <span class="c1">// 在MemDebug进行介绍，在内存区域填充特定的内容，用于标记
-</span><span class="c1"></span>        <span class="cp">#</span><span class="cp">ifdef MEM_FILL_NEW_ALLOCATIONS</span><span class="cp">
+</span><span class="c1"></span>        <span class="cp">#</span><span class="cp">ifdef MEM_FILL_NEW_ALLOCATIONS</span><span class="cp">
 </span><span class="cp"></span>            <span class="n">MemDebug</span><span class="o">:</span><span class="o">:</span><span class="n">FillMem</span><span class="p">(</span> <span class="n">mem</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">MemDebug</span><span class="o">:</span><span class="o">:</span><span class="n">MEM_FILL_NEW_ALLOCATION_PATTERN</span> <span class="p">)</span><span class="p">;</span>
-        <span class="err">#</span><span class="n">endif</span>
-    <span class="p">}</span>
+        <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>    <span class="p">}</span>
 
     <span class="c1">// 将当前的内存分配的操作记录到memtracker中
 </span><span class="c1"></span>    <span class="n">MEMTRACKER_ALLOC</span><span class="p">(</span> <span class="n">mem</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span> <span class="p">)</span><span class="p">;</span>
@@ -540,27 +540,27 @@
     <span class="c1">// 在memtracker中释放原来记录的内存分配
 </span><span class="c1"></span>    <span class="n">MEMTRACKER_FREE</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span>
 
-    <span class="err">#</span><span class="k">if</span> <span class="n">defined</span><span class="p">(</span> <span class="n">SMALL_BLOCK_ALLOCATOR_ENABLED</span> <span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="n">SmallBlockAllocator</span><span class="o">:</span><span class="o">:</span><span class="n">Free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span> <span class="o">=</span><span class="o">=</span> <span class="nb">false</span> <span class="p">)</span>
-    <span class="err">#</span><span class="n">endif</span>
-    <span class="p">{</span>
-        <span class="err">#</span><span class="k">if</span> <span class="n">defined</span><span class="p">(</span> <span class="n">__LINUX__</span> <span class="p">)</span> <span class="o">|</span><span class="o">|</span> <span class="n">defined</span><span class="p">(</span> <span class="n">__APPLE__</span> <span class="p">)</span>
-            <span class="n">free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span>
-        <span class="err">#</span><span class="k">else</span>
-            <span class="n">_aligned_free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span>
-        <span class="err">#</span><span class="n">endif</span>
-    <span class="p">}</span>
+    <span class="cp">#</span><span class="cp">if defined( SMALL_BLOCK_ALLOCATOR_ENABLED )</span><span class="cp">
+</span><span class="cp"></span>        <span class="k">if</span> <span class="p">(</span> <span class="n">SmallBlockAllocator</span><span class="o">:</span><span class="o">:</span><span class="n">Free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span> <span class="o">=</span><span class="o">=</span> <span class="nb">false</span> <span class="p">)</span>
+    <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>    <span class="p">{</span>
+        <span class="cp">#</span><span class="cp">if defined( __LINUX__ ) || defined( __APPLE__ )</span><span class="cp">
+</span><span class="cp"></span>            <span class="n">free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span>
+        <span class="cp">#</span><span class="cp">else</span><span class="cp">
+</span><span class="cp"></span>            <span class="n">_aligned_free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span>
+        <span class="cp">#</span><span class="cp">endif</span><span class="cp">
+</span><span class="cp"></span>    <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// Operators
 </span><span class="c1"></span><span class="c1">// 重载内存分配，删除操作
 </span><span class="c1"></span><span class="c1">//------------------------------------------------------------------------------
-</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEMTRACKER_ENABLED )</span><span class="cp">
+</span><span class="c1"></span><span class="cp">#</span><span class="cp">if defined( MEMTRACKER_ENABLED )</span><span class="cp">
 </span><span class="cp"></span>    <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">line</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">AllocFileLine</span><span class="p">(</span> <span class="n">size</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
     <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">[</span><span class="p">]</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="kt">int</span> <span class="n">line</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">AllocFileLine</span><span class="p">(</span> <span class="n">size</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
     <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span> <span class="p">)</span> <span class="p">{</span> <span class="n">Free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
     <span class="kt">void</span> <span class="k">operator</span> <span class="k">delete</span><span class="p">[</span><span class="p">]</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span> <span class="p">)</span> <span class="p">{</span> <span class="n">Free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
-<span class="cp">#</span><span class="cp">endif</span><span class="cp">
+<span class="cp">#</span><span class="cp">endif</span><span class="cp">
 </span><span class="cp"></span><span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">Alloc</span><span class="p">(</span> <span class="n">size</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
 <span class="kt">void</span> <span class="o">*</span> <span class="k">operator</span> <span class="k">new</span><span class="p">[</span><span class="p">]</span><span class="p">(</span> <span class="n">size_t</span> <span class="n">size</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nf">Alloc</span><span class="p">(</span> <span class="n">size</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>
 <span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">ptr</span> <span class="p">)</span> <span class="p">{</span> <span class="n">Free</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">)</span><span class="p">;</span> <span class="p">}</span>

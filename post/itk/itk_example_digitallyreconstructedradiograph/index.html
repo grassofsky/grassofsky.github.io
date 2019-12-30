@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title> - grassofsky notebook</title>
+  <title>ITK example - digitally reconstructed radiograph - grassofsky notebook</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,16 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="grassofsky" /><meta name="description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
-重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
-通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
-注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&amp;lt;InputImageType, TInterpolatorPrecisionType&amp;gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&amp;lt; InputImageType, TCoordRep &amp;gt;会是一个更好的选择。
-如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
-输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
-CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
-这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
- SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
- SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &amp;#39;data/CT_3D_lung_fixed." /><meta name="keywords" content="grassofsky, notebook" />
+<meta name="author" content="grassofsky" /><meta name="description" content="ITK example - digitally reconstructed radiograph 简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。 重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/class" /><meta name="keywords" content="grassofsky, notebook" />
 
 
 
@@ -47,48 +38,23 @@ CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1Cente
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="" />
-<meta property="og:description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
-重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
-通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
-注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;会是一个更好的选择。
-如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
-输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
-CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
-这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
- SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
- SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &#39;data/CT_3D_lung_fixed." />
+<meta property="og:title" content="ITK example - digitally reconstructed radiograph" />
+<meta property="og:description" content="ITK example - digitally reconstructed radiograph 简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。 重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/class" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/" />
-
-<meta itemprop="name" content="">
-<meta itemprop="description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
-重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
-通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
-注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;会是一个更好的选择。
-如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
-输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
-CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
-这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
- SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
- SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &#39;data/CT_3D_lung_fixed.">
-
-<meta itemprop="wordCount" content="649">
+<meta property="article:published_time" content="2019-12-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-30T00:00:00+00:00" />
+<meta itemprop="name" content="ITK example - digitally reconstructed radiograph">
+<meta itemprop="description" content="ITK example - digitally reconstructed radiograph 简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。 重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/class">
+<meta itemprop="datePublished" content="2019-12-30T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-30T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1561">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
-重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
-通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
-注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;会是一个更好的选择。
-如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
-输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
-CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
-这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
- SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
- SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &#39;data/CT_3D_lung_fixed."/>
+<meta itemprop="keywords" content="ITK example," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ITK example - digitally reconstructed radiograph"/>
+<meta name="twitter:description" content="ITK example - digitally reconstructed radiograph 简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。 重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/class"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -151,11 +117,13 @@ CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1Cente
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title"></h1>
+      <h1 class="post-title">ITK example - digitally reconstructed radiograph</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 0001-01-01 </span>
-        
+        <span class="post-time"> 2019-12-30 </span>
+        <div class="post-category">
+            <a href="/categories/itk/"> ITK </a>
+            </div>
         
       </div>
     </header>
@@ -178,7 +146,8 @@ CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1Cente
   </div>
 </div>
     <div class="post-content">
-      <h2 id="heading">简介</h2>
+      <h1 id="itk-example---digitally-reconstructed-radiograph">ITK example - digitally reconstructed radiograph</h1>
+<h2 id="heading">简介</h2>
 <p>该示例根据 <a href="https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx">https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx</a> 实现对应python版本。</p>
 <h2 id="heading-1">重点类介绍</h2>
 <h3 id="resampleimagefilter">ResampleImageFilter</h3>
@@ -549,7 +518,7 @@ VBox(children=(Viewer(geometries=[], gradient_opacity=0.22, mode='z', point_sets
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        0001-01-01
+        2019-12-30
         
     </span>
   </p>
@@ -557,14 +526,16 @@ VBox(children=(Viewer(geometries=[], gradient_opacity=0.22, mode='z', point_sets
   
 </div>
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/itk-example/">ITK example</a>
+          </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/chatbots/rasa_theory_paper_starspace/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default"></span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
         
+        <a class="next" href="/post/chatbots/rasa_problem_use_entities/">
+            <span class="next-text nav-default">rasa problem - 意图中的use_entities选项</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
       </nav>
     </footer>
   </article>
