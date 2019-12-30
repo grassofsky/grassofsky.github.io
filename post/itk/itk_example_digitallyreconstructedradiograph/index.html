@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - grassofsky notebook</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="grassofsky" /><meta name="description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
+重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
+通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
+注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&amp;lt;InputImageType, TInterpolatorPrecisionType&amp;gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&amp;lt; InputImageType, TCoordRep &amp;gt;会是一个更好的选择。
+如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
+输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
+CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
+这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
+ SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
+ SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &amp;#39;data/CT_3D_lung_fixed." /><meta name="keywords" content="grassofsky, notebook" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
+重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
+通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
+注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;会是一个更好的选择。
+如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
+输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
+CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
+这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
+ SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
+ SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &#39;data/CT_3D_lung_fixed." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/itk/itk_example_digitallyreconstructedradiograph/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
+重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
+通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
+注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;会是一个更好的选择。
+如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
+输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
+CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
+这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
+ SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
+ SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &#39;data/CT_3D_lung_fixed.">
+
+<meta itemprop="wordCount" content="649">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="简介 该示例根据 https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx 实现对应python版本。
+重点类介绍 ResampleImageFilter 参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html
+通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。
+注意，插值函数的选择是很重要的。这个函数通过SetInterpolator()进行设定。默认的是LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;会是一个更好的选择。
+如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过SetExtrapolator().函数进行设置。
+输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。
+CenteredEuler3DTransform 参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html
+这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。
+ SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX  RayCastInterpolateImageFunction 将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。
+ SetFocalPoint：设置光线源的位置 SetThreshold：设置阈值之上的voxels才会被累加 SetTransform：设置Transform，用来计算新的光源的位置  1 2 3 4 5 6 7  import math import numpy as np import itk import itkwidgets from itkwidgets import view from ipywidgets import interactive import ipywidgets as widgets   1 2 3 4 5 6 7 8  # 加载原始体数据并显示 input_name = &#39;data/CT_3D_lung_fixed."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">简介</a></li>
+    <li><a href="#heading-1">重点类介绍</a>
+      <ul>
+        <li><a href="#resampleimagefilter">ResampleImageFilter</a></li>
+        <li><a href="#centeredeuler3dtransform">CenteredEuler3DTransform</a></li>
+        <li><a href="#raycastinterpolateimagefunction">RayCastInterpolateImageFunction</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="heading">简介</h2>
+<p>该示例根据 <a href="https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx">https://github.com/InsightSoftwareConsortium/ITK/blob/master/Examples/Filtering/DigitallyReconstructedRadiograph1.cxx</a> 实现对应python版本。</p>
+<h2 id="heading-1">重点类介绍</h2>
+<h3 id="resampleimagefilter">ResampleImageFilter</h3>
+<p>参见：https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html</p>
+<p>通过坐标变换对图像进行重采样。ResampleImageFilter 通过一些坐标变换对存在的图像进行重采样，通过一些image function进行插值。</p>
+<p>注意，插值函数的选择是很重要的。这个函数通过<a href="https://itk.org/Doxygen/html/classitk_1_1ResampleImageFilter.html#ac2d2efedb7d195170b2d8d424b2690c4">SetInterpolator()</a>进行设定。默认的是<code>LinearInterpolateImageFunction&lt;InputImageType, TInterpolatorPrecisionType&gt;</code>，对于普通的医学影像是够用了的。但是，一些合成图像的像素是从有限的指定集合中提取的。一个例子是一个Mask，它将大脑标记成少量的组织类型。对于这样的图像，并不想要对这些像素值之间的值进行插值，这个时候 <code>NearestNeighborInterpolateImageFunction&lt; InputImageType, TCoordRep &gt;</code>会是一个更好的选择。</p>
+<p>如果样本来自图像区域的外部，默认情况下使用默认的像素值。如果需要有不同的表现，可以通过<code>SetExtrapolator().</code>函数进行设置。</p>
+<p>输出图像的信息（spacing，size，direction）需要进行设置。这些信息具有单位间距、零原点、标识方向的默认值。可选地，可以从参考图像获得输出信息。如果提供了参考图像并且用户参考图像处于打开状态，则将使用参考图像的间距、原点和方向。</p>
+<h3 id="centeredeuler3dtransform">CenteredEuler3DTransform</h3>
+<p>参见：https://itk.org/Doxygen/html/classitk_1_1CenteredEuler3DTransform.html</p>
+<p>这个变换围绕特定的坐标系或者中心进行旋转，然后进行平移。</p>
+<ul>
+<li>SetComputeZYX： 旋转操作依赖于旋转顺序，设定为ZXY，或ZYX</li>
+</ul>
+<h3 id="raycastinterpolateimagefunction">RayCastInterpolateImageFunction</h3>
+<p>将光线投射到三维图像中，并使用双线性插值对遍历的每个体素平面进行积分。</p>
+<ul>
+<li>SetFocalPoint：设置光线源的位置</li>
+<li>SetThreshold：设置阈值之上的voxels才会被累加</li>
+<li>SetTransform：设置Transform，用来计算新的光源的位置</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itk</span>
+<span class="kn">import</span> <span class="nn">itkwidgets</span>
+<span class="kn">from</span> <span class="nn">itkwidgets</span> <span class="kn">import</span> <span class="n">view</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interactive</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="kn">as</span> <span class="nn">widgets</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 加载原始体数据并显示</span>
+<span class="n">input_name</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">data/CT_3D_lung_fixed.mha</span><span class="s1">&#39;</span>
+<span class="n">volume_lung</span> <span class="o">=</span> <span class="n">itk</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">input_name</span><span class="p">,</span> <span class="n">itk</span><span class="o">.</span><span class="n">ctype</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">float</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span> <span class="c1"># 读取影像文件，并将数据格式转换为float</span>
+<span class="k">print</span><span class="p">(</span><span class="n">volume_lung</span><span class="o">.</span><span class="n">GetLargestPossibleRegion</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">GetSize</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">volume_lung</span><span class="o">.</span><span class="n">GetBufferedRegion</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">GetSize</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">volume_lung</span><span class="o">.</span><span class="n">GetSpacing</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">volume_lung</span><span class="o">.</span><span class="n">GetOrigin</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+<span class="n">view</span><span class="p">(</span><span class="n">volume_lung</span><span class="p">,</span> <span class="n">gradient_opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">cmp</span><span class="o">=</span><span class="n">itkwidgets</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>itkSize3 ([115, 157, 129])
+itkSize3 ([115, 157, 129])
+itkVectorD3 ([1.366, 1.366, 2.5])
+itkPointD3 ([-153.827, -150.352, -1434.5])
+
+
+
+Viewer(geometries=[], gradient_opacity=0.5, point_sets=[], rendered_image=&lt;itkImagePython.itkImageF3; proxy of…
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">output_image_pixel_spacing</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.366</span><span class="p">,</span> <span class="mf">1.366</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">output_image_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">501</span><span class="p">,</span> <span class="mi">501</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#[501, 501, 1]</span>
+    
+   
+<span class="n">InputImageType</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">volume_lung</span><span class="p">)</span>
+<span class="n">FilterType</span> <span class="o">=</span> <span class="n">itk</span><span class="o">.</span><span class="n">ResampleImageFilter</span><span class="p">[</span><span class="n">InputImageType</span><span class="p">,</span> <span class="n">InputImageType</span><span class="p">]</span>
+<span class="nb">filter</span> <span class="o">=</span> <span class="n">FilterType</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="p">)</span>
+<span class="nb">filter</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">volume_lung</span><span class="p">)</span>
+<span class="nb">filter</span><span class="o">.</span><span class="n">SetDefaultPixelValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">filter</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="n">output_image_size</span><span class="p">)</span>
+<span class="nb">filter</span><span class="o">.</span><span class="n">SetOutputSpacing</span><span class="p">(</span><span class="n">output_image_pixel_spacing</span><span class="p">)</span>
+    
+<span class="n">TransformType</span> <span class="o">=</span> <span class="n">itk</span><span class="o">.</span><span class="n">CenteredEuler3DTransform</span><span class="p">[</span><span class="n">itk</span><span class="o">.</span><span class="n">D</span><span class="p">]</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">TransformType</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="p">)</span>
+<span class="n">transform</span><span class="o">.</span><span class="n">SetComputeZYX</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">InterpolatorType</span> <span class="o">=</span> <span class="n">itk</span><span class="o">.</span><span class="n">RayCastInterpolateImageFunction</span><span class="p">[</span><span class="n">InputImageType</span><span class="p">,</span> <span class="n">itk</span><span class="o">.</span><span class="n">D</span><span class="p">]</span>
+<span class="n">interpolator</span> <span class="o">=</span> <span class="n">InterpolatorType</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="p">)</span>
+
+<span class="n">viewer</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="k">def</span> <span class="nf">DigitallyReconstructedRadiograph</span><span class="p">(</span>
+    <span class="n">ray_source_distance</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> 
+    <span class="n">camera_tx</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> 
+    <span class="n">camera_ty</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> 
+    <span class="n">camera_tz</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">rotation_x</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">rotation_y</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">rotation_z</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">projection_normal_p_x</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">projection_normal_p_y</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">rotation_center_rt_volume_center_x</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">rotation_center_rt_volume_center_y</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">rotation_center_rt_volume_center_z</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+<span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    Parameters description:</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    </span><span class="s2">
+</span><span class="s2"></span><span class="s2">    ray_source_distance = 400                              # &lt;-sid float&gt;            Distance of ray source (focal point) focal point 400mm</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    camera_translation_parameter = [0., 0., 0.]            # &lt;-t float float float&gt;  Translation parameter of the camera</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    rotation_around_xyz = [0., 0., 0.]                     # &lt;-rx float&gt;             Rotation around x,y,z axis in degrees</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    projection_normal_position = [0, 0]                    # &lt;-normal float float&gt;   The 2D projection normal position [default: 0x0mm]</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    rotation_center_relative_to_volume_center = [0, 0, 0]  # &lt;-cor float float float&gt; The centre of rotation relative to centre of volume</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    threshold = 10                                          # &lt;-threshold float&gt;      Threshold [default: 0]</span><span class="s2">
+</span><span class="s2"></span><span class="s2">    </span><span class="s2">&#34;&#34;&#34;</span>
+
+
+    <span class="n">dgree_to_radius_coef</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mf">180.</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">camera_translation_parameter</span> <span class="o">=</span> <span class="p">[</span><span class="n">camera_tx</span><span class="p">,</span> <span class="n">camera_ty</span><span class="p">,</span> <span class="n">camera_tz</span><span class="p">]</span>
+    <span class="n">rotation_around_xyz</span> <span class="o">=</span> <span class="p">[</span><span class="n">rotation_x</span><span class="o">*</span><span class="n">dgree_to_radius_coef</span><span class="p">,</span> <span class="n">rotation_y</span><span class="o">*</span><span class="n">dgree_to_radius_coef</span><span class="p">,</span> <span class="n">rotation_z</span><span class="o">*</span><span class="n">dgree_to_radius_coef</span><span class="p">]</span>
+    <span class="n">projection_normal_position</span> <span class="o">=</span> <span class="p">[</span><span class="n">projection_normal_p_x</span><span class="p">,</span> <span class="n">projection_normal_p_y</span><span class="p">]</span>
+    <span class="n">rotation_center_relative_to_volume_center</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">rotation_center_rt_volume_center_x</span><span class="p">,</span> 
+        <span class="n">rotation_center_rt_volume_center_y</span><span class="p">,</span> 
+        <span class="n">rotation_center_rt_volume_center_z</span>
+    <span class="p">]</span>
+    
+    <span class="n">imageOrigin</span> <span class="o">=</span> <span class="n">volume_lung</span><span class="o">.</span><span class="n">GetOrigin</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">imageSpacing</span> <span class="o">=</span> <span class="n">volume_lung</span><span class="o">.</span><span class="n">GetSpacing</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">imageRegion</span> <span class="o">=</span> <span class="n">volume_lung</span><span class="o">.</span><span class="n">GetBufferedRegion</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">imageSize</span> <span class="o">=</span> <span class="n">imageRegion</span><span class="o">.</span><span class="n">GetSize</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">imageCenter</span> <span class="o">=</span> <span class="p">[</span><span class="n">imageOrigin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">imageSpacing</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">imageSize</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="p">]</span>
+    
+    <span class="n">transform</span><span class="o">.</span><span class="n">SetTranslation</span><span class="p">(</span><span class="n">camera_translation_parameter</span><span class="p">)</span>
+    <span class="n">transform</span><span class="o">.</span><span class="n">SetRotation</span><span class="p">(</span><span class="n">rotation_around_xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span> <span class="n">rotation_around_xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span> <span class="n">rotation_around_xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">)</span>
+
+    <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">+</span> <span class="n">imageCenter</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rotation_center_relative_to_volume_center</span><span class="p">)</span><span class="p">]</span>
+    <span class="n">transform</span><span class="o">.</span><span class="n">SetCenter</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+    
+    <span class="n">interpolator</span><span class="o">.</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+    <span class="n">interpolator</span><span class="o">.</span><span class="n">SetThreshold</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span>
+    <span class="n">focalPoint</span> <span class="o">=</span> <span class="p">[</span><span class="n">imageCenter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span> <span class="n">imageCenter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span> <span class="n">imageCenter</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">ray_source_distance</span><span class="o">/</span><span class="mf">2.0</span><span class="p">]</span>
+    <span class="n">interpolator</span><span class="o">.</span><span class="n">SetFocalPoint</span><span class="p">(</span><span class="n">focalPoint</span><span class="p">)</span>
+    
+    <span class="nb">filter</span><span class="o">.</span><span class="n">SetInterpolator</span><span class="p">(</span><span class="n">interpolator</span><span class="p">)</span>
+    <span class="nb">filter</span><span class="o">.</span><span class="n">SetTransform</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+
+    <span class="n">origin</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">imageCenter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">projection_normal_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">output_image_pixel_spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">output_image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+        <span class="n">imageCenter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">projection_normal_position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">output_image_pixel_spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">output_image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+        <span class="n">imageCenter</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">imageSpacing</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">imageSize</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="p">]</span>
+
+    <span class="nb">filter</span><span class="o">.</span><span class="n">SetOutputOrigin</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+    <span class="nb">filter</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">viewer</span>
+    <span class="k">if</span> <span class="n">viewer</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">viewer</span> <span class="o">=</span> <span class="n">view</span><span class="p">(</span><span class="nb">filter</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">z</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Update viewer image</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="n">viewer</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="nb">filter</span><span class="o">.</span><span class="n">GetOutput</span><span class="p">(</span><span class="p">)</span>
+    
+    <span class="c1"># print informations</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Volume image informations:</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">volume image origin : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">imageOrigin</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">volume image size   : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">imageSize</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">volume image spacing: </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">imageSpacing</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">volume image center : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">imageCenter</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Transform informations:</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">translation         : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">camera_translation_parameter</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">rotation            : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">rotation_around_xyz</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">center               : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">center</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Interpolator informations: </span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">threshold           : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">focalPoint          : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">focalPoint</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Filter informations:</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="se">\t</span><span class="s2">output origin        : </span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">origin</span><span class="p">)</span>
+  
+
+<span class="n">DigitallyReconstructedRadiograph</span><span class="p">(</span><span class="p">)</span>
+
+<span class="n">slider</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span>
+    <span class="n">DigitallyReconstructedRadiograph</span><span class="p">,</span> 
+    <span class="n">ray_source_distance</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">camera_tx</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span><span class="p">,</span> 
+    <span class="n">camera_ty</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span><span class="p">,</span> 
+    <span class="n">camera_tz</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">rotation_x</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">rotation_y</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">rotation_z</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">projection_normal_p_x</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">projection_normal_p_y</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">rotation_center_rt_volume_center_x</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">rotation_center_rt_volume_center_y</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+    <span class="n">rotation_center_rt_volume_center_z</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">(</span><span class="p">[</span><span class="n">viewer</span><span class="p">,</span> <span class="n">slider</span><span class="p">]</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>Volume image informations:
+    volume image origin :  itkPointD3 ([-153.827, -150.352, -1434.5])
+    volume image size   :  itkSize3 ([115, 157, 129])
+    volume image spacing:  itkVectorD3 ([1.366, 1.366, 2.5])
+    volume image center :  [-75.282, -43.120999999999995, -1273.25]
+Transform informations:
+    translation         :  [0.0, 0.0, 0.0]
+    rotation            :  [0.0, 0.0, 0.0]
+    center               :  [-75.282, -43.120999999999995, -1273.25]
+Interpolator informations: 
+    threshold           :  0.0
+    focalPoint          :  [-75.282, -43.120999999999995, -1323.25]
+Filter informations:
+    output origin        :  [-416.782, -384.621, -950.75]
+
+
+
+VBox(children=(Viewer(geometries=[], gradient_opacity=0.22, mode='z', point_sets=[], rendered_image=&lt;itkImageP…
+</code></pre>
+<p>结果示例如下：</p>
+<p><img src="/image/itk_example_drr.png" alt=""></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">grassofsky</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        0001-01-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/chatbots/rasa_theory_paper_starspace/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:grass-of-sky@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/grassofsky" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zhong-xie-wei-32" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">grassofsky</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
