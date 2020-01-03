@@ -9,7 +9,7 @@ categories=["visual computing for med reading"]
 
 ## 2.1 简介
 
-如何选择成像模态？
+*如何选择成像模态？*
 
 - 相关的解剖结构必须描述完整，
 - 数据的分辨率足够以回答特定的诊断和治疗问题，
@@ -29,5 +29,46 @@ categories=["visual computing for med reading"]
 
 最后介绍了领域，6-neighborhood，以及26-neighborhood。
 
+## 2.3 数据伪影和信号处理
 
+*如何理解傅里叶变换？*
+
+**TODO: 采样定律，fig2.5 2.6 重现**
+
+```python
+# ref: https://blog.csdn.net/qq_40587575/article/details/83316980
+
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+sampling_rate = 300    #采样率
+fft_size = 300         #FFT长度
+w = 100                 # 频率
+t = np.arange(0, 1.0, 1.0/sampling_rate)
+x = np.sin(2*np.pi*w*t)
+xs = x[:fft_size]
+
+xf = np.fft.rfft(xs) / fft_size  #返回fft_size/2+1 个频率
+
+freqs = np.linspace(0, sampling_rate/2, int(fft_size/2+1))   #表示频率
+xfp = np.abs(xf) * 2    #代表信号的幅值，即振幅
+
+plt.figure(num='original', figsize=(15, 6))
+plt.plot(x[:fft_size])
+
+plt.figure(figsize=(8,4))
+plt.subplot(211)
+plt.plot(t[:fft_size], xs)
+plt.xlabel(u"时间(秒)", fontproperties='FangSong')
+plt.title(u"100Hz的波形和频谱", fontproperties='FangSong')
+
+plt.subplot(212)
+plt.plot(freqs, xfp)
+plt.xlabel(u"频率(Hz)", fontproperties='FangSong')
+plt.ylabel(u'幅值', fontproperties='FangSong')
+plt.subplots_adjust(hspace=0.4)
+plt.show()
+```
+
+*如何利用信号处理解释伪影？*
 
