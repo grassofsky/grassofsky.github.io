@@ -49,7 +49,7 @@ categories=["visual computing for med reading"]
 
 而，实施干预（放射治疗、手术）的医生能够从交互式和动态三维可视化中获得很大的好处。
 
-## 1.4 获取更新的信息
+## 1.4 获取信息途径
 
 - IEEEVisualization
 - EuroVis
