@@ -128,9 +128,14 @@ Half-edge数据结构的python实现：
 
 ## 6.3 Marching Cubes
 
-*介绍针对2D的Marching Squares算法，并给出python实现？*
+### Marching Squares
 
-算法的相关介绍可以参见：https://blog.csdn.net/whuawell/article/details/74998280
+介绍针对2D的Marching Squares算法，并给出python实现？*
+
+算法的相关介绍可以参见：
+
+- https://blog.csdn.net/whuawell/article/details/74998280
+- https://blog.csdn.net/silangquan/article/details/47054309#commentBox
 
 ![](https://img-blog.csdn.net/20170711204000996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2h1YXdlbGw=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
 
@@ -138,15 +143,78 @@ Half-edge数据结构的python实现：
 
 - 遍历每个小网格，从16中固定情形中选择划线类别
 - 利用线性插值，结合网格点数值找寻交点
-- 化线
+- 画线
+
+手抄一波伪代码：
+
+```
+Input: F is a 2D array of scalar values
+       Coord is a 2D array of (x, y) coordinates
+       delta is an isovalue
+Result: A set gamma of isocontour line segments.
+
+function MarchingSquares(F, Coord, delta, gamma)
+	Read Marching Squares lookup table into Table
+	// Assign + or - signs to each vertex
+	foreach grid vertex (i, j) do
+		if F[i,j] < delta then
+			Sign[i,j] <- '-'
+		else
+			Sign[i,j] <- '+'
+		endif
+	endforeach
+	
+	S <- None
+	// For each grid square, retrieve isocontour edges
+	foreach grid square (i,j) do
+		// Grid square vertices are (i,j), (i+1,j), (i,j+1), (i+1,j+1)
+		k <- (Sign[i,j], Sign[i+1,j], Sign[i+1,j+1], Sign[i,j+1])
+		foreach edge pair (e1, e2) in Table[k] do
+			Inseart edge pair (e1 + (i,j), e2 + (i,j)) into S
+		endforeach
+	endforeach
+	
+	// Compute isocontour vertex coordinate using linear interpolation
+	foreach bipolar grid edge e with endpoints (i1,j1) and (i2,j2) do
+		// Compute the iossurface vertex we on edge e
+		we <- LinearInterpolation(Coord[i1,j1], F[i1,j1], Coord[i2,j2], F[i2,j2], delta);
+	endforeach
+	
+	// Convert S to set of line segments
+	gamma <- None
+	foreach pair of edges (e1, e2) in S do
+		gamma <- gamma setand {(we1, we2)}
+	endforeach
+endfunction
+```
 
 python代码实现如下，参照上面链接中的实现：
 
 ```python
-
+#TODO 基于伪代码实现并绘制图
 ```
 
+### Marching Cubes
 
+算法流程和Marching Squares类似。相比较Squares的16种分法，Cube有256种分法。基本流程如下：
+
+- 确定每个cell的case index
+- 确定相交的边
+- 插值计算相交的边上的交点
+- 根据交点形成三角面
+- 确定法向量
+
+**TODO python implementation**
+
+### Marching Cubes的一些不足和待提升点
+
+如果是由带噪声和不均匀的数据或带有模糊边界的数据产生的化，产生的结果具有误导性的。
+
+- **拓扑问题**。当数据集的分辨率比较低的时候，可能出现上下两个片层上的同一个本应该连接在一起的对象分离开来。如下图所示：
+
+  ![](/image/visual_computing_for_med_fig6_9.png)
+
+- **准确性和平滑**。准确性和性能之间是一个跷跷板。
 
 ## 6.4 没有分割的体数据的表面渲染
 
